@@ -1,0 +1,27 @@
+digraph List {
+rankdir=LR;
+node [shape = circle, color=black , style=filled, fillcolor=gray93];
+Node1[label="Carne: 201801627
+Nombre de la tarea: Tarea de Compi 
+Descripcion: Se tenia que hacer un analizador
+Fecha: 15/05/2021
+Hora: 10:30
+Estado: Pendiente"];
+Node2[label="Carne: 201801627
+Nombre de la tarea: Tarea de EDD 
+Descripcion: Se tenia que hacer un Arbolito
+Fecha: 12/05/2021
+Hora: 21:30
+Estado: Entregado"];
+Node3[label="Carne: 201801627
+Nombre de la tarea: Tarea de Apli 4 
+Descripcion: Solo meter numeritos
+Fecha: 10/05/2021
+Hora: 14:30
+Estado: Pendiente"];
+Node1->Node2;
+Node2->Node1;
+Node2->Node3;
+Node3->Node2;
+
+}
