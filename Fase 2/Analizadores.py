@@ -3,19 +3,14 @@ from io import open
 import re
 from NodeThreeAVL_Student import NSThreeAVL
 from ThreeAVLStudent import ThreeAVL
+from LCD_Homeworks import ListCircularDoubleHomeworks
+from NodeHomework import Nodehomework
+from SparseMatrix import HeadBoard
 
-
-class Symbol:
-    def __init__(self):
-        self.token = ""
-        self.lex = ""
-
-    def insert(self, Id, Cont):
-        self.token = Id
-        self.lex = Cont
-
-
-sym = Symbol()
+headDay = HeadBoard()
+headHora = HeadBoard()
+avl = ThreeAVL()
+homework = ListCircularDoubleHomeworks()
 
 
 class Analyzer:
@@ -23,9 +18,12 @@ class Analyzer:
         self.cad = " "
         self.condition = False
         self.symbol = []
-        # alumnos
+        self.symbolTask = []
+        self.listTask = []
+        self.date = ""
         self.state = 0
         self.student_entry = None
+        self.homework_entry = None
         self.entry = ''
         self.student = False
         self.homework = False
@@ -66,7 +64,6 @@ class Analyzer:
         self.entry = line.split("\n")
         for data in self.entry:
             if re.match(r'[^\t]*¿element type=\"user\"?', data):
-                # print(data)
                 self.student = True
                 self.homework = False
             elif re.match(r'[^\t]*¿element type=\"task\"?', data):
@@ -75,24 +72,31 @@ class Analyzer:
                     self.homework = True
             elif self.student is True:
                 self.Student_(data)
-            elif self.homework:
-                pass
+            elif self.homework is True:
+                self.Homeworks(data)
 
     def Student_(self, data):
+        # print(data)
         char = list(data)
+        # print(char)
         for character in char:
             if self.id:
+                # print(character)
                 self.Identification(character)
             elif self.cad:
+                # print(character)
                 self.Cad(character)
             elif self.number:
+                # print(character)
                 self.Number(character)
             elif character.isalpha():
                 self.id = True
                 self.value = character
+                # print(self.value)
             elif character.isdigit():
-                self.id = True
+                self.number = True
                 self.value = character
+                # print(character)
             elif ord(character) == 34:
                 self.cad = True
             elif ord(character) == 32:
@@ -103,23 +107,24 @@ class Analyzer:
             self.value += character
             return
         elif ord(character) == 32:
-            self.symbol.append(sym.insert("ID", self.value))
+            # print(self.value)
+            self.symbol.append(Symbol("ID", self.value))
             self.value = ""
             self.id = False
-        elif ord(character) == 61:
-            self.symbol.append(sym.insert("ID", self.value))
+        elif ord(character) == 61:  # =
+            # print(self.value)
+            self.symbol.append(Symbol("ID", self.value))
             self.value = ""
             self.id = False
-        elif ord(character) == 63:
-            self.symbol.append(sym.insert("ID", self.value))
+        elif ord(character) == 63:  # ?
+            # print(self.value)
+            self.symbol.append(Symbol("ID", self.value))
             self.value = ""
             self.id = False
-        print(sym.token)
-        print(sym.lex)
 
     def Cad(self, character):
         if ord(character) == 34:
-            self.symbol.append(sym.insert("Cadena", self.value))
+            self.symbol.append(Symbol("Cadena", self.value))
             self.value = ""
             self.cad = False
             return
@@ -129,12 +134,11 @@ class Analyzer:
         if character.isdigit():
             self.value += character
             return
-        self.symbol.append(sym.insert("Numero", self.value))
+        self.symbol.append(Symbol("Numero", self.value))
         self.value = ""
         self.number = False
 
     def sep_student(self, character):
-        print(character)
         if self.state == 0:
             if character.lex == "Carnet":
                 self.student_entry = NSThreeAVL(0, 0, 0, 0, 0, 0, 0, 0)
@@ -155,38 +159,45 @@ class Analyzer:
                 self.state = 9
         elif self.state == 1:
             if character.token == "Cadena":
+                # print(character.lex)
                 self.student_entry.Carnet = character.lex
                 self.state = 2
         elif self.state == 2:
             if character.lex == "item":
                 self.state = 0
             if character.lex == "element":
-                # Aqui va el incertar alumnos al arbol
+                avl.insertThree(self.student_entry)
                 self.student_entry = None
                 self.student = False
                 self.state = 0
         elif self.state == 3:
             if character.token == "Cadena":
+                # print(character.lex)
                 self.student_entry.DPI = character.lex
                 self.state = 2
         elif self.state == 4:
             if character.token == "Cadena":
+                # print(character.lex)
                 self.student_entry.Name = character.lex
                 self.state = 2
         elif self.state == 5:
             if character.token == "Cadena":
+                # print(character.lex)
                 self.student_entry.Carrera = character.lex
                 self.state = 2
         elif self.state == 6:
             if character.token == "Cadena":
+                # print(character.lex)
                 self.student_entry.Password = character.lex
                 self.state = 2
         elif self.state == 7:
-            if character.token == "Cadena":
+            if character.token == "Numero":
+                # print(character.lex)
                 self.student_entry.Creditos = character.lex
                 self.state = 2
         elif self.state == 8:
             if character.token == "Numero":
+                # print(character.lex)
                 self.student_entry.Edad = character.lex
                 self.state = 2
         elif self.state == 9:
@@ -195,9 +206,138 @@ class Analyzer:
                 self.state = 2
 
     def insert(self):
-        for data in self.symbol:
-            if self.student is False:
-                self.sep_student(data)
-            elif data.lex == "item":
+        for a in self.symbol:
+            if self.student:
+                self.sep_student(a)
+            elif a.lex == "item":
                 self.state = 0
-                self.state = True
+                self.student = True
+
+    # ----------------------------------------------------------------------------Tareas
+
+    def Homeworks(self, data):
+        # print(data)
+        char = list(data)
+        for character in char:
+            if self.id:
+                self.IdentificationH(character)
+            elif self.cad:
+                self.CadH(character)
+            elif character.isalpha():
+                self.id = True
+                self.value = character
+            elif ord(character) == 34:
+                self.cad = True
+            elif ord(character) == 32:
+                pass
+
+    def IdentificationH(self, data):
+        if data.isalpha():
+            self.value += data
+            return
+        elif ord(data) == 32:
+            self.symbolTask.append(Symbol("ID", self.value))
+            self.value = ""
+            self.id = False
+        elif ord(data) == 61:
+            self.symbolTask.append(Symbol("ID", self.value))
+            self.value = ""
+            self.id = False
+        elif ord(data) == 63:
+            self.symbolTask.append(Symbol("ID", self.value))
+            self.value = ""
+            self.id = False
+
+    def CadH(self, data):
+        if ord(data) == 34:
+            self.symbolTask.append(Symbol("Cadena", self.value))
+            self.value = ""
+            self.cad = False
+            return
+        self.value += data
+
+    def sep_homeworks(self, data):
+        if self.state == 0:
+            if data.lex == "Carnet":
+                self.state = 1
+                self.homework_entry = Nodehomework(0, 0, 0, 0, 0, 0, 0)
+            elif data.lex == "Nombre":
+                self.state = 3
+            elif data.lex == "Descripcion":
+                self.state = 4
+            elif data.lex == "Materia":
+                self.state = 5
+            elif data.lex == "Fecha":
+                self.state = 6
+            elif data.lex == "Hora":
+                self.state = 7
+            elif data.lex == "Estado":
+                self.state = 8
+        elif self.state == 1:
+            if data.token == "Cadena":
+                self.homework_entry.Carne = data.lex
+                # print(self.homework_entry.Carne)
+                self.state = 2
+        elif self.state == 2:
+            if data.lex == "item":
+                self.state = 0
+            elif data.lex == "element":
+                self.listTask.append(self.homework_entry)
+                self.homework_entry = None
+                self.homework = False
+                self.state = 0
+        elif self.state == 3:
+            if data.token == "Cadena":
+                self.homework_entry.Name = data.lex
+                # print(self.homework_entry.Name)
+                self.state = 2
+        elif self.state == 4:
+            if data.token == "Cadena":
+                self.homework_entry.Description = data.lex
+                # print(self.homework_entry.Description)
+                self.state = 2
+        elif self.state == 5:
+            if data.token == "Cadena":
+                self.homework_entry.Materia = data.lex
+                # print(self.homework_entry.Materia)
+                self.state = 2
+        elif self.state == 6:
+            if data.token == "Cadena":
+                self.homework_entry.Date = data.lex
+                self.date = data.lex.split('/')
+                headDay.Insert_Headboard(self.date[0])
+                # print(self.date)
+                avl.insert_year(self.homework_entry.Carne, self.date[2], avl.root)
+                # print(self.homework_entry.Date)
+                self.state = 2
+        elif self.state == 7:
+            if data.token == "Cadena":
+                self.homework_entry.Hora = data.lex
+                self.date = data.lex.split(':')
+                # headHora.Insert_Headboard(self.date[0])
+                # print(self.homework_entry.Hora)
+                self.state = 2
+        elif self.state == 8:
+            if data.token == "Cadena":
+                self.homework_entry.Status = data.lex
+                # print(self.homework_entry.Status)
+                self.state = 2
+
+    def insert_H(self):
+        for t in self.symbolTask:
+            if self.homework:
+                self.sep_homeworks(t)
+            elif t.lex == "item":
+                self.state = 0
+                self.homework = True
+
+    def llenado(self):
+        for task in self.listTask:
+            homework.AddHomeworks(task.Carne, task.Name, task.Description, task.Materia, task.Date, task.Hora, task.Status)
+        headDay.show()
+        headHora.show()
+
+class Symbol:
+    def __init__(self, ID, cont):
+        self.token = ID
+        self.lex = cont

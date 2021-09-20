@@ -97,6 +97,20 @@ class ThreeAVL:
             data += self.Graph_ThreeAVL(leaf_students.der) + "Node" + str(leaf_students.Carnet) + ":C1->Node" + str(leaf_students.der.Carnet) + "\n"
         return data
 
+    def insert_year(self, carnet, year, node):
+        if node is None:
+            print("Three is empty")
+        elif node.Carnet == carnet:
+            node.anios.AddListYear(year)
+            print("Los datos son: ", node.Carnet)
+        elif carnet < node.Carnet:
+            return self.insert_year(carnet, year, node.izq)
+        elif carnet > node.Carnet:
+            return self.insert_year(carnet, year, node.der)
+
+
+
+
 
 """avl = ThreeAVL()
 node = NodeThreeAVL_Student
