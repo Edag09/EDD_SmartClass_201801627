@@ -13,7 +13,7 @@ class HeadBoard:
             self.end = self.first
         else:
             if self.first.number == self.end.number:
-                if day_hora > self.first.number:
+                if int(day_hora) > int(self.first.number):
                     self.end.sig = headboard
                     headboard.ant = self.end
                     self.end = headboard
@@ -25,12 +25,12 @@ class HeadBoard:
                 cond_headboard = False
                 aux = self.first
                 while (aux is not None) and (cond_headboard is False):
-                    if day_hora == 1:
+                    if int(day_hora) == 1:
                         headboard.sig = self.first
                         self.first.ant = headboard
                         self.first = headboard
                         cond_headboard = True
-                    elif day_hora > aux.number:
+                    elif int(day_hora) > int(aux.number):
                         aux = aux.sig
                     else:
                         headboard.ant = aux.ant

@@ -16,13 +16,14 @@ cabecera2 = HeadBoard()
 
 
 def pri():
-    analisis.File_Entry()
+    # analisis.Files_Pens_Upload("CursosPensum.json")
+    """analisis.File_Entry()
     analisis.insert()
     analisis.insert_H()
-    analisis.llenado()
+    analisis.llenado()"""
     # Analizadores.homework.showList()
-    """cabecera.Insert_Headboard(1)
-    cabecera.Insert_Headboard(14)
+    """cabecera.Insert_Headboard(14)
+    cabecera.Insert_Headboard(1)
     cabecera.Insert_Headboard(14)
     cabecera.show()
     print("\n")

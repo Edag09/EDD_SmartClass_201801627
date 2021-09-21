@@ -20,6 +20,8 @@ class Analyzer:
         self.symbol = []
         self.symbolTask = []
         self.listTask = []
+        self.day = []
+        self.hora = []
         self.date = ""
         self.state = 0
         self.student_entry = None
@@ -32,30 +34,17 @@ class Analyzer:
         self.cad = False
         self.number = False
 
-    def Files_Pens_Upload(self, data):
-        file = open(data, 'r', encoding='UTF-8')
-        linea = file.read()
-        JsonF = self.analyzer(linea)
-        newFile = open('CursPensum.json', 'w', encoding='UTF-8')
-        newFile.write(JsonF)
-        newFile.close()
+    def Files_Pens_Upload(self, dataJ):
+        with open(dataJ, encoding='UTF-8') as file:
+            data = json.load(file)
 
-        with open('CursPensum.json', 'r', encoding='UTF-8') as information:
-            data = json.load(information)
-        for name in data:
-            print(name.get('Nombre') + ' -> ' + str(name.get("Codigo")) + ' -> ' + str(name.get("Creditos")))
-
-    def analyzer(self, data):
-        for character in data:
-            if character == "[":
-                self.condition = True
-                self.cad += character
-            elif character == "]":
-                self.condition = False
-                self.cad += character
-            elif self.condition:
-                self.cad += character
-        return self.cad
+            for pen in data['Cursos']:
+                print('Codigo: ', pen['Codigo'])
+                print('Nombre: ', pen['Nombre'])
+                print('Creditos: ', pen['Creditos'])
+                print('Prerequisitos: ', pen['Prerequisitos'])
+                print('Obligatorio: ', pen['Obligatorio'])
+                print('\n')
 
     def File_Entry(self):
         file = open("Estudiantes.txt", 'r', encoding='UTF-8')
@@ -74,6 +63,8 @@ class Analyzer:
                 self.Student_(data)
             elif self.homework is True:
                 self.Homeworks(data)
+
+    # ------------------------------------------------------------------------------ Student
 
     def Student_(self, data):
         # print(data)
@@ -213,7 +204,7 @@ class Analyzer:
                 self.state = 0
                 self.student = True
 
-    # ----------------------------------------------------------------------------Tareas
+    # ---------------------------------------------------------------------------- Homeworks
 
     def Homeworks(self, data):
         # print(data)
@@ -314,7 +305,7 @@ class Analyzer:
             if data.token == "Cadena":
                 self.homework_entry.Hora = data.lex
                 self.date = data.lex.split(':')
-                # headHora.Insert_Headboard(self.date[0])
+                headHora.Insert_Headboard(self.date[0])
                 # print(self.homework_entry.Hora)
                 self.state = 2
         elif self.state == 8:
@@ -333,9 +324,11 @@ class Analyzer:
 
     def llenado(self):
         for task in self.listTask:
-            homework.AddHomeworks(task.Carne, task.Name, task.Description, task.Materia, task.Date, task.Hora, task.Status)
+            homework.AddHomeworks(task.Carne, task.Name, task.Description, task.Materia, task.Date, task.Hora,
+                                  task.Status)
         headDay.show()
         headHora.show()
+
 
 class Symbol:
     def __init__(self, ID, cont):
