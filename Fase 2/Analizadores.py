@@ -6,12 +6,13 @@ from ThreeAVLStudent import ThreeAVL
 from LCD_Homeworks import ListCircularDoubleHomeworks
 from NodeHomework import Nodehomework
 from SparseMatrix import HeadBoard
+from ArbolB.Tree_B import TreeB
 
 headDay = HeadBoard()
 headHora = HeadBoard()
 avl = ThreeAVL()
 homework = ListCircularDoubleHomeworks()
-
+pensum = TreeB()
 
 class Analyzer:
     def __init__(self):
@@ -34,17 +35,41 @@ class Analyzer:
         self.cad = False
         self.number = False
 
+    # ------------------------------ Analyzer Json ----------------------------
+
     def Files_Pens_Upload(self, dataJ):
         with open(dataJ, encoding='UTF-8') as file:
             data = json.load(file)
 
             for pen in data['Cursos']:
-                print('Codigo: ', pen['Codigo'])
+                """print('Codigo: ', pen['Codigo'])
                 print('Nombre: ', pen['Nombre'])
                 print('Creditos: ', pen['Creditos'])
                 print('Prerequisitos: ', pen['Prerequisitos'])
                 print('Obligatorio: ', pen['Obligatorio'])
-                print('\n')
+                print('\n')"""
+                pensum.InsertDataB(pen['Codigo'], pen['Nombre'], pen['Creditos'], pen['Prerequisitos'], pen['Obligatorio'])
+        pensum.show()
+
+    def File_Student_Curse(self):
+        with open('CursosEstudiante.json', encoding='UTF-8') as file:
+            data = json.load(file)
+
+            for student in data['Estudiantes']:
+                print("Carnet: ", student['Carnet'])
+                for years in student['Años']:
+                    print('Año', years['Año'])
+                    for semester in years['Semestres']:
+                        print('Semestre: ', semester['Semestre'])
+                        for curse in semester['Cursos']:
+                            print('Codigo: ', curse['Codigo'])
+                            print('Nombre: ', curse['Nombre'])
+                            print('Creditos: ', curse['Creditos'])
+                            print('Prerequisitos: ', curse['Prerequisitos'])
+                            print('Obligatorio: ', curse['Obligatorio'])
+                            print('\n')
+
+    # ------------------------------ Analyzer txt ----------------------------
 
     def File_Entry(self):
         file = open("Estudiantes.txt", 'r', encoding='UTF-8')

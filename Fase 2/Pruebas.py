@@ -16,7 +16,9 @@ cabecera2 = HeadBoard()
 
 
 def pri():
+    analisis.File_Student_Curse()
     # analisis.Files_Pens_Upload("CursosPensum.json")
+
     """analisis.File_Entry()
     analisis.insert()
     analisis.insert_H()
