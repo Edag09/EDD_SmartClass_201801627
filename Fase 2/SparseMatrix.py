@@ -1,4 +1,9 @@
 from NodeMatrix import NodeHeadboard
+from NodeMatrix import NodeData
+from NodeMatrix import NodeMatrix
+from Analizadores import Analyzer
+
+analisis = Analyzer()
 
 
 class HeadBoard:
@@ -6,43 +11,58 @@ class HeadBoard:
         self.first = None
         self.end = None
 
+    # Insertar Cabecera
     def Insert_Headboard(self, day_hora):
-        headboard = NodeHeadboard(day_hora)
-        if self.first is None:
-            self.first = headboard
-            self.end = self.first
-        else:
-            if self.first.number == self.end.number:
-                if int(day_hora) > int(self.first.number):
-                    self.end.sig = headboard
-                    headboard.ant = self.end
-                    self.end = headboard
-                else:
-                    headboard.sig = self.first
-                    self.first.ant = headboard
-                    self.first = headboard
+        if self.valHeadBoard(day_hora) is False :
+            headboard = NodeHeadboard(day_hora)
+            if self.first is None:
+                self.first = headboard
+                self.end = self.first
             else:
-                cond_headboard = False
-                aux = self.first
-                while (aux is not None) and (cond_headboard is False):
-                    if int(day_hora) == 1:
+                if self.first.number == self.end.number:
+                    if int(day_hora) > int(self.first.number):
+                        self.end.sig = headboard
+                        headboard.ant = self.end
+                        self.end = headboard
+                    else:
                         headboard.sig = self.first
                         self.first.ant = headboard
                         self.first = headboard
-                        cond_headboard = True
-                    elif int(day_hora) > int(aux.number):
-                        aux = aux.sig
-                    else:
-                        headboard.ant = aux.ant
-                        aux.ant.sig = headboard
-                        aux.ant = headboard
-                        headboard.sig = aux
-                        cond_headboard = True
-                if (aux is None) and (cond_headboard is False):
-                    self.end.sig = headboard
-                    headboard.ant = self.end
-                    self.end = headboard
+                else:
+                    cond_headboard = False
+                    aux = self.first
+                    while (aux is not None) and cond_headboard is False:
+                        if int(day_hora) == 1:
+                            headboard.sig = self.first
+                            self.first.ant = headboard
+                            self.first = headboard
+                            cond_headboard = True
+                        elif int(day_hora) > int(aux.number):
+                            aux = aux.sig
+                        else:
+                            headboard.ant = aux.ant
+                            aux.ant.sig = headboard
+                            aux.ant = headboard
+                            headboard.sig = aux
+                            cond_headboard = True
+                    if (aux is None) and (cond_headboard is False):
+                        self.end.sig = headboard
+                        headboard.ant = self.end
+                        self.end = headboard
 
+    # Validaciones Cabeceras
+    def valHeadBoard(self, day_hora):
+        aux = self.first
+        i = False
+        if self.first is not None:
+            while (aux is not None) and i is False:
+                if aux.number == day_hora:
+                    return True
+            return False
+        else:
+            return False
+
+    # Printear
     def show(self):
         aux = self.first
         while aux is not None:
@@ -57,17 +77,16 @@ class Data:
         self.antListData = None
         self.upListData = None
         self.downListData = None
-        self.cond_data = False
 
     def insert_nodeData(self, x, y, listX, listY, node):
-        x_aux = listX.self.first
-        y_aux = listY.self.first
+        x_aux = listX.first
+        y_aux = listY.first
 
-        while x_aux.number is not x:
+        while int(x_aux.number) != x:
             x_aux = x_aux.sig
         listX = x_aux
 
-        while y_aux.number is not y:
+        while int(y_aux.number) != y:
             y_aux = y_aux.sig
         listY = y_aux
 
@@ -89,51 +108,54 @@ class Data:
             listY.down = node
 
     def show(self, listX, listY, x, y):
-        headboardX = listX.self.first
-        headboardY = listY.self.first
-        while headboardX.number is not int(x):
+        headboardX = listX.first
+        headboardY = listY.first
+        while int(headboardX.number) != int(x):
             headboardX = headboardX.sig
         print("X es :", headboardX.number)
 
-        while headboardY.number is not int(y):
+        while int(headboardY.number) != int(y):
             headboardY = headboardY.sig
         print("Y es: ", headboardY.number)
 
         aux = headboardX.down
         while aux is not None:
-            aux = aux.down
+            aux = aux.downData
         aux = headboardY.down
-        self.cond_data = False
-        while (aux is not None) and (self.cond_data is False):
+        cond_data = False
+        while (aux is not None) and (cond_data is False):
             if (aux.rowData == x) and (aux.columnData == y):
                 print(aux.data, end="->")
-                self.cond_data = True
+                cond_data = True
             else:
                 aux = aux.down
 
-    def find_Home(self, listX, listY, x, y, node):
-        headboardX = listX.self.first
-        headboardY = listY.self.first
-        while headboardX.number is not int(x):
+    def find_Home(self, listX, listY, x, y):
+        headboardX = listX.first
+        headboardY = listY.first
+        while int(headboardX.number) != int(x):
             headboardX = headboardX.sig
         print("X es :", headboardX.number)
 
-        while headboardY.number is not int(y):
+        while int(headboardY.number) != int(y):
             headboardY = headboardY.sig
         print("Y es: ", headboardY.number)
 
         aux = headboardX.down
         while aux is not None:
-            aux = aux.down
+            aux = aux.downData
         aux = headboardY.down
-        self.cond_data = False
-        while (aux is not None) and (self.cond_data is False):
+        cond_data = False
+        while (aux is not None) and (cond_data is False):
             if (aux.rowData == y) and (aux.columnData == x):
-                # aux.ListHomework.AddHomeworks
+                analisis.llenado()
                 aux.data += 1
-                self.cond_data = True
+                cond_data = True
             else:
                 aux = aux.down
 
+    def get_Tarea(self, cabeceraX, cabeceraY, x, y, id):
+        headboardX = cabeceraX.first
+        headboardY = cabeceraY.first
 
 

@@ -92,14 +92,17 @@ class ThreeAVL:
             data += "Node" + str(leaf_students.Carnet) + "[label =\"<C0>|" + str(leaf_students.Carnet) + "|<C1>\"];\n"
 
         if leaf_students.izq is not None:
-            data += self.Graph_ThreeAVL(leaf_students.izq) + "Node" + str(leaf_students.Carnet) + ":C0->Node" + str(leaf_students.izq.Carnet) + "\n"
+            data += self.Graph_ThreeAVL(leaf_students.izq) + "Node" + str(leaf_students.Carnet) + ":C0->Node" + str(
+                leaf_students.izq.Carnet) + "\n"
         if leaf_students.der is not None:
-            data += self.Graph_ThreeAVL(leaf_students.der) + "Node" + str(leaf_students.Carnet) + ":C1->Node" + str(leaf_students.der.Carnet) + "\n"
+            data += self.Graph_ThreeAVL(leaf_students.der) + "Node" + str(leaf_students.Carnet) + ":C1->Node" + str(
+                leaf_students.der.Carnet) + "\n"
         return data
 
+    # ingresa el anio si el estudiante si tiene tarea
     def insert_year(self, carnet, year, node):
         if node is None:
-            print("Three is empty")
+            print("Tree is empty year")
         elif node.Carnet == carnet:
             node.anios.AddListYear(year)
             print("Los datos son: ", node.Carnet)
@@ -108,16 +111,24 @@ class ThreeAVL:
         elif carnet > node.Carnet:
             return self.insert_year(carnet, year, node.der)
 
+    # busca el mes y e interiormente inserta los meses si existe el patojo
+    def findM(self, carnet, year, mes, node):
+        if node is None:
+            print('Tree is empty mes')
+        elif node.Carnet == carnet:
+            node.anios.insertM(year, mes, node.anios.first)
+        elif carnet < node.Carnet:
+            return self.findM(carnet, year, mes, node.izq)
+        elif carnet > node.Carnet:
+            return self.findM(carnet, year, mes, node.der)
 
-
-
-
-"""avl = ThreeAVL()
-node = NodeThreeAVL_Student
-avl.insertThree(node.NSThreeAVL(201801369, 0, 0, 0, 0, 0, 0, 0))
-avl.insertThree(node.NSThreeAVL(201801627, 0, 0, 0, 0, 0, 0, 0))
-avl.insertThree(node.NSThreeAVL(201801603, 0, 0, 0, 0, 0, 0, 0))
-avl.insertThree(node.NSThreeAVL(201801146, 0, 0, 0, 0, 0, 0, 0))
-avl.insertThree(node.NSThreeAVL(201801608, 0, 0, 0, 0, 0, 0, 0))
-avl.insertThree(node.NSThreeAVL(201908402, 0, 0, 0, 0, 0, 0, 0))
-avl.Graph_AVL(avl.root)"""
+    # busca el semestre y e interiormente inserta los semestres si existe el patojo
+    def findS(self, carnet, year, semester, node):
+        if node is None:
+            print("Tree is empty semester")
+        elif node.Carnet == carnet:
+            node.anios.insertSemester(year, semester, node.anios.first)
+        elif carnet < node.Carnet:
+            return self.findS(carnet, year, semester, node.izq)
+        elif carnet > node.Carnet:
+            return self.findS(carnet, year, semester, node.der)

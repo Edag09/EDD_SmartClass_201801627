@@ -13,7 +13,7 @@
         ¿item Nombre = "Tarea de Matematica" $?
         ¿item Descripcion = "Realizar la tarea del curso de matemática intermedia 1." $?
         ¿item Materia = "Matemática Intermedia 1" $?
-        ¿item Fecha = "14/07/2021" $?
+        ¿item Fecha = "01/07/2021" $?
         ¿item Hora = "8:00" $?
         ¿item Estado = "Incumplido" $?
     ¿$element?
@@ -40,7 +40,7 @@
         ¿item Nombre = "Codificar en C++" $?
         ¿item Descripcion = "Realizar la tarea del curso de Estructuras de datos" $?
         ¿item Materia = "Estructuras de Datos" $?
-        ¿item Fecha = "01/07/2021" $?
+        ¿item Fecha = "14/07/2021" $?
         ¿item Hora = "16:00" $?
         ¿item Estado = "Pendiente" $?
     ¿$element?
@@ -54,7 +54,7 @@
         ¿item Edad = 19 $?
     ¿$element?
     ¿element type="task"?
-        ¿item Carnet = "201704186" $?
+        ¿item Carnet = "201822186" $?
         ¿item Nombre = "Tarea de Estadística" $?
         ¿item Descripcion = "Realizar la tarea del curso de Estadística 1." $?
         ¿item Materia = "Estadística 1" $?

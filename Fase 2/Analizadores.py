@@ -7,12 +7,17 @@ from LCD_Homeworks import ListCircularDoubleHomeworks
 from NodeHomework import Nodehomework
 from SparseMatrix import HeadBoard
 from ArbolB.Tree_B import TreeB
+from SparseMatrix import Data
+from LCD_Meses import ListCircularDoubleMeses
 
 headDay = HeadBoard()
 headHora = HeadBoard()
 avl = ThreeAVL()
 homework = ListCircularDoubleHomeworks()
 pensum = TreeB()
+data = Data()
+mes = ListCircularDoubleMeses()
+
 
 class Analyzer:
     def __init__(self):
@@ -48,7 +53,9 @@ class Analyzer:
                 print('Prerequisitos: ', pen['Prerequisitos'])
                 print('Obligatorio: ', pen['Obligatorio'])
                 print('\n')"""
-                pensum.InsertDataB(pen['Codigo'], pen['Nombre'], pen['Creditos'], pen['Prerequisitos'], pen['Obligatorio'])
+                # Informacion agregada al B
+                pensum.InsertDataB(pen['Codigo'], pen['Nombre'], pen['Creditos'], pen['Prerequisitos'],
+                                   pen['Obligatorio'])
         pensum.show()
 
     def File_Student_Curse(self):
@@ -56,17 +63,18 @@ class Analyzer:
             data = json.load(file)
 
             for student in data['Estudiantes']:
-                print("Carnet: ", student['Carnet'])
+                # print("Carnet: ", student['Carnet'])
                 for years in student['Años']:
-                    print('Año', years['Año'])
+                    # print('Año', years['Año'])
+                    avl.insert_year(student['Carnet'], years['Año'], avl.root)
                     for semester in years['Semestres']:
-                        print('Semestre: ', semester['Semestre'])
+                        avl.findS(student['Carnet'], years['Año'], int(semester['Semestre']), avl.root)
                         for curse in semester['Cursos']:
-                            print('Codigo: ', curse['Codigo'])
-                            print('Nombre: ', curse['Nombre'])
-                            print('Creditos: ', curse['Creditos'])
-                            print('Prerequisitos: ', curse['Prerequisitos'])
-                            print('Obligatorio: ', curse['Obligatorio'])
+                            # print('Codigo: ', curse['Codigo'])
+                            # print('Nombre: ', curse['Nombre'])
+                            # print('Creditos: ', curse['Creditos'])
+                            # print('Prerequisitos: ', curse['Prerequisitos'])
+                            # print('Obligatorio: ', curse['Obligatorio'])
                             print('\n')
 
     # ------------------------------ Analyzer txt ----------------------------
@@ -276,7 +284,7 @@ class Analyzer:
         if self.state == 0:
             if data.lex == "Carnet":
                 self.state = 1
-                self.homework_entry = Nodehomework(0, 0, 0, 0, 0, 0, 0)
+                self.homework_entry = Nodehomework(0, 0, 0, 0, 0, 0, 0, 0)
             elif data.lex == "Nombre":
                 self.state = 3
             elif data.lex == "Descripcion":
@@ -322,8 +330,10 @@ class Analyzer:
                 self.homework_entry.Date = data.lex
                 self.date = data.lex.split('/')
                 headDay.Insert_Headboard(self.date[0])
+                self.day.append(self.date[0])
                 # print(self.date)
                 avl.insert_year(self.homework_entry.Carne, self.date[2], avl.root)
+                avl.findM(self.homework_entry.Carne, self.date[2], int(self.date[1]), avl.root)
                 # print(self.homework_entry.Date)
                 self.state = 2
         elif self.state == 7:
@@ -331,6 +341,7 @@ class Analyzer:
                 self.homework_entry.Hora = data.lex
                 self.date = data.lex.split(':')
                 headHora.Insert_Headboard(self.date[0])
+                self.hora.append(self.date[0])
                 # print(self.homework_entry.Hora)
                 self.state = 2
         elif self.state == 8:
@@ -348,11 +359,11 @@ class Analyzer:
                 self.homework = True
 
     def llenado(self):
+        cont = 1
         for task in self.listTask:
-            homework.AddHomeworks(task.Carne, task.Name, task.Description, task.Materia, task.Date, task.Hora,
+            homework.AddHomeworks(cont, task.Carne, task.Name, task.Description, task.Materia, task.Date, task.Hora,
                                   task.Status)
-        headDay.show()
-        headHora.show()
+            cont += 1
 
 
 class Symbol:

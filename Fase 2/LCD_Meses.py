@@ -1,4 +1,5 @@
 from NodeMes import NodeMes
+import os
 
 
 class ListCircularDoubleMeses:
@@ -28,3 +29,33 @@ class ListCircularDoubleMeses:
         while aux is not None:
             print('Este es el mes Nº ' + str(aux.Mes))
             aux = aux.sig
+
+    def ShowGraph(self):
+        aux = self.first
+        data = ""
+        pointer = ""
+        cont = 1
+        graph = "digraph List {\nrankdir=LR;\nnode [shape = circle, color=black , style=filled, fillcolor=gray93];\n"
+        while aux is not None:
+            data += "Node" + str(cont) + "[label=\"" + "Mes : " + str(aux.Mes) + "\"];\n"
+            if aux.sig is not None:
+                pointer += "Node" + str(cont) + "->Node" + str(cont + 1) + ";\n"
+                pointer += "Node" + str(cont + 1) + "->Node" + str(cont) + ";\n"
+            cont += 1
+            aux = aux.sig
+
+        graph += data
+        graph += pointer
+        graph += "\n}"
+
+        try:
+            file = open("Meses.dot", "w", encoding='UTF-8')
+
+            file.write(graph)
+
+            file.close()
+
+            os.system("dot -Tpng Meses.dot -o Meses.png")
+            os.startfile("Meses.png")
+        except:
+            print("No se genero :)")

@@ -7,8 +7,8 @@ class ListCircularDoubleHomeworks:
         self.first = None
         self.end = None
 
-    def AddHomeworks(self, carne, name, description, materia, date, hora, status):
-        newHomework = Nodehomework(carne, name, description, materia, date, hora, status)
+    def AddHomeworks(self, id, carnet, name, description, materia, date, hora, status):
+        newHomework = Nodehomework(id, carnet, name, description, materia, date, hora, status)
         if self.first is None:
             self.first = newHomework
             self.end = self.first
@@ -24,7 +24,7 @@ class ListCircularDoubleHomeworks:
     def showList(self):
         aux = self.first
         while aux is not None:
-            print("Carne " + aux.Carne + ' Nombre de la tareas ' + aux.Name + ' con descripcion ' + aux.Description + ' con fecha ' + aux.Date + ' a la hora ' + aux.Hora + ' y estado ' + aux.Status)
+            print("Id tarea: " + str(aux.id) + " Carne: " + aux.Carne + ' Nombre de la tareas: ' + aux.Name + ' con descripcion ' + aux.Description + ' con fecha ' + aux.Date + ' a la hora ' + aux.Hora + ' y estado ' + aux.Status)
             aux = aux.sig
 
     def ShowGraph(self):
@@ -34,7 +34,8 @@ class ListCircularDoubleHomeworks:
         cont = 1
         graph = "digraph List {\nrankdir=LR;\nnode [shape = circle, color=black , style=filled, fillcolor=gray93];\n"
         while aux is not None:
-            data += "Node" + str(cont) + "[label=\"" + "Carne: " + aux.Carne + '\nNombre de la tarea: ' + aux.Name + ' \nDescripcion: ' + aux.Description + '\nFecha: ' + aux.Date + '\nHora: ' + aux.Hora + '\nEstado: ' + aux.Status + "\"];\n"
+            data += "Node" + str(
+                cont) + "[label=\"" + "Carne: " + aux.Carne + '\nNombre de la tarea: ' + aux.Name + ' \nDescripcion: ' + aux.Description + '\nFecha: ' + aux.Date + '\nHora: ' + aux.Hora + '\nEstado: ' + aux.Status + "\"];\n"
             if aux.sig is not None:
                 pointer += "Node" + str(cont) + "->Node" + str(cont + 1) + ";\n"
                 pointer += "Node" + str(cont + 1) + "->Node" + str(cont) + ";\n"
@@ -55,4 +56,65 @@ class ListCircularDoubleHomeworks:
             os.system("dot -Tpng Tareas.dot -o Tareas.png")
             os.startfile("Tareas.png")
         except:
-            print("No se genero :)")
+            print(print("No se genero :)"))
+
+    # ---------------------------- CRUD Tareas :D ----------------------------
+    # (Update(PUT) Homework)
+    def Update(self, id, carnet, name, description, materia, date, hora, status):
+        aux = self.first
+        while aux is not None:
+            if aux.id == id:
+                aux.Carne = carnet
+                aux.Name = name
+                aux.Description = description
+                aux.Materia = materia
+                aux.Date = date
+                aux.Hora = hora
+                aux.Status = status
+            else:
+                aux = aux.sig
+
+    # (GET homework)
+    def Get_Homework(self, id):
+        aux = self.first
+        while aux is not None:
+            if aux.id == id:
+                homework = {'Carnet': aux.Carne,
+                            'Nombre': aux.Name,
+                            'Descripcion': aux.Description,
+                            'Materia': aux.Materia,
+                            'Fecha': aux.Date,
+                            'Hora': aux.Hora,
+                            'Estado': aux.Status
+                            }
+                return homework
+            else:
+                aux = aux.sig
+
+    # (DELETE homework)
+    def Delete_homework(self, id):
+        aux = self.first
+        while aux is not None:
+            if aux is not None:
+                if self.first.id == id:
+                    self.first.sig.ant = None
+                    aux = aux.sig
+                    self.first.sig = None
+                    self.first = aux
+                    print('Eliminado al inicio')
+                elif aux.id == id:
+                    aux.ant.sig = aux.sig
+                    aux.sig.ant = aux.ant
+                    aux.ant = None
+                    aux.sig = None
+                    print('Eliminado en medio')
+                elif self.end.id == id:
+                    self.end.ant.sig = None
+                    aux = self.end.ant
+                    self.end.ant = None
+                    self.end = aux
+                    print('Eliminado al final')
+                else:
+                    print('Id no valido')
+            aux = aux.sig
+

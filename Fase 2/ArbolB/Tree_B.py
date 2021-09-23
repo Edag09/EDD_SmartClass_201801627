@@ -40,8 +40,8 @@ class TreeB:
             self.root.setApuntador(1, self.aux2)
 
     def push(self, root, codigo, nombre, creditos, prerequisitos, obligatorio):
+        posicion = 0
         self.status = False
-
         if ((root is None) or (root.getCuenta() == 0)) and self.compare is False:
             self.up = True
             self.Codigo = codigo
@@ -60,21 +60,30 @@ class TreeB:
                     if self.up:
                         if root.getCuenta() < 4:
                             self.up = False
-                            self.pushLeaf(root, posicion, self.Codigo, self.Nombre, self.creditos, self.prerrequisitos, self.obligatorio)
+                            self.pushLeaf(root, posicion, self.Codigo, self.Nombre, self.creditos, self.prerrequisitos,
+                                          self.obligatorio)
                         else:
-                            self.up = False
-                            self.sepPageB(root, posicion, self.Codigo, self.Nombre, self.creditos, self.prerrequisitos, self.obligatorio)
+                            self.up = True
+                            self.sepPageB(root, posicion, self.Codigo, self.Nombre, self.creditos, self.prerrequisitos,
+                                          self.obligatorio)
             else:
                 print("Repetido " + codigo)
                 self.compare = False
 
     def compareTo(self, s1, s2):
-        if s1 < s2:
-            return -1
-        elif s1 > s2:
-            return 1
-        elif s1 == s2:
-            return 0
+        tam = len(s1)
+        tam2 = len(s2)
+        limite = min(tam, tam2)
+
+        v1 = list(s1)
+        v2 = list(s2)
+
+        i = 0
+        while i < limite:
+            if ord(v1[i]) != ord(v2[i]):
+                return ord(v1[i]) - ord(v2[i])
+            i += 1
+        return tam - tam2
 
     def FindB(self, codigo, root):
         cont = 0
@@ -84,13 +93,13 @@ class TreeB:
         else:
             while cont is not root.getCuenta():
                 if codigo == root.getCodigo(cont):
-                    self.compare = False
+                    self.compare = True
                 cont += 1
             cont = root.getCuenta()
 
-            while (self.compareTo(codigo, root.getCodigo(cont-1)) < 0) and cont > 1:
+            while (self.compareTo(codigo, root.getCodigo(cont - 1)) < 0) and cont > 1:
                 cont -= 1
-                if codigo == root.getCodigo(cont-1):
+                if codigo == root.getCodigo(cont - 1):
                     self.status = True
                 else:
                     self.status = False
@@ -100,12 +109,12 @@ class TreeB:
         aux = root.getCuenta()
         while aux is not posicion:
             if aux != 0:
-                root.setCodigo(aux, root.getCodigo(aux-1))
-                root.setPais(aux, root.getPais(aux-1))
-                root.setCreditos(aux, root.getCreditos(aux-1))
-                root.setPrerequisitos(aux, root.getPrerequisitos(aux-1))
-                root.setObligatorio(aux, root.getObligatorio(aux-1))
-                root.setApuntador(aux+1, root.getApuntador(aux))
+                root.setCodigo(aux, root.getCodigo(aux - 1))
+                root.setPais(aux, root.getPais(aux - 1))
+                root.setCreditos(aux, root.getCreditos(aux - 1))
+                root.setPrerequisitos(aux, root.getPrerequisitos(aux - 1))
+                root.setObligatorio(aux, root.getObligatorio(aux - 1))
+                root.setApuntador(aux + 1, root.getApuntador(aux))
             aux -= 1
 
         root.setCodigo(posicion, codigo)
@@ -114,8 +123,8 @@ class TreeB:
         root.setPrerequisitos(posicion, prerrequisitos)
         root.setObligatorio(posicion, obligatorio)
 
-        root.setApuntador(posicion+1, self.aux2)
-        root.setCuenta(root.getCuenta()+1)
+        root.setApuntador(posicion + 1, self.aux2)
+        root.setCuenta(root.getCuenta() + 1)
 
     def sepPageB(self, root, posicion, codigo, nombre, creditos, prerrequisitos, obligatorio):
         p2 = 0
@@ -131,33 +140,33 @@ class TreeB:
 
         while p2 != 5:
             if (p2 - medium) != 0:
-                derecha.setCodigo((p2-medium)-1, root.getCodigo(p2-1))
-                derecha.setPais((p2-medium)-1, root.getPais(p2-1))
-                derecha.setCreditos((p2-medium)-1, root.getCreditos(p2-1))
-                derecha.setPrerequisitos((p2-medium)-1, root.getPrerequisitos(p2-1))
-                derecha.setObligatorio((p2-medium)-1, root.getObligatorio(p2-1))
-                derecha.setApuntador(p2-medium, root.getApuntador(p2))
+                derecha.setCodigo((p2 - medium) - 1, root.getCodigo(p2 - 1))
+                derecha.setPais((p2 - medium) - 1, root.getPais(p2 - 1))
+                derecha.setCreditos((p2 - medium) - 1, root.getCreditos(p2 - 1))
+                derecha.setPrerequisitos((p2 - medium) - 1, root.getPrerequisitos(p2 - 1))
+                derecha.setObligatorio((p2 - medium) - 1, root.getObligatorio(p2 - 1))
+                derecha.setApuntador(p2 - medium, root.getApuntador(p2))
             p2 += 1
 
-        derecha.setCuenta(4-medium)
+        derecha.setCuenta(4 - medium)
         root.setCuenta(medium)
 
         if posicion <= 2:
             self.aux = True
             self.pushLeaf(root, posicion, codigo, nombre, creditos, prerrequisitos, obligatorio)
         else:
-            self.aux =True
-            self.pushLeaf(derecha, (posicion-medium), codigo, nombre, creditos, prerrequisitos, obligatorio)
+            self.aux = True
+            self.pushLeaf(derecha, (posicion - medium), codigo, nombre, creditos, prerrequisitos, obligatorio)
 
-        self.Codigo = root.getCodigo(root.getCuenta()-1)
-        self.Nombre = root.getPais(root.getCuenta()-1)
-        self.creditos = root.getCreditos(root.getCuenta()-1)
-        self.prerrequisitos = root.getPrerequisitos(root.getCuenta()-1)
-        self.obligatorio = root.getObligatorio(root.getCuenta()-1)
+        self.Codigo = root.getCodigo(root.getCuenta() - 1)
+        self.Nombre = root.getPais(root.getCuenta() - 1)
+        self.creditos = root.getCreditos(root.getCuenta() - 1)
+        self.prerrequisitos = root.getPrerequisitos(root.getCuenta() - 1)
+        self.obligatorio = root.getObligatorio(root.getCuenta() - 1)
 
         derecha.setApuntador(0, root.getApuntador(root.getCuenta()))
 
-        root.setCuenta(root.getCuenta()-1)
+        root.setCuenta(root.getCuenta() - 1)
         self.aux2 = derecha
 
         if self.aux:
@@ -183,7 +192,10 @@ class TreeB:
             for i in range(root.getCuenta()):
                 if root.getCodigo(i) is not None:
                     if root.getCodigo(i) != "":
-                        print("Codigo: " + str(root.getCodigo(i)) + "\nCurso: " + root.getPais(i) + "\nCreditos: " + str(root.getCreditos(i)) + "\nPrerequisitos: " + root.getPrerequisitos(i) + "\nObligatorio " + str(root.getObligatorio(i)) + '\n')
+                        print(
+                            "Codigo: " + str(root.getCodigo(i)) + "\nCurso: " + root.getPais(i) + "\nCreditos: " + str(
+                                root.getCreditos(i)) + "\nPrerequisitos: " + root.getPrerequisitos(
+                                i) + "\nObligatorio " + str(root.getObligatorio(i)) + '\n')
 
             self.showPre(root.getApuntador(0))
             self.showPre(root.getApuntador(1))
@@ -204,8 +216,8 @@ class TreeB:
         file.write(self.graph)
         file.close()
 
-        os.system('dot -Tpng TreeB.dot -o TreeB'+type+'.png')
-        os.startfile('TreeB'+type+'.png')
+        os.system('dot -Tpng TreeB.dot -o TreeB' + type + '.png')
+        os.startfile('TreeB' + type + '.png')
 
     def graphG2(self, root):
         cont = 0
@@ -217,15 +229,17 @@ class TreeB:
                     if i != 0:
                         self.graph += '|'
                     if self.node == 1:
-                        self.graph += '\nNode'+root.getCodigo(i)+'[label=\"<f0>|'
+                        self.graph += '\nNode' + root.getCodigo(i) + '[label=\"<f0>|'
                     if i == 0:
-                        self.graph += '<f'+str(cont)+'>'+str(root.getCodigo(i))+'\n'+root.getPais(i) + '|<f' + str(i + 2)+'>'
+                        self.graph += '<f' + str(cont) + '>' + str(root.getCodigo(i)) + '\n' + root.getPais(
+                            i) + '|<f' + str(i + 2) + '>'
                         cont = 3
                     else:
-                        self.graph += '<f'+str(cont)+'>'+str(root.getCodigo(i))+'\n'+root.getPais(i)+'|<f'+str(cont+1)+'>'
+                        self.graph += '<f' + str(cont) + '>' + str(root.getCodigo(i)) + '\n' + root.getPais(
+                            i) + '|<f' + str(cont + 1) + '>'
                         cont += 2
 
-                    if i == (root.getCuenta()-1):
+                    if i == (root.getCuenta() - 1):
                         cont = 0
                         self.graph += '\",group=0];\n'
 
@@ -240,21 +254,24 @@ class TreeB:
             if root.getCodigo(0) is not None:
                 if root.getCodigo(0) != '':
                     if (root.getApuntador(0) is not None) and (root.getApuntador(0).getCodigo(0) is not None):
-                        self.graph += '\nNode'+str(root.getCodigo(0))+':fo->Node'+str(root.getApuntador(0).getCodigo(0))
+                        self.graph += '\nNode' + str(root.getCodigo(0)) + ':fo->Node' + str(
+                            root.getApuntador(0).getCodigo(0))
                         print(self.graph)
                         if (root.getApuntador(1) is not None) and (root.getApuntador(1).getCodigo(0) is not None):
-                            self.graph += '\nNode' + str(root.getCodigo(0)) + ':f2->Node' + str(root.getApuntador(1).getCodigo(0))
+                            self.graph += '\nNode' + str(root.getCodigo(0)) + ':f2->Node' + str(
+                                root.getApuntador(1).getCodigo(0))
                         if (root.getApuntador(2) is not None) and (root.getApuntador(2).getCodigo(0) is not None):
-                            self.graph += '\nNode' + str(root.getCodigo(0)) + ':f4->Node' + str(root.getApuntador(2).getCodigo(0))
+                            self.graph += '\nNode' + str(root.getCodigo(0)) + ':f4->Node' + str(
+                                root.getApuntador(2).getCodigo(0))
                         if (root.getApuntador(3) is not None) and (root.getApuntador(3).getCodigo(0) is not None):
-                            self.graph += '\nNode' + str(root.getCodigo(0)) + ':f6->Node' + str(root.getApuntador(3).getCodigo(0))
+                            self.graph += '\nNode' + str(root.getCodigo(0)) + ':f6->Node' + str(
+                                root.getApuntador(3).getCodigo(0))
                         if (root.getApuntador(4) is not None) and (root.getApuntador(4).getCodigo(0) is not None):
-                            self.graph += '\nNode' + str(root.getCodigo(0)) + ':f8->Node' + str(root.getApuntador(4).getCodigo(0))
+                            self.graph += '\nNode' + str(root.getCodigo(0)) + ':f8->Node' + str(
+                                root.getApuntador(4).getCodigo(0))
 
             self.graphG3(root.getApuntador(0))
             self.graphG3(root.getApuntador(1))
             self.graphG3(root.getApuntador(2))
             self.graphG3(root.getApuntador(3))
             self.graphG3(root.getApuntador(4))
-
-

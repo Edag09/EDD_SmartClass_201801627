@@ -25,7 +25,26 @@ class ListCircularDobleYear:
             print('Este compa es del año ' + str(aux.Year))
             aux = aux.sig
 
-    # buscar e insertar el mes
-    def search_insert(self, year, mes):  # recibe el mes y anio
-        aux = self.first
+    # insertar mes si existe estudiante
+    def insertM(self, year, mes, node):
+        i = False
+        while (node is not None) and i is False:
+            if node.Year != year:
+                node = node.sig
+            else:
+                node.mes.AddListMeses(mes)
+                i = True
+        node.mes.showListMeses()
+
+    # insertar semestre si existe el estudiante
+    def insertSemester(self, year, semester, node):
+        i = False
+        while (node is not None) and i is False:
+            if node.Year != year:
+                node = node.sig
+            else:
+                node.semester.addListSemester(semester)
+                i = True
+        node.semester.showList()
+
 

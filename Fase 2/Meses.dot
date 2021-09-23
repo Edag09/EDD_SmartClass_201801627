@@ -1,0 +1,6 @@
+digraph List {
+rankdir=LR;
+node [shape = circle, color=black , style=filled, fillcolor=gray93];
+Node1[label="Mes : 7"];
+
+}

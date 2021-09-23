@@ -1,4 +1,6 @@
 from LCD_Year import ListCircularDobleYear
+
+
 class NSThreeAVL:
     def __init__(self, Carnet, DPI, Name, Carrera, Correo, Password, Credits, Age):
         self.Carnet = Carnet

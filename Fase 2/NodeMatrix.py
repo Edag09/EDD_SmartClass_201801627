@@ -1,5 +1,5 @@
-from LCD_Homeworks import ListCircularDoubleHomeworks
 from SparseMatrix import *
+from LCD_Homeworks import ListCircularDoubleHomeworks
 
 
 class NodeMatrix:
@@ -10,8 +10,8 @@ class NodeMatrix:
 
 
 class NodeHeadboard:
-    def __init__(self, number):
-        self.number = number
+    def __init__(self, num):
+        self.number = num
         self.sig = None
         self.ant = None
         self.up = None
@@ -23,8 +23,8 @@ class NodeData:
         self.data = data
         self.rowData = row
         self.columnData = column
+        self.ListHomework = ListCircularDoubleHomeworks()
         self.sigData = None
         self.antData = None
         self.upData = None
         self.downData = None
-        self.ListHomework = ListCircularDoubleHomeworks()

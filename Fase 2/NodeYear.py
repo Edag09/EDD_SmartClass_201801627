@@ -1,4 +1,5 @@
 from LCD_Meses import ListCircularDoubleMeses
+from LCD_Semestre import ListCircularDoubleSemester
 
 
 class NodeYear:
@@ -7,3 +8,4 @@ class NodeYear:
         self.sig = None
         self.ant = None
         self.mes = ListCircularDoubleMeses()
+        self.semester = ListCircularDoubleSemester()
