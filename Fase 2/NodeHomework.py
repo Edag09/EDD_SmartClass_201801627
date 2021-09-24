@@ -7,7 +7,7 @@ class Nodehomework:
         self.Date = Date
         self.Hora = Hora
         self.Status = Status
-        self.dipersa = None
+        self.dispersa = None
         self.ant = None
         self.sig = None
         self.id = id

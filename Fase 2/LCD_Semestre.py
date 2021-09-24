@@ -59,4 +59,27 @@ class ListCircularDoubleSemester:
         except:
             print("No se genero :)")
 
+    # validar semestre
+    def val_Semester(self, semester):
+        aux = self.first
+        i = False
+        while (aux is not None) and i:
+            if aux.Semester != semester:
+                aux = aux.sig
+            else:
+                i = True
+        if aux is None:
+            return False
+        elif aux.Semester == semester:
+            return False
 
+    # insertar cursos
+    def CurseB(self, semester, codigo, nombre, creditos, prerequisitos, obligatorio):
+        aux = self.first
+        i = False
+        while aux is not None and i:
+            if aux.Semester != semester:
+                aux = aux.sig
+            else:
+                aux.curse.InsertDataB(codigo, nombre, creditos, prerequisitos, obligatorio)
+                i = True

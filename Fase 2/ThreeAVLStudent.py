@@ -132,3 +132,58 @@ class ThreeAVL:
             return self.findS(carnet, year, semester, node.izq)
         elif carnet > node.Carnet:
             return self.findS(carnet, year, semester, node.der)
+
+    # Mostrar el json de los estudiantes
+    def ShowStudentJSON(self, node, carnet):
+        if node is not None:
+            return 'Tree AVL is empty'
+        elif node.Carnet == carnet:
+            Student = {
+                'Carnet ': node.Carnet,
+                'DPI ': node.DPI,
+                'Nombre ': node.Name,
+                'Carrera ': node.Carrera,
+                'Correo ': node.Correo,
+                'Password ': node.Password,
+                'Creditos ': node.Creditos,
+                'Edad ': node.Edad
+                }
+            return Student
+        elif carnet < node.Carnet:
+            return self.ShowStudentJSON(node.izq, carnet)
+        elif carnet > node.Carnet:
+            return self.ShowStudentJSON(node.der, carnet)
+
+    # Update (PUT) Student
+    def Update_Student(self, carnet, dpi, nombre, carrera, correo, password, creditos, edad, node):
+        if node is None:
+            return 'Tree is Empty'
+        elif node.Carnet == carnet:
+            node.Carnet = carnet
+            node.DPI = dpi
+            node.Name = nombre
+            node.Carrera = carrera
+            node.Correo = correo
+            node.Password = password
+            node.Creditos = creditos
+            node.Edad = edad
+        elif carnet < node.Carnet:
+            return self.Update_Student(carnet, dpi, nombre, carrera, correo, password, creditos, edad, node.izq)
+        elif carnet > node.Carnet:
+            return self.Update_Student(carnet, dpi, nombre, carrera, correo, password, creditos, edad, node.der)
+
+    # Busacar en la matriz el nodo de la tarea
+    def findMatrix(self, carnet, year, mes, day, hora, node):
+        if node is None:
+            return 'Tree is empty'
+        elif node.Carnet == carnet:
+            return node.anios.find_Mes(year, mes, day, hora, node.anios.first)
+        elif carnet < node.Carnet:
+            return self.findMatrix(carnet, year, mes, day, hora, node.izq)
+        elif carnet > node.Carnet:
+            return self.findMatrix(carnet, year, mes, day, hora, node.der)
+
+    # ingreso del nodo de la tarea
+    def insert_List_Homework(self, task, node, lex):
+        if node is None:
+            return 'Tree is Empty'

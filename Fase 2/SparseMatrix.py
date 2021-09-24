@@ -13,7 +13,7 @@ class HeadBoard:
 
     # Insertar Cabecera
     def Insert_Headboard(self, day_hora):
-        if self.valHeadBoard(day_hora) is False :
+        if self.valHeadBoard(day_hora) is False:
             headboard = NodeHeadboard(day_hora)
             if self.first is None:
                 self.first = headboard
@@ -78,6 +78,7 @@ class Data:
         self.upListData = None
         self.downListData = None
 
+    # insertar el nodo en la matriz
     def insert_nodeData(self, x, y, listX, listY, node):
         x_aux = listX.first
         y_aux = listY.first
@@ -107,6 +108,7 @@ class Data:
             listY = node
             listY.down = node
 
+    # Solo para ver si, si esta guardadno la informacion
     def show(self, listX, listY, x, y):
         headboardX = listX.first
         headboardY = listY.first
@@ -130,7 +132,9 @@ class Data:
             else:
                 aux = aux.down
 
-    def find_Home(self, listX, listY, x, y):
+    # Busca la tarea e insertarla
+    def find_Home(self, listX, listY, x, y, carnet, nombre, descripcion, materia, fecha, hora, estado):
+        id = 1
         headboardX = listX.first
         headboardY = listY.first
         while int(headboardX.number) != int(x):
@@ -148,14 +152,80 @@ class Data:
         cond_data = False
         while (aux is not None) and (cond_data is False):
             if (aux.rowData == y) and (aux.columnData == x):
-                analisis.llenado()
                 aux.data += 1
+                aux.ListHomework.AddHomeworks(id, carnet, nombre, descripcion, materia, fecha, hora, estado)
+                id += 1
                 cond_data = True
             else:
                 aux = aux.down
 
+    # Obtine la informacion de la tarea
     def get_Tarea(self, cabeceraX, cabeceraY, x, y, id):
         headboardX = cabeceraX.first
         headboardY = cabeceraY.first
 
+        while headboardX.number != x:
+            headboardX = headboardX.sig
+        print("X es: ", headboardX.number)
 
+        while headboardY.number != y:
+            headboardY = headboardY.sig
+        print('Y es:', headboardY.number)
+
+        aux = headboardX.down
+        while aux is not None:
+            aux = aux.downData
+        aux = headboardY.down
+        i = False
+        while (aux is not None) and i is False:
+            if aux.rowData == y and aux.columnData == x:
+                return aux.ListHomework.Get_Homework(id)
+                i = True
+            else:
+                aux = aux.down
+
+    # Valida que la tarea exista
+    def val_tar(self, Lx, Ly, x, y):
+        headboardX = Lx.first
+        headboardY = Ly.first
+        i = False
+
+        while headboardX.number != x:
+            headboardX = headboardX.sig
+        print("X es: ", headboardX.number)
+
+        while headboardY.number != y:
+            headboardY = headboardY.sig
+        print('Y es:', headboardY.number)
+
+        aux = headboardX.down
+        while aux is not None:
+            aux = aux.downData
+        aux = headboardY
+        while (aux is not None) and i is False:
+            if (aux.rowData == y) and (aux.columnData == x):
+                return True
+        return False
+
+    # mostrar tareas
+    def showH(self, lx, ly, x, y):
+        headboardX = lx.first
+        headboardY = ly.first
+        i = False
+        while headboardX.number != x:
+            headboardX = headboardX.sig
+        print("X es: ", headboardX.number)
+
+        while headboardY.number != y:
+            headboardY = headboardY.sig
+        print('Y es:', headboardY.number)
+
+        aux = headboardX.down
+        while aux is not None:
+            aux = aux.downData
+        aux = headboardY
+        while (aux is not None) and i is False:
+            if (aux.rowData == y) and (aux.columnData == x):
+                aux.ListHomework.showList()
+            else:
+                aux = aux.down
