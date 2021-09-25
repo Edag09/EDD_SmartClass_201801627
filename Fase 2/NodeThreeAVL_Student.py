@@ -1,4 +1,4 @@
-from LCD_Year import ListCircularDobleYear
+from LCD_Year import *
 
 
 class NSThreeAVL:

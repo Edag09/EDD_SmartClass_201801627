@@ -1,5 +1,5 @@
 from NodeMes import NodeMes
-from SparseMatrix import *
+from SparseMatrix import NodeData
 import os
 
 

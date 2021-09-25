@@ -1,10 +1,8 @@
-from Analizadores import Analyzer
 from LCD_Semestre import ListCircularDoubleSemester
 from LCD_Year import ListCircularDobleYear
 from LCD_Meses import ListCircularDoubleMeses
 from LCD_Homeworks import ListCircularDoubleHomeworks
 from Analizadores import Analyzer
-from ThreeAVLStudent import ThreeAVL
 import Analizadores
 from SparseMatrix import HeadBoard
 from SparseMatrix import Data
@@ -30,13 +28,14 @@ def pri():
 
     analisis.File_Entry()
     analisis.insert()
-    analisis.insert_H()
+    Analizadores.avl.Graph_AVL(Analizadores.avl.root)
+    """analisis.insert_H()
     analisis.llenado()
     analisis.File_Student_Curse()
     Analizadores.homework.showList()
     Analizadores.homework.Delete_homework(2)
     Analizadores.homework.showList()
-    """cabecera.Insert_Headboard(14)
+    cabecera.Insert_Headboard(14)
     cabecera.Insert_Headboard(1)
     cabecera.Insert_Headboard(14)
     cabecera.show()
@@ -46,8 +45,5 @@ def pri():
     cabecera2.Insert_Headboard(10)
     cabecera2.show()"""
     # Analizadores.headDay.show()
-    data.insert_nodeData(1, 8, Analizadores.headDay, Analizadores.headHora, node)
-    data.show(Analizadores.headDay, Analizadores.headHora, 1, 8)
-
 
 pri()

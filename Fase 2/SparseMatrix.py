@@ -1,9 +1,25 @@
-from NodeMatrix import NodeHeadboard
-from NodeMatrix import NodeData
-from NodeMatrix import NodeMatrix
-from Analizadores import Analyzer
+from LCD_Homeworks import ListCircularDoubleHomeworks
 
-analisis = Analyzer()
+
+class NodeHeadboard:
+    def __init__(self, num):
+        self.number = num
+        self.sig = None
+        self.ant = None
+        self.up = None
+        self.down = None
+
+
+class NodeData:
+    def __init__(self, data, row, column):
+        self.data = data
+        self.rowData = row
+        self.columnData = column
+        self.ListHomework = ListCircularDoubleHomeworks()
+        self.sigData = None
+        self.antData = None
+        self.upData = None
+        self.downData = None
 
 
 class HeadBoard:

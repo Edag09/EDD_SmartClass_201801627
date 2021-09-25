@@ -183,7 +183,35 @@ class ThreeAVL:
         elif carnet > node.Carnet:
             return self.findMatrix(carnet, year, mes, day, hora, node.der)
 
-    # ingreso del nodo de la tarea
-    def insert_List_Homework(self, task, node, lex):
+    def insert_List_Homework(self, task, node, carnet, nombre, descripcion, materia, fecha, hora, estado, lex):
         if node is None:
-            return 'Tree is Empty'
+            return 'Empty AVL Homework'
+        elif node.Carnet == task.carnet:
+            node.anios.insert_HomeworkY(task, node.anios.first, lex, carnet, nombre, descripcion, materia, fecha, hora, estado)
+        elif task.carnet < node.Carnet:
+            return self.insert_List_Homework(task, node.izq, carnet, nombre, descripcion, materia, fecha, hora, estado, lex)
+        elif task.carnet > node.Carnet:
+            return self.insert_List_Homework(task, node.der, carnet, nombre, descripcion, materia, fecha, hora, estado, lex)
+
+    # Obtenicon de la tarea desde el avl para cada estudiante
+    def get_Homework_AVL(self, carnet, year, mes, day, hora, Id, node):
+        if node is None:
+            return 'Empty Homework student'
+        elif node.Canet == carnet:
+            return node.anios.get_Homework_year(year, mes, day, hora, Id)
+        elif carnet < node.Canet:
+            return self.get_Homework_AVL(carnet, year, mes, day, hora, Id, node.izq)
+        elif carnet > node.Canet:
+            return self.get_Homework_AVL(carnet, year, mes, day, hora, Id, node.der)
+
+    # Ingresar los cursos al arbol b
+    def insertCurse(self, carnet, year, semester, codigo, nombre, creditos, prerequisitos, obligatorio, node):
+        if node is None:
+            return 'Informacion vacia'
+        elif node.Carnet == carnet:
+            node.anios.Insert_Curse(year, semester, codigo, nombre, creditos, prerequisitos, obligatorio)
+        elif carnet < node.Carnet:
+            return self.insertCurse(carnet, year, semester, codigo, nombre, creditos, prerequisitos, obligatorio,
+                                    node.izq)
+        elif carnet > node.Carnet:
+            return self.insertCurse(carnet, year, semester, codigo, nombre, creditos, prerequisitos, obligatorio, node.der)
