@@ -1,16 +1,10 @@
 digraph Three {
 rankdir=TB;
 node [shape = record, color=black , style=filled, fillcolor=gray93];
-Node201801603[label ="<C0>|201801603|<C1>"];
-Node201801369[label ="<C0>|201801369|<C1>"];
-Node201801146[label="Carne: 201801146"];
-Node201801369:C0->Node201801146
-Node201801603:C0->Node201801369
-Node201801627[label ="<C0>|201801627|<C1>"];
-Node201801608[label="Carne: 201801608"];
-Node201801627:C0->Node201801608
-Node201908402[label="Carne: 201908402"];
-Node201801627:C1->Node201908402
-Node201801603:C1->Node201801627
+Node201822186[label ="<C0>|201822186|<C1>"];
+Node201501786[label="Carne: 201501786"];
+Node201822186:C0->Node201501786
+Node201901425[label="Carne: 201901425"];
+Node201822186:C1->Node201901425
 
 }

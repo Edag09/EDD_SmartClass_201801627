@@ -1,10 +1,14 @@
-import re
-from flask import Flask, request, redirect
+from flask import Flask, request, redirect, jsonify
 from Analizadores import Analyzer
+from ThreeAVLStudent import ThreeAVL
+from NodeThreeAVL_Student import NSThreeAVL
+from flask_cors import CORS
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
 data = Analyzer()
+avl = ThreeAVL()
+CORS(app)
 
 
 @app.route('/')
@@ -12,17 +16,44 @@ def home():
     return redirect('SERVER IS WORKING!!!')
 
 
+# Carga Masiva
 @app.route('/Cargar', methods=['POST'])
 def BulkLoad():
     Type = request.args.get('Tipo', 'No se ha encontrado algun documento')
     Path = request.args.get('Ruta', 'No se ha encontrado algun documento')
     if Type == 'estudiante':
-        print('Nais')
+        data.File_Entry(Path)
+        data.insert()
+        data.insert_H()
+        return 'Estudiante y Tareas yes ' + Path
     elif Type == 'recordatorio':
-        print('Nais')
+        data.File_Student_Curse(Path)
+        return 'Cursos estudiantes yes ' + Path
     elif Type == 'curso':
         data.Files_Pens_Upload(Path)
-        return "Datos llenados"
+        return 'Cursos Pensumn yes ' + Path
+
+
+# CRUD STUDENT
+@app.route('/Estudiante', methods=['POST'])
+def createStudent():
+    student = request.json
+    avl.insertThree(NSThreeAVL(student['Carnet'], student['DPI'], student['Nombre'], student['Carrera'], student['Correo'], student['Password'], student['Creditos'], student['Edad']))
+    return 'Estudiante Creado'
+
+
+@app.route('/Estudiante', methods=['PUT'])
+def updateStudent():
+    updStudent = request.json
+    avl.Update_Student(updStudent, avl.root)
+    return 'Estudiante modificado'
+
+
+@app.route('/Estudiante', methods=['GET'])
+def showStudent():
+    Id = request.args.get('Carnet', 'No se ha encontrado un estudiante con dicho carnet')
+    student = avl.ShowStudentJSON(avl.root, Id)
+    return jsonify(student)
 
 
 if __name__ == '__main__':

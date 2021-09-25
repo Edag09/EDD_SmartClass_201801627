@@ -26,7 +26,7 @@ def pri():
 
     # analisis.Files_Pens_Upload("CursosPensum.json")
 
-    analisis.File_Entry()
+    analisis.File_Entry('Estudiantes.txt')
     analisis.insert()
     Analizadores.avl.Graph_AVL(Analizadores.avl.root)
     """analisis.insert_H()

@@ -54,12 +54,10 @@ class Analyzer:
                 print('Obligatorio: ', pen['Obligatorio'])
                 print('\n')"""
                 # Informacion agregada al B
-                pensum.InsertDataB(pen['Codigo'], pen['Nombre'], pen['Creditos'], pen['Prerequisitos'],
-                                   pen['Obligatorio'])
-        pensum.show()
+                pensum.InsertDataB(pen['Codigo'], pen['Nombre'], pen['Creditos'], pen['Prerequisitos'], pen['Obligatorio'])
 
-    def File_Student_Curse(self):
-        with open('CursosEstudiante.json', encoding='UTF-8') as file:
+    def File_Student_Curse(self, curseS):
+        with open(curseS, encoding='UTF-8') as file:
             data = json.load(file)
 
             for student in data['Estudiantes']:
@@ -75,12 +73,12 @@ class Analyzer:
                             # print('Creditos: ', curse['Creditos'])
                             # print('Prerequisitos: ', curse['Prerequisitos'])
                             # print('Obligatorio: ', curse['Obligatorio'])
-                            print('\n')
+                            avl.insertCurse(student['Carnet'], years['Año'], int(semester['Semestre']), curse['Codigo'], curse['Nombre'], curse['Creditos'], curse['Prerequisitos'], curse['Obligatorio'], avl.root)
 
     # ------------------------------ Analyzer txt ----------------------------
 
-    def File_Entry(self):
-        file = open("Estudiantes.txt", 'r', encoding='UTF-8')
+    def File_Entry(self, student):
+        file = open(student, 'r', encoding='UTF-8')
         line = file.read()
         file.close()
         self.entry = line.split("\n")
@@ -306,7 +304,9 @@ class Analyzer:
             if data.lex == "item":
                 self.state = 0
             elif data.lex == "element":
-                self.listTask.append(self.homework_entry)
+                # self.listTask.append(self.homework_entry)
+                avl.insert_List_Homework(self.homework_entry, avl.root, self.homework_entry.Carne, self.homework_entry.Name, self.homework_entry.Description, self.homework_entry.Materia, self.homework_entry.Date, self.homework_entry.Hora, self.homework_entry.Status, 'insertar')
+                avl.insert_List_Homework(self.homework_entry, avl.root, self.homework_entry.Carne, self.homework_entry.Name, self.homework_entry.Description, self.homework_entry.Materia, self.homework_entry.Date, self.homework_entry.Hora, self.homework_entry.Status, 'tarea')
                 self.homework_entry = None
                 self.homework = False
                 self.state = 0
@@ -329,8 +329,8 @@ class Analyzer:
             if data.token == "Cadena":
                 self.homework_entry.Date = data.lex
                 self.date = data.lex.split('/')
-                headDay.Insert_Headboard(self.date[0])
-                self.day.append(self.date[0])
+                # headDay.Insert_Headboard(self.date[0])
+                # self.day.append(self.date[0])
                 # print(self.date)
                 avl.insert_year(self.homework_entry.Carne, self.date[2], avl.root)
                 avl.findM(self.homework_entry.Carne, self.date[2], int(self.date[1]), avl.root)
@@ -339,10 +339,12 @@ class Analyzer:
         elif self.state == 7:
             if data.token == "Cadena":
                 self.homework_entry.Hora = data.lex
-                self.date = data.lex.split(':')
-                headHora.Insert_Headboard(self.date[0])
-                self.hora.append(self.date[0])
+                # self.date = data.lex.split(':')
+                # headHora.Insert_Headboard(self.date[0])
+                # self.hora.append(self.date[0])
                 # print(self.homework_entry.Hora)
+                avl.findMatrix(self.homework_entry.Carne, self.date[2], self.date[1], self.date[0], self.homework_entry.Hora, avl.root)
+                self.homework_entry.dispersa = self.date
                 self.state = 2
         elif self.state == 8:
             if data.token == "Cadena":
@@ -358,12 +360,12 @@ class Analyzer:
                 self.state = 0
                 self.homework = True
 
-    def llenado(self):
+    """def llenado(self):
         cont = 1
         for task in self.listTask:
             homework.AddHomeworks(cont, task.Carne, task.Name, task.Description, task.Materia, task.Date, task.Hora,
                                   task.Status)
-            cont += 1
+            cont += 1"""
 
 
 class Symbol:

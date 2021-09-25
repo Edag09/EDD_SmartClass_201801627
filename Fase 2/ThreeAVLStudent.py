@@ -102,10 +102,10 @@ class ThreeAVL:
     # ingresa el anio si el estudiante si tiene tarea
     def insert_year(self, carnet, year, node):
         if node is None:
-            print("Tree is empty year")
+            return 'Year is Empty in ALV'
         elif node.Carnet == carnet:
             node.anios.AddListYear(year)
-            print("Los datos son: ", node.Carnet)
+            return "Los datos son: ", node.Carnet
         elif carnet < node.Carnet:
             return self.insert_year(carnet, year, node.izq)
         elif carnet > node.Carnet:
@@ -114,7 +114,7 @@ class ThreeAVL:
     # busca el mes y e interiormente inserta los meses si existe el patojo
     def findM(self, carnet, year, mes, node):
         if node is None:
-            print('Tree is empty mes')
+            return 'Tree is empty mes'
         elif node.Carnet == carnet:
             node.anios.insertM(year, mes, node.anios.first)
         elif carnet < node.Carnet:
@@ -125,7 +125,7 @@ class ThreeAVL:
     # busca el semestre y e interiormente inserta los semestres si existe el patojo
     def findS(self, carnet, year, semester, node):
         if node is None:
-            print("Tree is empty semester")
+            return "Tree is empty semester"
         elif node.Carnet == carnet:
             node.anios.insertSemester(year, semester, node.anios.first)
         elif carnet < node.Carnet:
@@ -135,7 +135,7 @@ class ThreeAVL:
 
     # Mostrar el json de los estudiantes
     def ShowStudentJSON(self, node, carnet):
-        if node is not None:
+        if node is None:
             return 'Tree AVL is empty'
         elif node.Carnet == carnet:
             Student = {
@@ -155,22 +155,22 @@ class ThreeAVL:
             return self.ShowStudentJSON(node.der, carnet)
 
     # Update (PUT) Student
-    def Update_Student(self, carnet, dpi, nombre, carrera, correo, password, creditos, edad, node):
+    def Update_Student(self, student, node):
         if node is None:
             return 'Tree is Empty'
-        elif node.Carnet == carnet:
-            node.Carnet = carnet
-            node.DPI = dpi
-            node.Name = nombre
-            node.Carrera = carrera
-            node.Correo = correo
-            node.Password = password
-            node.Creditos = creditos
-            node.Edad = edad
-        elif carnet < node.Carnet:
-            return self.Update_Student(carnet, dpi, nombre, carrera, correo, password, creditos, edad, node.izq)
-        elif carnet > node.Carnet:
-            return self.Update_Student(carnet, dpi, nombre, carrera, correo, password, creditos, edad, node.der)
+        elif node.Carnet == student['Carnet']:
+            node.Carnet = student['Carnet']
+            node.DPI = student['DPI']
+            node.Name = student['Nombre']
+            node.Carrera = student['Carrera']
+            node.Correo = student['Correo']
+            node.Password = student['Password']
+            node.Creditos = student['Creditos']
+            node.Edad = student['Edad']
+        elif student['Carnet'] < node.Carnet:
+            return self.Update_Student(student, node.izq)
+        elif student['Carnet'] > node.Carnet:
+            return self.Update_Student(student, node.der)
 
     # Busacar en la matriz el nodo de la tarea
     def findMatrix(self, carnet, year, mes, day, hora, node):
@@ -186,11 +186,11 @@ class ThreeAVL:
     def insert_List_Homework(self, task, node, carnet, nombre, descripcion, materia, fecha, hora, estado, lex):
         if node is None:
             return 'Empty AVL Homework'
-        elif node.Carnet == task.carnet:
+        elif node.Carnet == task.Carne:
             node.anios.insert_HomeworkY(task, node.anios.first, lex, carnet, nombre, descripcion, materia, fecha, hora, estado)
-        elif task.carnet < node.Carnet:
+        elif task.Carne < node.Carnet:
             return self.insert_List_Homework(task, node.izq, carnet, nombre, descripcion, materia, fecha, hora, estado, lex)
-        elif task.carnet > node.Carnet:
+        elif task.Carne > node.Carnet:
             return self.insert_List_Homework(task, node.der, carnet, nombre, descripcion, materia, fecha, hora, estado, lex)
 
     # Obtenicon de la tarea desde el avl para cada estudiante
@@ -209,9 +209,8 @@ class ThreeAVL:
         if node is None:
             return 'Informacion vacia'
         elif node.Carnet == carnet:
-            node.anios.Insert_Curse(year, semester, codigo, nombre, creditos, prerequisitos, obligatorio)
+            node.anios.Insert_Curse(year, semester, codigo, nombre, creditos, prerequisitos, obligatorio, node.anios.first)
         elif carnet < node.Carnet:
-            return self.insertCurse(carnet, year, semester, codigo, nombre, creditos, prerequisitos, obligatorio,
-                                    node.izq)
+            return self.insertCurse(carnet, year, semester, codigo, nombre, creditos, prerequisitos, obligatorio, node.izq)
         elif carnet > node.Carnet:
             return self.insertCurse(carnet, year, semester, codigo, nombre, creditos, prerequisitos, obligatorio, node.der)
