@@ -1,3 +1,4 @@
+from Principal import delete_homework
 import NodeThreeAVL_Student
 import os
 
@@ -208,16 +209,28 @@ class ThreeAVL:
 
     # ------------------------------------------- // Fin de la insercion // --------------------------------------------
 
-    # Obtenicon de la tarea desde el avl para cada estudiante
-    def get_Homework_AVL(self, carnet, year, mes, day, hora, Id, node):
+    # ------------------  Obtenicon, eliminacion y actualizacion de la tarea desde el avl para cada estudiante ---------
+    def get_Homework_AVL(self, carnet, year, mes, day, hora, Id, node, peticion):
         if node is None:
             return 'Empty Homework student'
-        elif node.Canet == carnet:
-            return node.anios.get_Homework_year(year, mes, day, hora, Id)
-        elif carnet < node.Canet:
-            return self.get_Homework_AVL(carnet, year, mes, day, hora, Id, node.izq)
-        elif carnet > node.Canet:
-            return self.get_Homework_AVL(carnet, year, mes, day, hora, Id, node.der)
+        elif node.Carnet == carnet:
+            return node.anios.get_Homework_year(year, mes, day, hora, Id, peticion)
+        elif carnet < node.Carnet:
+            return self.get_Homework_AVL(carnet, year, mes, day, hora, Id, node.izq, peticion)
+        elif carnet > node.Carnet:
+            return self.get_Homework_AVL(carnet, year, mes, day, hora, Id, node.der, peticion)
+
+    def update_homework_AVL(self, carnet, year, mes, day, hora, Id, node, peticion, taskJ):
+        if node is None:
+            return 'No se encontro ninguna tarea'
+        elif node.Carnet == carnet:
+            return node.anios.update_Homework_year(carnet, year, mes, day, hora, Id, peticion, taskJ)
+        elif carnet < node.Carnet:
+            return self.update_homework_AVL(carnet, year, mes, day, hora, Id, node.izq, peticion, taskJ)
+        elif carnet > node.Carnet:
+            return self.update_homework_AVL(carnet, year, mes, day, hora, Id, node.der, peticion, taskJ)
+
+    # ------------------------------ Fin -------------------------------------------------------------------------------
 
     # Ingresar los cursos al arbol b
     def insertCurse(self, carnet, year, semester, codigo, nombre, creditos, prerequisitos, obligatorio, node):
@@ -244,3 +257,14 @@ class ThreeAVL:
             return self.Together(nodeAVL.izq, task, enlaces)
         elif task['Carnet'] > nodeAVL.Carnet:
             return self.Together(nodeAVL.der, task, enlaces)
+
+    # Graficar las tareas
+    def Go_Graph_HomeworksAVL(self, carnet, year, mes, day, hora, node):
+        if node is None:
+            'No hay tareas aun ingresadas'
+        elif node.Carnet == carnet:
+            node.anios.Go_Graph_HomeworksY(year, mes, day, hora, node.anios.first)
+        elif carnet < node.Carnet:
+            return self.Go_Graph_HomeworksAVL(carnet, year, mes, day, hora, node.izq)
+        elif carnet > node.Carnet:
+            return self.Go_Graph_HomeworksAVL(carnet, year, mes, day, hora, node.der)

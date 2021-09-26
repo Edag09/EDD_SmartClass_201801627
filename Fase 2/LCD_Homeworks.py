@@ -60,17 +60,17 @@ class ListCircularDoubleHomeworks:
 
     # ---------------------------- CRUD Tareas :D ----------------------------
     # (Update(PUT) Homework)
-    def Update(self, id, carnet, name, description, materia, date, hora, status):
+    def Update(self, taskJ):
         aux = self.first
         while aux is not None:
-            if aux.id == id:
-                aux.Carne = carnet
-                aux.Name = name
-                aux.Description = description
-                aux.Materia = materia
-                aux.Date = date
-                aux.Hora = hora
-                aux.Status = status
+            if aux.id == taskJ['ID']:
+                aux.Carne = taskJ['Carnet']
+                aux.Name = taskJ['Nombre']
+                aux.Description = taskJ['Descripcion']
+                aux.Materia = taskJ['Materia']
+                aux.Date = taskJ['Fecha']
+                aux.Hora = taskJ['Hora']
+                aux.Status = taskJ['Estado']
             else:
                 aux = aux.sig
 
@@ -101,20 +101,20 @@ class ListCircularDoubleHomeworks:
                     aux = aux.sig
                     self.first.sig = None
                     self.first = aux
-                    print('Eliminado al inicio')
+                    return 'Eliminado al inicio'
                 elif aux.id == id:
                     aux.ant.sig = aux.sig
                     aux.sig.ant = aux.ant
                     aux.ant = None
                     aux.sig = None
-                    print('Eliminado en medio')
+                    return 'Eliminado en medio'
                 elif self.end.id == id:
                     self.end.ant.sig = None
                     aux = self.end.ant
                     self.end.ant = None
                     self.end = aux
-                    print('Eliminado al final')
+                    return 'Eliminado al final'
                 else:
-                    print('Id no valido')
+                    return 'Id no valido'
             aux = aux.sig
 

@@ -202,8 +202,8 @@ class Data:
 
     # --------------------------------------- // Fin del insertar las tareas// ---------------------------------------
 
-    # Obtine la informacion de la tarea
-    def get_Tarea(self, cabeceraX, cabeceraY, x, y, id):
+    # ----------------------------------------------- Obtine y/o elimina la informacion de la tarea --------------------
+    def get_Tarea(self, cabeceraX, cabeceraY, x, y, id, peticion):
         headboardX = cabeceraX.first
         headboardY = cabeceraY.first
 
@@ -222,10 +222,40 @@ class Data:
         i = False
         while (aux is not None) and i is False:
             if aux.rowData == y and aux.columnData == x:
-                return aux.ListHomework.Get_Homework(id)
+                if peticion == 'Obtener':
+                    return aux.ListHomework.Get_Homework(id)
+                elif peticion == 'Eliminar':
+                    return aux.Delete_homework(id)
                 i = True
             else:
                 aux = aux.down
+
+    def update_Tarea(self, cabeceraX, cabeceraY, x, y, id, peticion, taskJ):
+        headboardX = cabeceraX.first
+        headboardY = cabeceraY.first
+
+        while headboardX.number != x:
+            headboardX = headboardX.sig
+        print("X es: ", headboardX.number)
+
+        while headboardY.number != y:
+            headboardY = headboardY.sig
+        print('Y es:', headboardY.number)
+
+        aux = headboardX.down
+        while aux is not None:
+            aux = aux.downData
+        aux = headboardY.down
+        i = False
+        while (aux is not None) and i is False:
+            if aux.rowData == y and aux.columnData == x:
+                if peticion == 'Actualizar':
+                    return aux.ListHomework.Update(taskJ)
+                i = True
+            else:
+                aux = aux.down
+
+    # ----------------------------------------------- FIN CRUD HOMEWORK ------------------------------------------------
 
     # Valida que la tarea exista
     def val_tar(self, Lx, Ly, x, y):

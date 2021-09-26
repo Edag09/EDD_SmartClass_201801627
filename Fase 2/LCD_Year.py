@@ -80,28 +80,34 @@ class ListCircularDobleYear:
                 node.mes.insert_headboard(mes, day, hora, node.mes.first)
                 i = True
 
-    # recorrido para poder retornar la informacion de la tarea desde el inicio hasta la lista
-    def get_Homework_year(self, year, mes, day, hora, Id):
+    # ------------- recorrido para poder retornar la informacion de la tarea desde el inicio hasta la lista ------------
+    # ---------------------------- Delete and Get of Homework from Year ------------------------------------------------
+    def get_Homework_year(self, year, mes, day, hora, Id, peticion):
         aux = self.first
         while aux is not None:
             if aux.Year != year:
                 aux = aux.sig
             else:
-                return aux.mes.get_Homework_M(mes, day, hora, Id)
+                return aux.mes.get_Homework_M(mes, day, hora, Id, peticion)
+
+    def update_Homework_year(self, year, mes, day, hora, Id, peticion, taskJ):
+        aux = self.first
+        while aux is not None:
+            if aux.Year != year:
+                aux = aux.sig
+            else:
+                return aux.mes.update_Homework_M(mes, day, hora, Id, peticion, taskJ)
+
+    # -------------------------------------- FIN CRUD TAREAS -----------------------------------------------------------
 
     # graph homework
-    def graph_Homeworks(self, task, node, lex):
+    def Go_Graph_HomeworksY(self, year, mes, day, hora, node):
         i = False
         while (node is not None) and i:
-            if node.Year != task.dispersa[2]:
+            if node.Year != year:
                 node = node.sig
             else:
-                if lex == 'insertar':
-                    node.mes.insertH(task, node.mes.first)
-                    i = True
-                elif lex == 'tarea':
-                    node.mes.graphH(task, node.mes.first)
-                    i = True
+                return aux.mes.Go_Graph_HomeworksM(mes, day, hora, node.mes.first)
 
     # ---------------------------------------- // Insertar tareas // -------------------------------------------
 
