@@ -3,6 +3,7 @@ from Analizadores import Analyzer
 from ThreeAVLStudent import ThreeAVL
 from NodeThreeAVL_Student import NSThreeAVL
 from flask_cors import CORS
+from NodeHomework import Nodehomework
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -54,6 +55,20 @@ def showStudent():
     Id = request.args.get('Carnet', 'No se ha encontrado un estudiante con dicho carnet')
     student = avl.ShowStudentJSON(avl.root, Id)
     return jsonify(student)
+
+
+# CRUD HOMEWORKS
+@app.route('/Recordatorio', methods=['POST'])
+def createTask():
+    homework = request.json
+    enlaces = homework['Fecha'].split('/')
+    avl.Together(avl.root, homework, enlaces)
+    return 'Tarea Creada'
+
+
+@app.route('/Recordatorio', methods=['PUT'])
+def updateTask():
+    updHome = request.json
 
 
 if __name__ == '__main__':

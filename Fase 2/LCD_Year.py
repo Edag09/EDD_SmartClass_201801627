@@ -33,7 +33,7 @@ class ListCircularDobleYear:
             if node.Year != year:
                 node = node.sig
             else:
-                node.mes.AddListMeses(mes)
+                node.mes.AddListMeses(int(mes))
                 i = True
 
     # insertar semestre si existe el estudiante
@@ -103,6 +103,8 @@ class ListCircularDobleYear:
                     node.mes.graphH(task, node.mes.first)
                     i = True
 
+    # ---------------------------------------- // Insertar tareas // -------------------------------------------
+
     # Insertar los elementos de la tarea desde years
     def insert_HomeworkY(self, task, node, lex, carnet, nombre, descripcion, materia, fecha, hora, estado):
         i = False
@@ -114,4 +116,17 @@ class ListCircularDobleYear:
                     node.mes.insertH(task, node.mes.first)
                 elif lex == 'tarea':
                     node.mes.insert_HomeworkM(task, node.mes.first, carnet, nombre, descripcion, materia, fecha, hora, estado)
+                    i = True
+
+    # insertar la tarea a manita desde años
+    def insert_a_manita_HomeworkY(self, task, node, lex, enlaces):
+        i = False
+        while node is not None and i:
+            if node.Year != enlaces[2]:
+                node = node.sig
+            else:
+                if lex == 'insertar':
+                    node.mes.insertH_a_manita(task, node.mes.first, enlaces)
+                elif lex == 'tarea':
+                    node.mes.insert_a_manita_HomeworkM(task, node.mes.first, enlaces)
                     i = True

@@ -109,6 +109,7 @@ class ListCircularDoubleMeses:
             else:
                 return aux.matrix.data.get_Tarea(aux.matrix.columnM, aux.matrix.rowM, x, y, Id)
 
+    # ---------------------------------------------- // insersion de la tarea // ----------------------------------
     # insertar tarea
     def insertH(self, task, node):
         i = False
@@ -127,6 +128,23 @@ class ListCircularDoubleMeses:
                     node.matrix.data.insert_nodeData(task.dispersa[0], task.Hora, node.matrix.columnM, node.matrix.rowM, tarea)
                     i = True
 
+    # insertar la tarea a manita desde meses
+    def insertH_a_manita(self, task, node, enlaces):
+        i = False
+        while node is not None and i:
+            if node.Mes != enlaces[1]:
+                node = node.sig
+            else:
+                tarea = NodeData(0, task['Hora'], enlaces[0])
+                if node.matrix.rowM.valHeadBoard(task['Hora']) is False:
+                    node.matrix.rowM.Insert_Headboard(task['Hora'])
+                    self.insertH_a_manita(task, node, enlaces)
+                elif node.matrix.columnM.valHeadBoard(enlaces[0]) is False:
+                    node.matrix.columnM.Insert_Headboard(enlaces[0])
+                    self.insertH_a_manita(task, node, enlaces)
+                else:
+                    node.matrix.data.insert_nodeData(enlaces[0], task['Hora'], node.matrix.columnM, node.matrix.rowM, tarea)
+
     # Insertar los elementos de la tarea desde Meses
     def insert_HomeworkM(self, task, node, carnet, nombre, descripcion, materia, fecha, hora, estado):
         i = False
@@ -135,4 +153,14 @@ class ListCircularDoubleMeses:
                 node = node.sig
             else:
                 node.matrix.data.find_Home(node.matrix.columnM, node.matrix.rowM, task.dispersa[0], task.Hora, carnet, nombre, descripcion, materia, fecha, hora, estado)
+                i = True
+
+    # insertar los elementos de la tarea desde Meses a manita
+    def insert_a_manita_HomeworkM(self, task, node, enlaces):
+        i = False
+        while node is not None and i:
+            if node.Mes != enlaces[1]:
+                node = node.sig
+            else:
+                node.matrix.data.find_Home_a_manita(node.matrix.columnM, node.matrix.rowM, enlaces[0], task['Hora'], task)
                 i = True

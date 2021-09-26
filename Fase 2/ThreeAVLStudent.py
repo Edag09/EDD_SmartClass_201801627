@@ -183,6 +183,8 @@ class ThreeAVL:
         elif carnet > node.Carnet:
             return self.findMatrix(carnet, year, mes, day, hora, node.der)
 
+    # --------------------------------------- // Insertar Tareas // ----------------------------------------------------
+    # insertar la tarea desde el avl
     def insert_List_Homework(self, task, node, carnet, nombre, descripcion, materia, fecha, hora, estado, lex):
         if node is None:
             return 'Empty AVL Homework'
@@ -192,6 +194,19 @@ class ThreeAVL:
             return self.insert_List_Homework(task, node.izq, carnet, nombre, descripcion, materia, fecha, hora, estado, lex)
         elif task.Carne > node.Carnet:
             return self.insert_List_Homework(task, node.der, carnet, nombre, descripcion, materia, fecha, hora, estado, lex)
+
+    # insertar la tarea a manita desde el avl
+    def insert_a_manita_homework(self, task, node, lex, enlaces):
+        if node is None:
+            return 'No hay tarea'
+        elif node.Carnet == task['Carnet']:
+            node.anios.insert_a_manita_HomeworkY(task, node, lex, enlaces)
+        elif task['Carnet'] < node.Carnet:
+            return self.insert_a_manita_homework(task, node.izq, lex, enlaces)
+        elif task['Carnet'] > node.Carnet:
+            return self.insert_a_manita_homework(task, node.der, lex, enlaces)
+
+    # ------------------------------------------- // Fin de la insercion // --------------------------------------------
 
     # Obtenicon de la tarea desde el avl para cada estudiante
     def get_Homework_AVL(self, carnet, year, mes, day, hora, Id, node):
@@ -214,3 +229,18 @@ class ThreeAVL:
             return self.insertCurse(carnet, year, semester, codigo, nombre, creditos, prerequisitos, obligatorio, node.izq)
         elif carnet > node.Carnet:
             return self.insertCurse(carnet, year, semester, codigo, nombre, creditos, prerequisitos, obligatorio, node.der)
+
+    # La banda unida :D
+    def Together(self, nodeAVL, task, enlaces):
+        if nodeAVL is None:
+            return 'insert invalido'
+        elif nodeAVL.Carnet == task['Carnet']:
+            self.insert_year(task['Carnet'], enlaces[2], nodeAVL)
+            self.findM(task['Carnet'], enlaces[2], enlaces[1], nodeAVL)
+            self.findMatrix(task['Carnet'], enlaces[2], enlaces[1], enlaces[0], task['Hora'], nodeAVL)
+            self.insert_a_manita_homework(task, nodeAVL, 'insertar', enlaces)
+            self.insert_a_manita_homework(task, nodeAVL, 'tarea', enlaces)
+        elif task['Carnet'] < nodeAVL.Carnet:
+            return self.Together(nodeAVL.izq, task, enlaces)
+        elif task['Carnet'] > nodeAVL.Carnet:
+            return self.Together(nodeAVL.der, task, enlaces)

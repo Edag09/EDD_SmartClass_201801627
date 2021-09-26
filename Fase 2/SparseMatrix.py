@@ -94,7 +94,7 @@ class Data:
         self.upListData = None
         self.downListData = None
 
-    # insertar el nodo en la matriz
+    # insertar el nodo y crea el espacio en la matriz
     def insert_nodeData(self, x, y, listX, listY, node):
         x_aux = listX.first
         y_aux = listY.first
@@ -148,7 +148,8 @@ class Data:
             else:
                 aux = aux.down
 
-    # Busca la tarea e insertarla
+    # ------------------------------------- // Insertar tareas // -------------------------
+    # Busca la posicion donde se creo el espacio e inserta la tarea
     def find_Home(self, listX, listY, x, y, carnet, nombre, descripcion, materia, fecha, hora, estado):
         id = 1
         headboardX = listX.first
@@ -174,6 +175,32 @@ class Data:
                 cond_data = True
             else:
                 aux = aux.down
+
+    def find_pos_and_insert_homework_a_manita(self, listX, listY, x, y, task):
+        headboardX = listX.first
+        headboardY = listY.first
+        while int(headboardX.number) != int(x):
+            headboardX = headboardX.sig
+        print("X es :", headboardX.number)
+
+        while int(headboardY.number) != int(y):
+            headboardY = headboardY.sig
+        print("Y es: ", headboardY.number)
+
+        aux = headboardX.down
+        while aux is not None:
+            aux = aux.downData
+        aux = headboardY.down
+        cond_data = False
+        while (aux is not None) and (cond_data is False):
+            if (aux.rowData == y) and (aux.columnData == x):
+                aux.data += 1
+                aux.ListHomework.AddHomeworks(task['ID'], task['Carnet'], task['Nombre'], task['Descripcion'], task['Materia'], task['Fecha'], task['Hora'], task['Estado'])
+                cond_data = True
+            else:
+                aux = aux.down
+
+    # --------------------------------------- // Fin del insertar las tareas// ---------------------------------------
 
     # Obtine la informacion de la tarea
     def get_Tarea(self, cabeceraX, cabeceraY, x, y, id):
