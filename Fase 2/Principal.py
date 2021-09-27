@@ -44,16 +44,17 @@ def report():
     Type = int(Data['Tipo'])
     if Type == 0:
         avl.Graph_AVL(avl.root)
+        return 'Alumnos listo'
     elif Type == 1:
         return 'Aqui deberia de ir la matriz, deberia :C'
     elif Type == 2:
         avl.Go_Graph_HomeworksAVL(Data['Carnet'], Data['Año'], Data['Mes'], Data['Dia'], Data['Hora'], avl.root)
-        return 'Listo'
+        return 'Tareas listas'
     elif Type == 3:
         pens.show()
         return 'Cursos mostrados'
     elif Type == 4:
-        return 'Cursos Estudiantes Listo'
+        return 'Aqui deberian de ir los cursos, deberian x2 :c'
 
 
 # *------------------------------------------- //*** CRUD STUDENT ***// -----------------------------------------------*
@@ -88,7 +89,7 @@ def createTask():
 
 
 @app.route('/Recordatorio', methods=['PUT'])
-def updateTask():
+def UpdateTask():
     homework = request.json
     date = homework['Fecha'].split('/')
     avl.update_homework_AVL(homework['Carnet'], date[2], date[1], date[0], homework['Hora'], homework['ID'], avl.root, 'Actualizar', homework)

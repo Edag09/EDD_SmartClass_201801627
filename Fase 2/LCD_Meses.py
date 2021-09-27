@@ -68,8 +68,7 @@ class ListCircularDoubleMeses:
 
     # mostrar tareas
     def Go_Graph_HomeworksM(self, mes, day, hora, node):
-        i = False
-        while node is not None and i:
+        while node is not None:
             if node.Mes != mes:
                 node = node.sig
             else:
@@ -93,7 +92,7 @@ class ListCircularDoubleMeses:
     def insert_headboard(self, mes, day, hora, node):
         i = False
         while (node is not None) and i is False:
-            if node.Mes != mes:
+            if node.Mes != int(mes):
                 node = node.sig
             else:
                 node.matrix.rowM.Insert_Headboard(hora)
@@ -105,18 +104,18 @@ class ListCircularDoubleMeses:
     def get_Homework_M(self, mes, x, y, Id, peticion):  # elimina y obtiene la informacion de las tareas
         aux = self.first
         while aux is not None:
-            if aux.Mes != mes:
+            if aux.Mes != int(mes):
                 aux = aux.sig
             else:
                 return aux.matrix.data.get_Tarea(aux.matrix.columnM, aux.matrix.rowM, x, y, Id, peticion)
 
-    def update_Homework_M(self, mes, x, y , Id, peticion, taskJ):   # actualiza los datos de la tarea
+    def update_Homework_M(self, mes, x, y, Id, peticion, taskJ):   # actualiza los datos de la tarea
         aux = self.first
         while aux is not None:
             if aux.Mes != mes:
                 aux = aux.sig
             else:
-                return aux.matrix.data.update_Tarea(aux.matrix.columnM, aux.matrix.rowM, x, y , Id, peticion, taskJ)
+                return aux.matrix.data.update_Tarea(aux.matrix.columnM, aux.matrix.rowM, x, y, Id, peticion, taskJ)
 
     # --------------------------------------- FIN CRUD HOMEWORKS FROM MES ----------------------------------------------
 
@@ -136,15 +135,14 @@ class ListCircularDoubleMeses:
                     node.matrix.columnM.Insert_Headboard(task.dispersa[0])
                     self.insertH(task, node)
                 else:
-                    node.matrix.data.insert_nodeData(task.dispersa[0], task.Hora, node.matrix.columnM, node.matrix.rowM,
-                                                     tarea)
+                    node.matrix.data.insert_nodeData(task.dispersa[0], task.Hora, node.matrix.columnM, node.matrix.rowM, tarea)
                     i = True
 
     # insertar la tarea a manita desde meses
     def insertH_a_manita(self, task, node, enlaces):
         i = False
-        while node is not None and i:
-            if node.Mes != enlaces[1]:
+        while node is not None and i is False:
+            if node.Mes != int(enlaces[1]):
                 node = node.sig
             else:
                 tarea = NodeData(0, task['Hora'], enlaces[0])
@@ -155,8 +153,8 @@ class ListCircularDoubleMeses:
                     node.matrix.columnM.Insert_Headboard(enlaces[0])
                     self.insertH_a_manita(task, node, enlaces)
                 else:
-                    node.matrix.data.insert_nodeData(enlaces[0], task['Hora'], node.matrix.columnM, node.matrix.rowM,
-                                                     tarea)
+                    node.matrix.data.insert_nodeData(enlaces[0], task['Hora'], node.matrix.columnM, node.matrix.rowM, tarea)
+                    i = True
 
     # Insertar los elementos de la tarea desde Meses
     def insert_HomeworkM(self, task, node, carnet, nombre, descripcion, materia, fecha, hora, estado):
@@ -165,14 +163,13 @@ class ListCircularDoubleMeses:
             if node.Mes != task.dispersa[1]:
                 node = node.sig
             else:
-                node.matrix.data.find_Home(node.matrix.columnM, node.matrix.rowM, task.dispersa[0], task.Hora, carnet,
-                                           nombre, descripcion, materia, fecha, hora, estado)
+                node.matrix.data.find_Home(node.matrix.columnM, node.matrix.rowM, task.dispersa[0], task.Hora, carnet, nombre, descripcion, materia, fecha, hora, estado)
                 i = True
 
     # insertar los elementos de la tarea desde Meses a manita
     def insert_a_manita_HomeworkM(self, task, node, enlaces):
         i = False
-        while node is not None and i:
+        while node is not None and i is False:
             if node.Mes != enlaces[1]:
                 node = node.sig
             else:

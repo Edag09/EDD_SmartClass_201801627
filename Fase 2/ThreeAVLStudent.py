@@ -1,5 +1,3 @@
-from Principal import delete_homework
-import NodeThreeAVL_Student
 import os
 
 
@@ -178,7 +176,8 @@ class ThreeAVL:
         if node is None:
             return 'Tree is empty'
         elif node.Carnet == carnet:
-            return node.anios.find_Mes(year, mes, day, hora, node.anios.first)
+            hor = hora.split(':')
+            return node.anios.find_Mes(year, mes, day, hor[0], node.anios.first)
         elif carnet < node.Carnet:
             return self.findMatrix(carnet, year, mes, day, hora, node.izq)
         elif carnet > node.Carnet:
@@ -201,7 +200,7 @@ class ThreeAVL:
         if node is None:
             return 'No hay tarea'
         elif node.Carnet == task['Carnet']:
-            node.anios.insert_a_manita_HomeworkY(task, node, lex, enlaces)
+            node.anios.insert_a_manita_HomeworkY(task, node.anios.first, lex, enlaces)
         elif task['Carnet'] < node.Carnet:
             return self.insert_a_manita_homework(task, node.izq, lex, enlaces)
         elif task['Carnet'] > node.Carnet:
@@ -224,7 +223,7 @@ class ThreeAVL:
         if node is None:
             return 'No se encontro ninguna tarea'
         elif node.Carnet == carnet:
-            return node.anios.update_Homework_year(carnet, year, mes, day, hora, Id, peticion, taskJ)
+            return node.anios.update_Homework_year(year, mes, day, hora, Id, peticion, taskJ)
         elif carnet < node.Carnet:
             return self.update_homework_AVL(carnet, year, mes, day, hora, Id, node.izq, peticion, taskJ)
         elif carnet > node.Carnet:

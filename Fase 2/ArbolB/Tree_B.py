@@ -193,9 +193,7 @@ class TreeB:
                 if root.getCodigo(i) is not None:
                     if root.getCodigo(i) != "":
                         print(
-                            "Codigo: " + str(root.getCodigo(i)) + "\nCurso: " + root.getPais(i) + "\nCreditos: " + str(
-                                root.getCreditos(i)) + "\nPrerequisitos: " + root.getPrerequisitos(
-                                i) + "\nObligatorio " + str(root.getObligatorio(i)) + '\n')
+                            "Codigo: " + str(root.getCodigo(i)) + "\nCurso: " + root.getPais(i) + "\nCreditos: " + str(root.getCreditos(i)) + "\nPrerequisitos: " + root.getPrerequisitos(i) + "\nObligatorio " + str(root.getObligatorio(i)) + '\n')
 
             self.showPre(root.getApuntador(0))
             self.showPre(root.getApuntador(1))

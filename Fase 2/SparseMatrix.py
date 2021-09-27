@@ -99,11 +99,11 @@ class Data:
         x_aux = listX.first
         y_aux = listY.first
 
-        while int(x_aux.number) != x:
+        while int(x_aux.number) != int(x):
             x_aux = x_aux.sig
         listX = x_aux
 
-        while int(y_aux.number) != y:
+        while y_aux.number != y:
             y_aux = y_aux.sig
         listY = y_aux
 

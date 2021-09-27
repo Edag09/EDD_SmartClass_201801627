@@ -63,7 +63,7 @@ class ListCircularDobleYear:
     # Insert Curse
     def Insert_Curse(self, year, semester, codigo, nombre, creditos, prerequisitos, obligatorio, node):
         i = False
-        while node is not None and i:
+        while node is not None and i is False:
             if node.Year != year:
                 node = node.sig
             else:
@@ -73,7 +73,7 @@ class ListCircularDobleYear:
     # find mes
     def find_Mes(self, year, mes, day, hora, node):
         i = False
-        while node is not None and i:
+        while node is not None and i is False:
             if node.Year != year:
                 node = node.sig
             else:
@@ -102,8 +102,8 @@ class ListCircularDobleYear:
 
     # graph homework
     def Go_Graph_HomeworksY(self, year, mes, day, hora, node):
-        i = False
-        while (node is not None) and i:
+        aux = self.first
+        while node is not None:
             if node.Year != year:
                 node = node.sig
             else:
@@ -114,12 +114,13 @@ class ListCircularDobleYear:
     # Insertar los elementos de la tarea desde years
     def insert_HomeworkY(self, task, node, lex, carnet, nombre, descripcion, materia, fecha, hora, estado):
         i = False
-        while (node is not None) and i:
+        while (node is not None) and i is False:
             if node.Year != task.dispersa[2]:
                 node = node.sig
             else:
                 if lex == 'insertar':
                     node.mes.insertH(task, node.mes.first)
+                    i = True
                 elif lex == 'tarea':
                     node.mes.insert_HomeworkM(task, node.mes.first, carnet, nombre, descripcion, materia, fecha, hora, estado)
                     i = True
@@ -127,12 +128,13 @@ class ListCircularDobleYear:
     # insertar la tarea a manita desde años
     def insert_a_manita_HomeworkY(self, task, node, lex, enlaces):
         i = False
-        while node is not None and i:
-            if node.Year != enlaces[2]:
+        while (node is not None) and i is False:
+            if int(node.Year) != int(enlaces[2]):
                 node = node.sig
             else:
                 if lex == 'insertar':
                     node.mes.insertH_a_manita(task, node.mes.first, enlaces)
+                    i = True
                 elif lex == 'tarea':
                     node.mes.insert_a_manita_HomeworkM(task, node.mes.first, enlaces)
                     i = True
