@@ -96,33 +96,34 @@ class Data:
 
     # insertar el nodo y crea el espacio en la matriz
     def insert_nodeData(self, x, y, listX, listY, node):
-        x_aux = listX.first
-        y_aux = listY.first
+        if self.val_casilla(listX, listY, x, y) is False:
+            x_aux = listX.first
+            y_aux = listY.first
 
-        while int(x_aux.number) != int(x):
-            x_aux = x_aux.sig
-        listX = x_aux
+            while int(x_aux.number) != int(x):
+                x_aux = x_aux.sig
+            listX = x_aux
 
-        while y_aux.number != y:
-            y_aux = y_aux.sig
-        listY = y_aux
+            while y_aux.number != y:
+                y_aux = y_aux.sig
+            listY = y_aux
 
-        if listX and listY:
-            fin_x = listX
-            fin_y = listY
-            while fin_x.down is not None:
-                fin_x = fin_x.down
-            while fin_y.down is not None:
-                fin_y = fin_y.down
-            fin_x.down = node
-            fin_y.down = node
-            node.up = fin_x
-            node.izq = fin_y
-        else:
-            listX = node
-            listX.down = node
-            listY = node
-            listY.down = node
+            if listX and listY:
+                fin_x = listX
+                fin_y = listY
+                while fin_x.down is not None:
+                    fin_x = fin_x.down
+                while fin_y.down is not None:
+                    fin_y = fin_y.down
+                fin_x.down = node
+                fin_y.down = node
+                node.up = fin_x
+                node.izq = fin_y
+            else:
+                listX = node
+                listX.down = node
+                listY = node
+                listY.down = node
 
     # Solo para ver si, si esta guardadno la informacion
     def show(self, listX, listY, x, y):
@@ -225,7 +226,7 @@ class Data:
                 if peticion == 'Obtener':
                     return aux.ListHomework.Get_Homework(id)
                 elif peticion == 'Eliminar':
-                    return aux.Delete_homework(id)
+                    return aux.ListHomework.Delete_homework(id)
                 i = True
             else:
                 aux = aux.down
@@ -265,11 +266,9 @@ class Data:
 
         while headboardX.number != x:
             headboardX = headboardX.sig
-        print("X es: ", headboardX.number)
 
         while headboardY.number != y:
             headboardY = headboardY.sig
-        print('Y es:', headboardY.number)
 
         aux = headboardX.down
         while aux is not None:
@@ -280,12 +279,32 @@ class Data:
                 return True
         return False
 
+    # validar espacio del nodo para poder meter solo la tarea
+    def val_casilla(self, Lx, Ly, x, y):
+        headboardX = Lx.first
+        headboardY = Ly.first
+        i = False
+        while headboardX.number != x:
+            headboardX = headboardX.sig
+
+        while headboardY.number != y:
+            headboardY = headboardY.sig
+
+        aux = headboardX.down
+        while aux is not None:
+            aux = aux.downData
+        aux = headboardY.down
+        while (aux is not None) and i is False:
+            if aux.rowData == y and aux.columnData == x:
+                return True
+        return False
+
     # mostrar tareas
     def showH(self, lx, ly, x, y):
         headboardX = lx.first
         headboardY = ly.first
         i = False
-        while headboardX.number != x:
+        while int(headboardX.number) != int(x):
             headboardX = headboardX.sig
         print("X es: ", headboardX.number)
 
@@ -296,9 +315,10 @@ class Data:
         aux = headboardX.down
         while aux is not None:
             aux = aux.downData
-        aux = headboardY
+        aux = headboardY.down
         while (aux is not None) and i is False:
-            if (aux.rowData == y) and (aux.columnData == x):
-                aux.ListHomework.showList()
+            if (aux.rowData == y) and (int(aux.columnData) == int(x)):
+                aux.ListHomework.ShowGraph()
+                i = True
             else:
                 aux = aux.down

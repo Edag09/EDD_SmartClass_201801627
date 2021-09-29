@@ -25,6 +25,7 @@ class ListCircularDoubleMeses:
                     newMes.sig = None
                     self.end = newMes
                     self.end = newMes
+            print('Mes Fine')
         else:
             print('Mes incorrecto')
 
@@ -69,10 +70,10 @@ class ListCircularDoubleMeses:
     # mostrar tareas
     def Go_Graph_HomeworksM(self, mes, day, hora, node):
         while node is not None:
-            if node.Mes != mes:
+            if node.Mes != int(mes):
                 node = node.sig
             else:
-                node.matrix.data.showH(node.matrix.columnM, node.matrix.rowM, day, hora)
+                return node.matrix.data.showH(node.matrix.columnM, node.matrix.rowM, day, hora)
 
     # Validar mes
     def buscarme(self, mes):
@@ -112,7 +113,7 @@ class ListCircularDoubleMeses:
     def update_Homework_M(self, mes, x, y, Id, peticion, taskJ):   # actualiza los datos de la tarea
         aux = self.first
         while aux is not None:
-            if aux.Mes != mes:
+            if aux.Mes != int(mes):
                 aux = aux.sig
             else:
                 return aux.matrix.data.update_Tarea(aux.matrix.columnM, aux.matrix.rowM, x, y, Id, peticion, taskJ)
@@ -124,55 +125,58 @@ class ListCircularDoubleMeses:
     def insertH(self, task, node):
         i = False
         while (node is not None) and i is False:
-            if node.Mes != task.dispersa[1]:
+            if node.Mes != int(task.dispersa[1]):
                 node = node.sig
             else:
-                tarea = NodeData(0, task.Hora, task.dispersa[0])
-                if node.matrix.rowM.valHeadBoard(task.Hora) is False:
-                    node.matrix.rowM.Insert_Headboard(task.Hora)
+                hora = task.Hora.split(':')
+                tarea = NodeData(0, hora[0], task.dispersa[0])
+                if node.matrix.rowM.valHeadBoard(hora[0]) is False:
+                    node.matrix.rowM.Insert_Headboard(hora[0])
                     self.insertH(task, node)
                 elif node.matrix.columnM.valHeadBoard(task.dispersa[0]) is False:
                     node.matrix.columnM.Insert_Headboard(task.dispersa[0])
                     self.insertH(task, node)
                 else:
-                    node.matrix.data.insert_nodeData(task.dispersa[0], task.Hora, node.matrix.columnM, node.matrix.rowM, tarea)
+                    node.matrix.data.insert_nodeData(task.dispersa[0], hora[0], node.matrix.columnM, node.matrix.rowM, tarea)
                     i = True
 
     # insertar la tarea a manita desde meses
     def insertH_a_manita(self, task, node, enlaces):
         i = False
-        while node is not None and i is False:
+        while (node is not None) and i is False:
             if node.Mes != int(enlaces[1]):
                 node = node.sig
             else:
-                tarea = NodeData(0, task['Hora'], enlaces[0])
-                if node.matrix.rowM.valHeadBoard(task['Hora']) is False:
-                    node.matrix.rowM.Insert_Headboard(task['Hora'])
+                hora = task['Hora'].split(":")
+                tarea = NodeData(0, hora[0], enlaces[0])
+                if node.matrix.rowM.valHeadBoard(hora[0]) is False:
+                    node.matrix.rowM.Insert_Headboard(hora[0])
                     self.insertH_a_manita(task, node, enlaces)
                 elif node.matrix.columnM.valHeadBoard(enlaces[0]) is False:
                     node.matrix.columnM.Insert_Headboard(enlaces[0])
                     self.insertH_a_manita(task, node, enlaces)
                 else:
-                    node.matrix.data.insert_nodeData(enlaces[0], task['Hora'], node.matrix.columnM, node.matrix.rowM, tarea)
+                    node.matrix.data.insert_nodeData(enlaces[0], hora[0], node.matrix.columnM, node.matrix.rowM, tarea)
                     i = True
 
     # Insertar los elementos de la tarea desde Meses
     def insert_HomeworkM(self, task, node, carnet, nombre, descripcion, materia, fecha, hora, estado):
         i = False
         while (node is not None) and i is False:
-            if node.Mes != task.dispersa[1]:
+            if node.Mes != int(task.dispersa[1]):
                 node = node.sig
             else:
-                node.matrix.data.find_Home(node.matrix.columnM, node.matrix.rowM, task.dispersa[0], task.Hora, carnet, nombre, descripcion, materia, fecha, hora, estado)
+                hor = task.Hora.split(':')
+                node.matrix.data.find_Home(node.matrix.columnM, node.matrix.rowM, task.dispersa[0], hor[0], carnet, nombre, descripcion, materia, fecha, hora, estado)
                 i = True
 
     # insertar los elementos de la tarea desde Meses a manita
     def insert_a_manita_HomeworkM(self, task, node, enlaces):
         i = False
-        while node is not None and i is False:
-            if node.Mes != enlaces[1]:
+        while (node is not None) and i is False:
+            if node.Mes != int(enlaces[1]):
                 node = node.sig
             else:
-                node.matrix.data.find_Home_a_manita(node.matrix.columnM, node.matrix.rowM, enlaces[0], task['Hora'],
-                                                    task)
+                hora = task['Hora'].split(':')
+                node.matrix.data.find_pos_and_insert_homework_a_manita(node.matrix.columnM, node.matrix.rowM, enlaces[0], hora[0], task)
                 i = True

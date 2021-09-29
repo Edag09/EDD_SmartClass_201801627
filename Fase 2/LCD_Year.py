@@ -18,6 +18,7 @@ class ListCircularDobleYear:
             newYear.ant = self.end
             newYear.sig = None
             self.end = newYear
+        print('Year Fine')
 
     # mostrar los años
     def showListYear(self):
@@ -70,7 +71,7 @@ class ListCircularDobleYear:
                 node.semester.CurseB(semester, codigo, nombre, creditos, prerequisitos, obligatorio)
                 i = True
 
-    # find mes
+    # find mes en la matriz
     def find_Mes(self, year, mes, day, hora, node):
         i = False
         while node is not None and i is False:
@@ -88,7 +89,8 @@ class ListCircularDobleYear:
             if aux.Year != year:
                 aux = aux.sig
             else:
-                return aux.mes.get_Homework_M(mes, day, hora, Id, peticion)
+                h = hora.split(':')
+                return aux.mes.get_Homework_M(mes, day, h[0], Id, peticion)
 
     def update_Homework_year(self, year, mes, day, hora, Id, peticion, taskJ):
         aux = self.first
@@ -96,7 +98,8 @@ class ListCircularDobleYear:
             if aux.Year != year:
                 aux = aux.sig
             else:
-                return aux.mes.update_Homework_M(mes, day, hora, Id, peticion, taskJ)
+                h = hora.split(':')
+                return aux.mes.update_Homework_M(mes, day, h[0], Id, peticion, taskJ)
 
     # -------------------------------------- FIN CRUD TAREAS -----------------------------------------------------------
 
@@ -129,7 +132,7 @@ class ListCircularDobleYear:
     def insert_a_manita_HomeworkY(self, task, node, lex, enlaces):
         i = False
         while (node is not None) and i is False:
-            if int(node.Year) != int(enlaces[2]):
+            if node.Year != enlaces[2]:
                 node = node.sig
             else:
                 if lex == 'insertar':

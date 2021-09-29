@@ -7,6 +7,7 @@ class ThreeAVL:
 
     def insertThree(self, node_Student):
         self.root = self.secondInsert(node_Student, self.root)
+        print('Estudiante Ingresado')
 
     def compare(self, value, value1):
         if value > value1:
@@ -104,7 +105,7 @@ class ThreeAVL:
             return 'Year is Empty in ALV'
         elif node.Carnet == carnet:
             node.anios.AddListYear(year)
-            return "Los datos son: ", node.Carnet
+            print("Los datos son: ", node.Carnet)
         elif carnet < node.Carnet:
             return self.insert_year(carnet, year, node.izq)
         elif carnet > node.Carnet:
@@ -209,7 +210,7 @@ class ThreeAVL:
     # ------------------------------------------- // Fin de la insercion // --------------------------------------------
 
     # ------------------  Obtenicon, eliminacion y actualizacion de la tarea desde el avl para cada estudiante ---------
-    def get_Homework_AVL(self, carnet, year, mes, day, hora, Id, node, peticion):
+    def get_Homework_AVL(self, carnet, year, mes, day, hora, Id, node, peticion):   #Obtener y eliminar
         if node is None:
             return 'Empty Homework student'
         elif node.Carnet == carnet:
@@ -247,9 +248,13 @@ class ThreeAVL:
         if nodeAVL is None:
             return 'insert invalido'
         elif nodeAVL.Carnet == task['Carnet']:
+            # inserta el anio
             self.insert_year(task['Carnet'], enlaces[2], nodeAVL)
+            # inserta el mes
             self.findM(task['Carnet'], enlaces[2], enlaces[1], nodeAVL)
+            # inserta las cabeceras
             self.findMatrix(task['Carnet'], enlaces[2], enlaces[1], enlaces[0], task['Hora'], nodeAVL)
+            # inserta la tarea
             self.insert_a_manita_homework(task, nodeAVL, 'insertar', enlaces)
             self.insert_a_manita_homework(task, nodeAVL, 'tarea', enlaces)
         elif task['Carnet'] < nodeAVL.Carnet:

@@ -19,7 +19,7 @@ class ListCircularDoubleHomeworks:
             newHomework.ant = self.end
             newHomework.sig = None
             self.end = newHomework
-            self.end = newHomework
+        print('Tarea Ingresada')
 
     def showList(self):
         aux = self.first
@@ -39,6 +39,8 @@ class ListCircularDoubleHomeworks:
             if aux.sig is not None:
                 pointer += "Node" + str(cont) + "->Node" + str(cont + 1) + ";\n"
                 pointer += "Node" + str(cont + 1) + "->Node" + str(cont) + ";\n"
+            else:
+                print('Estudiante no encontrado')
             cont += 1
             aux = aux.sig
 
@@ -71,6 +73,15 @@ class ListCircularDoubleHomeworks:
                 aux.Date = taskJ['Fecha']
                 aux.Hora = taskJ['Hora']
                 aux.Status = taskJ['Estado']
+                homework = {'Carnet': aux.Carne,
+                            'Nombre': aux.Name,
+                            'Descripcion': aux.Description,
+                            'Materia': aux.Materia,
+                            'Fecha': aux.Date,
+                            'Hora': aux.Hora,
+                            'Estado': aux.Status
+                            }
+                return homework
             else:
                 aux = aux.sig
 
@@ -79,7 +90,8 @@ class ListCircularDoubleHomeworks:
         aux = self.first
         while aux is not None:
             if aux.id == id:
-                homework = {'Carnet': aux.Carne,
+                homework = {'ID': aux.id,
+                            'Carnet': aux.Carne,
                             'Nombre': aux.Name,
                             'Descripcion': aux.Description,
                             'Materia': aux.Materia,
@@ -97,11 +109,16 @@ class ListCircularDoubleHomeworks:
         while aux is not None:
             if aux is not None:
                 if self.first.id == id:
-                    self.first.sig.ant = None
-                    aux = aux.sig
-                    self.first.sig = None
-                    self.first = aux
-                    return 'Eliminado al inicio'
+                    if self.first.sig is None:
+                        self.first = None
+                        self.end = None
+                        return 'Eliminado al inicio solito'
+                    else:
+                        self.first.sig.ant = None
+                        aux = aux.sig
+                        self.first.sig = None
+                        self.first = aux
+                        return 'Eliminado al inicio'
                 elif aux.id == id:
                     aux.ant.sig = aux.sig
                     aux.sig.ant = aux.ant
@@ -117,4 +134,3 @@ class ListCircularDoubleHomeworks:
                 else:
                     return 'Id no valido'
             aux = aux.sig
-

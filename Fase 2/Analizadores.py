@@ -339,7 +339,7 @@ class Analyzer:
         elif self.state == 7:
             if data.token == "Cadena":
                 self.homework_entry.Hora = data.lex
-                # self.date = data.lex.split(':')
+                # hora = data.lex.split(':')
                 # headHora.Insert_Headboard(self.date[0])
                 # self.hora.append(self.date[0])
                 # print(self.homework_entry.Hora)
