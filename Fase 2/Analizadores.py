@@ -359,6 +359,8 @@ class Analyzer:
             elif t.lex == "item":
                 self.state = 0
                 self.homework = True
+        print("entra")
+        self.ver()
 
     """def llenado(self):
         cont = 1
@@ -366,6 +368,9 @@ class Analyzer:
             homework.AddHomeworks(cont, task.Carne, task.Name, task.Description, task.Materia, task.Date, task.Hora,
                                   task.Status)
             cont += 1"""
+
+    def ver(self):
+        homework.showList()
 
 
 class Symbol:

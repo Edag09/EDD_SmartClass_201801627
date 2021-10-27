@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet"> 
+  <title>Registro</title>
+</head>
+<body>
+  <nav class="navbar navbar-light bg-light">
+    <span class="navbar-brand mb-0 h1"></span>
+  </nav>
+
+  <section class="container">
+    
+  </section>
+
+  <section class="form-register">
+    <h3 style="text-align: center;">Crea tu perfil estudiantil</h3>
+    <input type="text" class="components" name="Carnet" id="carnet" placeholder="Carnet" [(ngModel)]="Carnet" >
+    <input type="text" class="components" name="dpi" id="dpi" placeholder="DPI" [(ngModel)]="Dpi">
+    <input type="text" class="components" name="Nombre" id="nombre" placeholder="Nombre" [(ngModel)]="Nombre">
+    <input type="text" class="components" name="Carrera" id="carrera" placeholder="Carrera" [(ngModel)]="Carrera">
+    <input type="email" class="components" name="Correo" id="correo" placeholder="Correo" [(ngModel)]="Correo">
+    <input type="password" class="components" name="Password" id="password" placeholder="Password" [(ngModel)]="Password">
+    <input type="text" class="components" name="Creditos" id="creditos" placeholder="Creditos" [(ngModel)]="Creditos">
+    <input type="text" class="components" name="Edad" id="edad" placeholder="Edad" [(ngModel)]="Edad">
+    <button type="button" id="boto" class="btn btn-outline-light" (click)="Registrarse()">Crear Cuenta</button>
+  </section>
+  <br>
+  <br>
+  <footer class="bg-light text-center text-lg-start">
+    <!-- Copyright -->
+    <div class="text-center p-4" style="background-color: #3EDBF0;">
+      © Fase 3 EDD SmartClass  201801627
+    </div>
+    <!-- Copyright -->
+  </footer>
+</body>
+</html>

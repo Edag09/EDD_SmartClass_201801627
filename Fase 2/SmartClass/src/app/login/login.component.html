@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-xl-9 mx-auto">
+          <div class="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
+            <div class="card-img-left d-none d-md-flex">
+              <!-- Background image for card set in CSS! -->
+            </div>
+            <div class="card-body p-4 p-sm-5">
+                <h1 class="display-4" id="title">SmartClass</h1>
+                <br>
+                <br>
+                <br>
+                <p class="h5">Inicio de Sesión</p>
+                <br>
+              <form>
+                <div class="form-floating mb-3">
+                  <input type="email" class="form-control" id="floatingInputEmail" name="email" placeholder="name@example.com" [(ngModel)]="user" >
+                  <label for="floatingInputEmail">Carnet</label>
+                </div>
+                <br>
+                
+                <div class="form-floating mb-3">
+                  <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" [(ngModel)]="password" >
+                  <label for="floatingPassword" >Password</label>
+                </div>
+                <br>
+                <div class="d-grid mb-2">
+                  <button class="btn btn-outline-dark" type="submit" (click)="login()">Sign in</button>
+                </div>
+  
+                <a class="d-block text-center mt-2 small" href="#" routerLink="/registro" >¿No tienes una cuenta? Registrate</a>  
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer class="bg-light text-center text-lg-start">
+    <!-- Copyright -->
+    <div class="text-center p-4" style="background-color: #3EDBF0;">
+      © Fase 3 EDD SmartClass  201801627
+    </div>
+    <!-- Copyright -->
+  </footer>
+</html>

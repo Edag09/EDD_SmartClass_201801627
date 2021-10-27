@@ -134,25 +134,30 @@ class ThreeAVL:
             return self.findS(carnet, year, semester, node.der)
 
     # Mostrar el json de los estudiantes
-    def ShowStudentJSON(self, node, carnet):
+    def ShowStudentJSON(self, node, carnet, passo):
         if node is None:
             return 'Tree AVL is empty'
-        elif node.Carnet == carnet:
+        elif node.Carnet == carnet and node.Password == passo:
             Student = {
-                'Carnet ': node.Carnet,
-                'DPI ': node.DPI,
-                'Nombre ': node.Name,
-                'Carrera ': node.Carrera,
-                'Correo ': node.Correo,
-                'Password ': node.Password,
-                'Creditos ': node.Creditos,
-                'Edad ': node.Edad
-                }
+                'Carnet': node.Carnet,
+                'Nombre': node.Name,
+                'Status': 'Yes'
+            }
             return Student
+        elif carnet.lower() == 'admin' and passo.lower() == 'admin':
+            Admin = {
+                'Status': 'admin'
+            }
+            return Admin
+        elif node.Carnet != carnet or node.Password != passo:
+            Err = {
+                'Status': 'No'
+            }
+            return Err
         elif carnet < node.Carnet:
-            return self.ShowStudentJSON(node.izq, carnet)
+            return self.ShowStudentJSON(node.izq, carnet, passo)
         elif carnet > node.Carnet:
-            return self.ShowStudentJSON(node.der, carnet)
+            return self.ShowStudentJSON(node.der, carnet, passo)
 
     # Update (PUT) Student
     def Update_Student(self, student, node):
@@ -190,11 +195,14 @@ class ThreeAVL:
         if node is None:
             return 'Empty AVL Homework'
         elif node.Carnet == task.Carne:
-            node.anios.insert_HomeworkY(task, node.anios.first, lex, carnet, nombre, descripcion, materia, fecha, hora, estado)
+            node.anios.insert_HomeworkY(task, node.anios.first, lex, carnet, nombre, descripcion, materia, fecha, hora,
+                                        estado)
         elif task.Carne < node.Carnet:
-            return self.insert_List_Homework(task, node.izq, carnet, nombre, descripcion, materia, fecha, hora, estado, lex)
+            return self.insert_List_Homework(task, node.izq, carnet, nombre, descripcion, materia, fecha, hora, estado,
+                                             lex)
         elif task.Carne > node.Carnet:
-            return self.insert_List_Homework(task, node.der, carnet, nombre, descripcion, materia, fecha, hora, estado, lex)
+            return self.insert_List_Homework(task, node.der, carnet, nombre, descripcion, materia, fecha, hora, estado,
+                                             lex)
 
     # insertar la tarea a manita desde el avl
     def insert_a_manita_homework(self, task, node, lex, enlaces):
@@ -210,7 +218,7 @@ class ThreeAVL:
     # ------------------------------------------- // Fin de la insercion // --------------------------------------------
 
     # ------------------  Obtenicon, eliminacion y actualizacion de la tarea desde el avl para cada estudiante ---------
-    def get_Homework_AVL(self, carnet, year, mes, day, hora, Id, node, peticion):   #Obtener y eliminar
+    def get_Homework_AVL(self, carnet, year, mes, day, hora, Id, node, peticion):  # Obtener y eliminar
         if node is None:
             return 'Empty Homework student'
         elif node.Carnet == carnet:
@@ -237,11 +245,14 @@ class ThreeAVL:
         if node is None:
             return 'Informacion vacia'
         elif node.Carnet == carnet:
-            node.anios.Insert_Curse(year, semester, codigo, nombre, creditos, prerequisitos, obligatorio, node.anios.first)
+            node.anios.Insert_Curse(year, semester, codigo, nombre, creditos, prerequisitos, obligatorio,
+                                    node.anios.first)
         elif carnet < node.Carnet:
-            return self.insertCurse(carnet, year, semester, codigo, nombre, creditos, prerequisitos, obligatorio, node.izq)
+            return self.insertCurse(carnet, year, semester, codigo, nombre, creditos, prerequisitos, obligatorio,
+                                    node.izq)
         elif carnet > node.Carnet:
-            return self.insertCurse(carnet, year, semester, codigo, nombre, creditos, prerequisitos, obligatorio, node.der)
+            return self.insertCurse(carnet, year, semester, codigo, nombre, creditos, prerequisitos, obligatorio,
+                                    node.der)
 
     # La banda unida :D
     def Together(self, nodeAVL, task, enlaces):

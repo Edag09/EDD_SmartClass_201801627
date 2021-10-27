@@ -70,20 +70,20 @@ class TreeB:
                 print("Repetido " + codigo)
                 self.compare = False
 
-    def compareTo(self, s1, s2):
-        tam = len(s1)
-        tam2 = len(s2)
-        limite = min(tam, tam2)
+    def compareTo(self, codigo, root):
+        codlen = len(codigo)
+        rootlen = len(root)
+        limite = min(codlen, rootlen)
 
-        v1 = list(s1)
-        v2 = list(s2)
+        v1 = list(codigo)
+        v2 = list(root)
 
         i = 0
         while i < limite:
             if ord(v1[i]) != ord(v2[i]):
                 return ord(v1[i]) - ord(v2[i])
             i += 1
-        return tam - tam2
+        return codlen - rootlen
 
     def FindB(self, codigo, root):
         cont = 0

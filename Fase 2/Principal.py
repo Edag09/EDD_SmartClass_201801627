@@ -1,26 +1,28 @@
-from flask import Flask, request, redirect, jsonify
+import re
+from flask import Flask, request, redirect, jsonify, render_template, Response
+from flask_cors import CORS
 from Analizadores import Analyzer
 from ThreeAVLStudent import ThreeAVL
 from NodeThreeAVL_Student import NSThreeAVL
-from flask_cors import CORS
 import Analizadores
-
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
+cors = CORS(app, resourse={r"/*": {"origin*": "*"}})
+CORS(app)
+
 data = Analyzer()
 avl = ThreeAVL()
-CORS(app)
 
 
 @app.route('/')
 def home():
-    return redirect('SERVER IS WORKING!!!')
+    return render_template('index.html')
 
 
 # Carga Masiva
 @app.route('/Cargar', methods=['POST'])
-def BulkLoad():
+def Cargar():
     Type = request.args.get('Tipo', 'No se ha encontrado algun documento')
     Path = request.args.get('Ruta', 'No se ha encontrado algun documento')
     if Type == 'estudiante':
@@ -38,7 +40,7 @@ def BulkLoad():
 
 # Reportes Generados
 @app.route('/Reportes', methods=['GET'])
-def report():
+def Reportes():
     # Ready
     Data = request.json
     Type = int(Data['Tipo'])
@@ -49,7 +51,8 @@ def report():
         return 'Aqui deberia de ir la matriz, deberia :C'
     elif Type == 2:
         # Ready
-        avl.Go_Graph_HomeworksAVL(Data['Carnet'], Data['Año'], Data['Mes'], Data['Dia'], Data['Hora'], Analizadores.avl.root)
+        avl.Go_Graph_HomeworksAVL(Data['Carnet'], Data['Año'], Data['Mes'], Data['Dia'], Data['Hora'],
+                                  Analizadores.avl.root)
         return 'Tareas listas'
     elif Type == 3:
         # Ready
@@ -61,33 +64,42 @@ def report():
 
 # *------------------------------------------- //*** CRUD STUDENT ***// -----------------------------------------------*
 # Ready
-@app.route('/Estudiante', methods=['POST'])
-def createStudent():
+@app.route('/EstudianteAgregar', methods=['POST'])
+def EstudianteAgregar():
     student = request.json
     Analizadores.avl.insertThree(NSThreeAVL(student['Carnet'], student['DPI'], student['Nombre'], student['Carrera'], student['Correo'], student['Password'], student['Creditos'], student['Edad']))
-    return 'Estudiante Creado'
+    return Response(response='Alumno Creado', content_type='text/plain', mimetype='text/plain')
 
 
 # Ready
-@app.route('/Estudiante', methods=['PUT'])
-def updateStudent():
+@app.route('/Estudianteput', methods=['PUT'])
+def Estudianteput():
     updStudent = request.json
     Analizadores.avl.Update_Student(updStudent, Analizadores.avl.root)
     return 'Estudiante modificado'
 
 
 # Ready
-@app.route('/Estudiante', methods=['GET'])
-def showStudent():
+@app.route('/EstudianteGet', methods=['GET'])
+def EstudianteGet():
     Id = request.args.get('Carnet', 'No se ha encontrado un estudiante con dicho carnet')
-    student = Analizadores.avl.ShowStudentJSON(Analizadores.avl.root, Id)
+    paswo = request.args.get('Password', 'No se ha encontrado un estudiante con dicho carnet')
+    student = Analizadores.avl.ShowStudentJSON(Analizadores.avl.root, Id, paswo)
+    return jsonify(student)
+
+
+@app.route('/ValidarEstudiante', methods=['POST'])
+def ValidarEstudiante():
+    user = request.json['user']
+    passo = request.json['password']
+    student = Analizadores.avl.ShowStudentJSON(Analizadores.avl.root, user, passo)
     return jsonify(student)
 
 
 # ----------------------------------------- //**** CRUD HOMEWORKS **** // ----------------------------------------------
 # Ready
 @app.route('/Recordatorio', methods=['POST'])
-def createTask():
+def Recordatorio():
     homework = request.json
     enlaces = homework['Fecha'].split('/')
     Analizadores.avl.Together(Analizadores.avl.root, homework, enlaces)
@@ -96,35 +108,38 @@ def createTask():
 
 # Ready
 @app.route('/Recordatorio', methods=['PUT'])
-def UpdateTask():
+def Recordatorioput():
     homework = request.json
     date = homework['Fecha'].split('/')
-    tar = Analizadores.avl.update_homework_AVL(homework['Carnet'], date[2], date[1], date[0], homework['Hora'], homework['ID'], Analizadores.avl.root, 'Actualizar', homework)
+    tar = Analizadores.avl.update_homework_AVL(homework['Carnet'], date[2], date[1], date[0], homework['Hora'],
+                                               homework['ID'], Analizadores.avl.root, 'Actualizar', homework)
     return jsonify(tar)
 
 
 # Ready
 @app.route('/Recordatorio', methods=['GET'])
-def GetHomework():
+def Recordatorioget():
     homework = request.json
     date = homework['Fecha'].split('/')
-    view = Analizadores.avl.get_Homework_AVL(homework['Carnet'], date[2], date[1], date[0], homework['Hora'], homework['ID'], Analizadores.avl.root, 'Obtener')
+    view = Analizadores.avl.get_Homework_AVL(homework['Carnet'], date[2], date[1], date[0], homework['Hora'],
+                                             homework['ID'], Analizadores.avl.root, 'Obtener')
     return jsonify(view)
 
 
 # Ready
 @app.route('/Recordatorio', methods=['DELETE'])
-def delete_homework():
+def Recordatoriodelete():
     homework = request.json
     date = homework['Fecha'].split('/')
-    delete = Analizadores.avl.get_Homework_AVL(homework['Carnet'], date[2], date[1], date[0], homework['Hora'], homework['ID'], Analizadores.avl.root, 'Eliminar')
+    delete = Analizadores.avl.get_Homework_AVL(homework['Carnet'], date[2], date[1], date[0], homework['Hora'],
+                                               homework['ID'], Analizadores.avl.root, 'Eliminar')
     return delete
 
 
 # --------------------------------------- //**** CREATE CURSE ****// ---------------------------------------------------
 # Ready
 @app.route('/cursosEstudiante', methods=['POST'])
-def cruse_Student():
+def cursosEstudiante():
     curseStudent = request.json
     for student in curseStudent['Estudiantes']:
         # se toman los carnets
@@ -134,14 +149,17 @@ def cruse_Student():
             for semester in years['Semestres']:
                 Analizadores.avl.findS(student['Carnet'], years['Año'], int(semester['Semestre']), avl.root)
                 for curse in semester:
-                    Analizadores.avl.insertCurse(student['Carnet'], years['Año'], int(semester['Semestre']), curse['Codigo'], curse['Nombre'], curse['Creditos'], curse['Prerequisitos'], curse['Obligatorio'], avl.root)
+                    Analizadores.avl.insertCurse(student['Carnet'], years['Año'], int(semester['Semestre']),
+                                                 curse['Codigo'], curse['Nombre'], curse['Creditos'],
+                                                 curse['Prerequisitos'], curse['Obligatorio'], avl.root)
     return 'Cursos estuiantes ingresados'
 
 
 @app.route('/cursosPensum', methods=['POST'])
-def curse_pensum():
+def cursosPensum():
     pensum = request.json
-    Analizadores.pensum.InsertDataB(pensum['Codigo'], pensum['Nombre'], pensum['Creditos'], pensum['Prerequisitos'], pensum['Obligatorio'])
+    Analizadores.pensum.InsertDataB(pensum['Codigo'], pensum['Nombre'], pensum['Creditos'], pensum['Prerequisitos'],
+                                    pensum['Obligatorio'])
     return 'Cursos Creados'
 
 
