@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Acme&family=Patrick+Hand&family=Shadows+Into+Light&display=swap" rel="stylesheet">
-    <title>Administrador</title>
+    <title>Carga</title>
 </head>
 <body>
 
@@ -15,9 +15,27 @@
             <div class="titleH">
                 <p>Bienvenido {{users}}</p>
             </div>
+            <div class="tit">
+                <h1>Carga de Archivos</h1>
+            </div>
         </div>
 
-
+    <div class="cargas">
+        <div class="studencarga">
+            <button type="file" id="students" (click)="cargarEstudiante()"class="btn btn-outline-dark">Cargar Estudiantes</button>
+            <input id="fileInput" type="file" style="display:none" accept=".json" (change)="readFile($event)">
+        </div>
+        <div class="cursepensum">
+            <button type="button" id="curs" class="btn btn-outline-dark">Cargar Cursos Pensum</button>
+            <input id="fileInput" type="file" style="display:none" accept=".json" (change)="readFile($event)">
+        </div>
+        <div class="cursestudent">
+            <button type="button" id="curses" class="btn btn-outline-dark">Cargar Cursos Estudiantes</button>
+        </div>
+        <div class="studentapuntes">
+            <button type="button" id="apunt" class="btn btn-outline-dark">Cargar Apuntes</button>
+        </div>
+    </div>
     <div class="navigation">
         <ul>
             <div class="p">
@@ -67,7 +85,7 @@
     <div class="f"></div>
     <footer class="bg-light text-center text-lg-start">
         <!-- Copyright -->
-        <div class="text-center p-4" style="background-color: #FFE6E6; border-top: 1px solid black;">
+        <div class="text-center p-4" style="background-color: #A2D2FF; border-top: 1px solid black;">
           © Fase 3 EDD SmartClass  201801627
         </div>
         <!-- Copyright -->

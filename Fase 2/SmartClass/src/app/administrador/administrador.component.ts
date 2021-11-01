@@ -11,6 +11,7 @@ export class AdministradorComponent implements OnInit {
 
   ngOnInit(): void {
     this.users = localStorage.getItem("userAdmin");
+    localStorage.setItem("userAdmin", this.users);
   }
 
 }

@@ -82,9 +82,9 @@ def Estudianteput():
 # Ready
 @app.route('/EstudianteGet', methods=['GET'])
 def EstudianteGet():
-    Id = request.args.get('Carnet', 'No se ha encontrado un estudiante con dicho carnet')
-    paswo = request.args.get('Password', 'No se ha encontrado un estudiante con dicho carnet')
-    student = Analizadores.avl.ShowStudentJSON(Analizadores.avl.root, Id, paswo)
+    Carnet = request.args.get('Carnet', 'No se ha encontrado un estudiante con dicho carnet')
+    Password = request.args.get('Password', 'No se ha encontrado un estudiante con dicho carnet')
+    student = Analizadores.avl.ShowStudentJSON(Analizadores.avl.root, Carnet, Password)
     return jsonify(student)
 
 
@@ -92,6 +92,8 @@ def EstudianteGet():
 def ValidarEstudiante():
     user = request.json['user']
     passo = request.json['password']
+    print(user)
+    print(passo)
     student = Analizadores.avl.ShowStudentJSON(Analizadores.avl.root, user, passo)
     return jsonify(student)
 

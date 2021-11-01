@@ -37,13 +37,18 @@ export class LoginComponent implements OnInit {
   }
 
   prueba(){
+      console.log(this.user)
+      console.log(this.password)
       this.conexion.login(this.user, this.password).subscribe({
         next:(info)=>{
+          console.log(info)
           if(info.Status == 'Yes'){
             localStorage.setItem("estudiante", info.Nombre)
             localStorage.setItem("carnet", info.Carnet)
             this.router.navigate(['/estudiante'])
             alert("Iniciaste sesion")
+            this.user = ""
+            this.password =""
           }else if(info.Status == 'admin'){
             alert("Bienvenido"+" "+this.user)
             this.router.navigate(['/administrador']);

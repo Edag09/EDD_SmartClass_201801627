@@ -1,0 +1,268 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Kurenaido&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Zen Kurenaido', sans-serif;
+}
+
+body{
+    background: #7FC8A9;
+}
+
+.padre{
+        margin: 0 0 1rem;
+        height: 10rem;
+        display: flex;
+        /* align-items por defecto tiene el valor `stretch` */
+        align-items: start;
+        color: white;
+        background: #212121;
+}
+
+.titleH{
+    display: flex;
+    height: 100px;
+    width: 1000px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    margin-left: 32%;
+    margin-top: 2%;
+}
+
+.tit{
+    display: flex;
+    height: 100px;
+    width: 400px;
+    position: absolute;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border: 1px solid black;
+    align-items: center;
+    background: whitesmoke;
+    justify-content: center;
+    margin-left: 2.5%;
+    margin-top: 2%;
+    color: black;
+}
+
+
+.p{
+    margin: 0 0 1rem;
+    display: flex;
+    /* align-items por defecto tiene el valor `stretch` */
+    align-items: start;
+    color: white; 
+}
+
+.menuM{
+    margin: auto;
+}
+
+
+.mixt{
+    position: relative;
+    top: 20px;
+    left: 20px;
+    bottom: 20px;
+    width: 200px;
+    height: 650px;
+    border-radius: 10px;
+    box-sizing: initial;
+    border-left: 15px solid #212121;
+    background: #212121;
+    transition: width 0.5s;
+}
+
+.mixt ul{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-left: 5px;
+    padding-top: 40px;
+}
+
+.mixt ul li{
+    position: relative;
+    list-style: none;
+    width: 100%;
+
+}
+
+
+.mixt ul li a{
+    position: relative;
+    display: block;
+    text-decoration: none;
+    width: 100%;
+    color: white;
+    display: flex;
+}
+
+.mixt ul li a:hover{
+    color: #FF0000;
+}
+
+
+.mixt ul li a .icon{
+    position: relative;
+    display: block;
+    min-width: 45px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+
+.mixt ul li a .icon i{
+    font-size: 1.5em;
+}
+
+.mixt ul li a .title{
+    position: relative;
+    display: block;
+    padding-left: 10px;
+    height: 60px;
+    line-height: 60px;
+    white-space: normal;
+}
+
+.f{
+    margin: 0 0 1rem;
+    height: 5.2rem;
+    display: flex;
+    /* align-items por defecto tiene el valor `stretch` */
+    align-items: start;
+    color: #FF0000;
+}
+
+.apuntes{
+    background: whitesmoke;
+    position: absolute;
+    height: 75%;
+    width: 70%;
+    right: 5%;
+    margin-top: 8%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.carn{
+    display: flex;
+    height: 55px;
+    width: 350px;
+    position: absolute;
+    align-items: center;
+    margin-left: 5.4%;
+    margin-top: 3.5%;
+    color: black;
+}
+
+.nam{
+    display: flex;
+    height: 55px;
+    width: 600px;
+    position: absolute;
+    align-items: center;
+    margin-left: 5.4%;
+    margin-top: 9%;
+    color: black;
+}
+
+input{
+    padding: auto;
+    margin: 8px;
+    margin-top: 10px;
+    width: 600px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.container{
+    padding: auto;
+    margin: 8px;
+    width: 1050px;
+    height: 275px;
+    margin-top: 180px;
+}
+
+#enviar{
+    margin-left: 60%;
+    height: 50px;
+    width: 300px;
+    font-size: 30px;
+    border-radius: 50px;
+}
+
+#cambiar{
+    position: absolute;
+    margin-top: 3%;
+    margin-left: 45%;
+    border-radius: 50px;
+    font-size: 30px;
+    height: 50px;
+    width: 180px;
+}
+
+#crear{
+    position: absolute;
+    margin-top: 3%;
+    margin-left: 60%;
+    border-radius: 50px;
+    font-size: 30px;
+    height: 50px;
+    width: 180px;
+}
+
+.vapuntes{
+    background: whitesmoke;
+    position: absolute;
+    height: 75%;
+    width: 70%;
+    right: 5%;
+    margin-top: 8%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+thead tr th.tita { 
+    position: sticky;
+    top: 0;
+    font-size: 24px;
+    color: aqua;
+    z-index: 10;
+    background: #212121;
+    border-top-left-radius: 20px;
+}
+
+thead tr th.title2 { 
+    position: sticky;
+    top: 0;
+    font-size: 24px;
+    color: aqua;
+    z-index: 10;
+    background: #212121;
+    border-top-right-radius: 20px;
+}
+
+
+.table-responsive { 
+    height:200px;
+    overflow:scroll;
+}
+
+tbody tr td{
+    font-size: 25px;
+}

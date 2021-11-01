@@ -7,13 +7,30 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Acme&family=Patrick+Hand&family=Shadows+Into+Light&display=swap" rel="stylesheet">
-    <title>Administrador</title>
+    <title>Carga</title>
 </head>
 <body>
 
         <div class="padre">
             <div class="titleH">
                 <p>Bienvenido {{users}}</p>
+            </div>
+            <div class="tit">
+                <h1>Reportes</h1>
+            </div>
+        </div>
+        <div class="reportes">
+            <div class="repoApuntes">
+                <button type="button" id="repoA" class="btn btn-outline-dark">Reporte Apuntes</button>
+            </div>
+            <div class="repoStudents">
+                <button type="button" id="repS" class="btn btn-outline-dark">Reporte Estudiantes</button>
+            </div>
+            <div class="repoGrafo">
+                <button type="button" id="repG" class="btn btn-outline-dark">Reporte Cursos Estudiantes</button>
+            </div>
+            <div class="repoMerkle">
+                <button type="button" id="repM" class="btn btn-outline-dark">Reporte Arbol de Merkle</button>
             </div>
         </div>
 

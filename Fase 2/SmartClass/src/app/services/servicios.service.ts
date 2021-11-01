@@ -9,9 +9,9 @@ import { LoginStudent } from '../Controller/login-student';
 export class ServiciosService {
   constructor( private http: HttpClient) { }
 
-  getUser(){
-    return this.http.get("http://localhost:3000/Estudiante");
-  }
+  /*getUser(user:any, contra:any):Observable<LoginStudent>{
+    return this.http.get<LoginStudent>("http://localhost:3000//EstudianteGet?Carnet="+user+"&Password="+contra);
+  }*/
 
   login(user:any, contra:any):Observable<LoginStudent>{
     return this.http.post<LoginStudent>("http://localhost:3000/ValidarEstudiante",{user: user, password: contra});

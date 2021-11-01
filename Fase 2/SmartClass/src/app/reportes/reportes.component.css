@@ -1,0 +1,260 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Kurenaido&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Zen Kurenaido', sans-serif;
+}
+
+body{
+    background: #7FC8A9;
+}
+
+.padre{
+    margin: 0 0 1rem;
+    height: 10rem;
+    display: flex;
+    /* align-items por defecto tiene el valor `stretch` */
+    align-items: start;
+    color: white;
+    background: #212121;
+}
+
+.titleH{
+display: flex;
+height: 100px;
+width: 1000px;
+border-top-left-radius: 20px;
+border-bottom-left-radius: 20px;
+border-top-right-radius: 20px;
+border-bottom-right-radius: 20px;
+align-items: center;
+justify-content: center;
+margin-left: 32%;
+margin-top: 2%;
+}
+
+.tit{
+    display: flex;
+    height: 100px;
+    width: 400px;
+    position: absolute;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border: 1px solid black;
+    align-items: center;
+    background: #FFE6E6;
+    justify-content: center;
+    margin-left: 2.5%;
+    margin-top: 2%;
+    color: black;
+}
+
+p{
+    font-size: 60px;
+}
+
+.p{
+    margin: 0 0 1rem;
+    display: flex;
+    /* align-items por defecto tiene el valor `stretch` */
+    align-items: start;
+    color: whitesmoke; 
+}
+
+.menuM{
+    margin: auto;
+}
+
+
+.navigation{
+    position: relative;
+    top: 20px;
+    left: 20px;
+    bottom: 20px;
+    width: 300px;
+    height: 465px;
+    border-radius: 10px;
+    box-sizing: initial;
+    border-left: 15px solid #212121;
+    background: #212121;
+    transition: width 0.5s;
+}
+
+.navigation ul{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-left: 5px;
+    padding-top: 40px;
+}
+
+.navigation ul li{
+    position: relative;
+    list-style: none;
+    width: 100%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+
+.navigation ul li a{
+    position: relative;
+    display: block;
+    text-decoration: none;
+    width: 100%;
+    color: white;
+    display: flex;
+}
+
+.navigation ul li a:hover{
+    color: #FF0000;
+}
+
+
+.navigation ul li a .icon{
+    position: relative;
+    display: block;
+    min-width: 45px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+
+.navigation ul li a .icon i{
+    font-size: 1.5em;
+}
+
+.navigation ul li a .title{
+    position: relative;
+    display: block;
+    padding-left: 10px;
+    height: 60px;
+    line-height: 60px;
+    white-space: normal;
+}
+
+.f{
+    margin: 0 0 1rem;
+    height: 5.2rem;
+    display: flex;
+    /* align-items por defecto tiene el valor `stretch` */
+    align-items: start;
+    color: #FF0000;
+}
+
+.reportes{
+    position: absolute;
+    height: 65%;
+    width: 70%;
+    right: 5%;
+    margin-top: 1.28%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+
+.repoApuntes{
+ background: #EED6C4;
+ height: 100px; 
+ width: 350px;
+ position: absolute;
+ margin-left: 7%;
+ border-radius: 50px;
+ margin-top: 8%;
+}
+
+.repoApuntes:hover{
+    background: #69DADB;
+}
+
+#repoA{
+    position: absolute;
+    height: 50px;
+    width: 300px;
+    font-size: 30px;
+    border-radius: 50px;
+    margin-left: 7.5%;
+    margin-top: 7.5%;
+    border: none;
+}
+
+.repoStudents{
+ background: #EED6C4;
+ height: 100px; 
+ width: 350px;
+ position: absolute;
+ margin-left: 55%;
+ border-radius: 50px;
+ margin-top: 8%;
+}
+
+.repoStudents:hover{
+    background: #69DADB;
+}
+
+#repS{
+    position: absolute;
+    margin-left: 7.5%;
+    height: 50px;
+    width: 300px;
+    font-size: 30px;
+    border-radius: 50px;
+    margin-top: 7.5%;
+    border: none;
+}
+
+.repoGrafo{
+    background: #EED6C4;
+ height: 140px; 
+ width: 350px;
+ position: absolute;
+ margin-left: 7%;
+ border-radius: 70px;
+ margin-top: 25.5%;
+}
+
+.repoGrafo:hover{
+    background: #69DADB;
+}
+
+#repG{
+    position: absolute;
+    margin-left: 7.4%;
+    height: 100px;
+    width: 300px;
+    font-size: 30px;
+    border-radius: 50px;
+    margin-top: 6.2%;
+    border: none;
+}
+
+.repoMerkle{
+    background: #EED6C4;
+ height: 100px; 
+ width: 350px;
+ position: absolute;
+ margin-left: 55%;
+ border-radius: 50px;
+ margin-top: 28%;
+}
+
+.repoMerkle:hover{
+    background: #69DADB;
+}
+
+#repM{
+    position: absolute;
+    margin-left: 7.5%;
+    height: 50px;
+    width: 300px;
+    font-size: 30px;
+    border-radius: 50px;
+    margin-top: 7.5%;
+    border: none;
+}

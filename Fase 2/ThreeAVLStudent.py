@@ -135,7 +135,12 @@ class ThreeAVL:
 
     # Mostrar el json de los estudiantes
     def ShowStudentJSON(self, node, carnet, passo):
-        if node is None:
+        if carnet.lower() == 'admin' and passo.lower() == 'admin':
+            Admin = {
+                'Status': 'admin'
+            }
+            return Admin
+        elif node is None:
             return 'Tree AVL is empty'
         elif node.Carnet == carnet and node.Password == passo:
             Student = {
@@ -144,20 +149,17 @@ class ThreeAVL:
                 'Status': 'Yes'
             }
             return Student
-        elif carnet.lower() == 'admin' and passo.lower() == 'admin':
-            Admin = {
-                'Status': 'admin'
-            }
-            return Admin
-        elif node.Carnet != carnet or node.Password != passo:
-            Err = {
-                'Status': 'No'
-            }
-            return Err
         elif carnet < node.Carnet:
             return self.ShowStudentJSON(node.izq, carnet, passo)
         elif carnet > node.Carnet:
             return self.ShowStudentJSON(node.der, carnet, passo)
+        elif node.Carnet != carnet or node.Password != passo:
+            Err = {
+                'Status': 'No',
+                'Carnet': node.Carnet,
+                'Password': node.Password
+            }
+            return Err
 
     # Update (PUT) Student
     def Update_Student(self, student, node):
