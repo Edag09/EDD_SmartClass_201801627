@@ -37,9 +37,7 @@ export class LoginComponent implements OnInit {
   }
 
   prueba(){
-      console.log(this.user)
-      console.log(this.password)
-      this.conexion.login(this.user, this.password).subscribe({
+      this.conexion.getUser(this.user, this.password).subscribe({
         next:(info)=>{
           console.log(info)
           if(info.Status == 'Yes'){

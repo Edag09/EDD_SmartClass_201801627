@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ServiciosService } from '../services/servicios.service';
 
 @Component({
   selector: 'app-carga',
@@ -7,28 +9,53 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CargaComponent implements OnInit {
   public users : any = "";
-  constructor() { }
+  public student:any = "";
+  public curso:any = "";
+  public curEst:any = "";
+  public apunte:any = "";
+  constructor(private router: Router, private conexion: ServiciosService) { }
 
   ngOnInit(): void {
     this.users = localStorage.getItem("userAdmin");
   }
 
-  cargarEstudiante(){
-  document.getElementById("fileInput")?.click()
-  }
-
-  readFile(event:any){
-    let input = event.target;
-    let reader = new FileReader();
-    reader.onload = () =>{
-      var json = reader.result;
-      if (json){
-        console.log(json)
-      }
+  cargarStudent(){
+    if(this.student == ""){
+      alert("Por favor ingresa un nombre de archivo en el campo requerido!")
+    }else{
+    this.conexion.cargarDatos('estudiante', this.student).subscribe();
+    alert('Estudiantes Cargados')
+    this.student = ""
     }
-    reader.readAsText(input.files[0]);
-    alert('Cargados')
   }
 
+  cargarCursos(){
+    if(this.curso == ""){
+      alert("Por favor ingresa un nombre de archivo en el campo requerido!")
+    }else{
+    this.conexion.cargarDatos('curso', this.curso).subscribe();
+    alert('Cursos Cargados')
+    this.curso = ""
+    }
+  }
+
+  cargarCursoEstudiante(){
+    if(this.curEst == "") {alert('Por favor ingresa un nombre de archivo en el campo requerido!')}
+    else{
+    this.conexion.cargarDatos('recordatorio', this.curEst).subscribe();
+    alert('Cursos Estudiantes Cargados')
+    this.curEst = ""
+    }
+  }
+
+  cargarApuntes(){
+    if(this.apunte == "") {alert('Por favor ingresa un nombre de archivo en el campo requerido!')}
+    else{
+    this.conexion.cargarDatos('apunte', this.apunte).subscribe();
+    alert('Apuntes Cargados')
+    this.apunte = ""
+    }
+  }
+  
 
 }

@@ -1,4 +1,3 @@
-import re
 from flask import Flask, request, redirect, jsonify, render_template, Response
 from flask_cors import CORS
 from Analizadores import Analyzer
@@ -38,6 +37,15 @@ def Cargar():
         return 'Cursos Pensumn yes ' + Path
 
 
+@app.route('/Cargas', methods=['POST'])
+def Cargas():
+    Data = request.json
+    Type = Data['Tipo']
+    Path = Data['Ruta']
+    data.File_Student(Path)
+    return 'listo'
+
+
 # Reportes Generados
 @app.route('/Reportes', methods=['GET'])
 def Reportes():
@@ -67,7 +75,9 @@ def Reportes():
 @app.route('/EstudianteAgregar', methods=['POST'])
 def EstudianteAgregar():
     student = request.json
-    Analizadores.avl.insertThree(NSThreeAVL(student['Carnet'], student['DPI'], student['Nombre'], student['Carrera'], student['Correo'], student['Password'], student['Creditos'], student['Edad']))
+    Analizadores.avl.insertThree(
+        NSThreeAVL(student['Carnet'], student['DPI'], student['Nombre'], student['Carrera'], student['Correo'],
+                   student['Password'], student['Creditos'], student['Edad']))
     return Response(response='Alumno Creado', content_type='text/plain', mimetype='text/plain')
 
 
@@ -88,14 +98,14 @@ def EstudianteGet():
     return jsonify(student)
 
 
-@app.route('/ValidarEstudiante', methods=['POST'])
+"""@app.route('/ValidarEstudiante', methods=['POST'])
 def ValidarEstudiante():
     user = request.json['user']
     passo = request.json['password']
     print(user)
     print(passo)
     student = Analizadores.avl.ShowStudentJSON(Analizadores.avl.root, user, passo)
-    return jsonify(student)
+    return jsonify(student)"""
 
 
 # ----------------------------------------- //**** CRUD HOMEWORKS **** // ----------------------------------------------

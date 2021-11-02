@@ -54,12 +54,12 @@ class Analyzer:
                 print('Obligatorio: ', pen['Obligatorio'])
                 print('\n')"""
                 # Informacion agregada al B
-                pensum.InsertDataB(pen['Codigo'], pen['Nombre'], pen['Creditos'], pen['Prerequisitos'], pen['Obligatorio'])
+                pensum.InsertDataB(pen['Codigo'], pen['Nombre'], pen['Creditos'], pen['Prerequisitos'],
+                                   pen['Obligatorio'])
 
     def File_Student_Curse(self, curseS):
         with open(curseS, encoding='UTF-8') as file:
             data = json.load(file)
-
             for student in data['Estudiantes']:
                 # print("Carnet: ", student['Carnet'])
                 for years in student['Años']:
@@ -73,7 +73,15 @@ class Analyzer:
                             # print('Creditos: ', curse['Creditos'])
                             # print('Prerequisitos: ', curse['Prerequisitos'])
                             # print('Obligatorio: ', curse['Obligatorio'])
-                            avl.insertCurse(student['Carnet'], years['Año'], int(semester['Semestre']), curse['Codigo'], curse['Nombre'], curse['Creditos'], curse['Prerequisitos'], curse['Obligatorio'], avl.root)
+                            avl.insertCurse(student['Carnet'], years['Año'], int(semester['Semestre']), curse['Codigo'],
+                                            curse['Nombre'], curse['Creditos'], curse['Prerequisitos'],
+                                            curse['Obligatorio'], avl.root)
+
+    def File_Student(self, studentJ):
+        with open(studentJ, encoding='UTF-8') as file:
+            date = json.load(file)
+            for student in date['estudiantes']:
+                print("Carnet: ", student['carnet'])
 
     # ------------------------------ Analyzer txt ----------------------------
 
@@ -305,8 +313,14 @@ class Analyzer:
                 self.state = 0
             elif data.lex == "element":
                 # self.listTask.append(self.homework_entry)
-                avl.insert_List_Homework(self.homework_entry, avl.root, self.homework_entry.Carne, self.homework_entry.Name, self.homework_entry.Description, self.homework_entry.Materia, self.homework_entry.Date, self.homework_entry.Hora, self.homework_entry.Status, 'insertar')
-                avl.insert_List_Homework(self.homework_entry, avl.root, self.homework_entry.Carne, self.homework_entry.Name, self.homework_entry.Description, self.homework_entry.Materia, self.homework_entry.Date, self.homework_entry.Hora, self.homework_entry.Status, 'tarea')
+                avl.insert_List_Homework(self.homework_entry, avl.root, self.homework_entry.Carne,
+                                         self.homework_entry.Name, self.homework_entry.Description,
+                                         self.homework_entry.Materia, self.homework_entry.Date,
+                                         self.homework_entry.Hora, self.homework_entry.Status, 'insertar')
+                avl.insert_List_Homework(self.homework_entry, avl.root, self.homework_entry.Carne,
+                                         self.homework_entry.Name, self.homework_entry.Description,
+                                         self.homework_entry.Materia, self.homework_entry.Date,
+                                         self.homework_entry.Hora, self.homework_entry.Status, 'tarea')
                 self.homework_entry = None
                 self.homework = False
                 self.state = 0
@@ -343,7 +357,8 @@ class Analyzer:
                 # headHora.Insert_Headboard(self.date[0])
                 # self.hora.append(self.date[0])
                 # print(self.homework_entry.Hora)
-                avl.findMatrix(self.homework_entry.Carne, self.date[2], self.date[1], self.date[0], self.homework_entry.Hora, avl.root)
+                avl.findMatrix(self.homework_entry.Carne, self.date[2], self.date[1], self.date[0],
+                               self.homework_entry.Hora, avl.root)
                 self.homework_entry.dispersa = self.date
                 self.state = 2
         elif self.state == 8:

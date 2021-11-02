@@ -21,21 +21,58 @@
         </div>
 
     <div class="cargas">
-        <div class="studencarga">
-            <button type="file" id="students" (click)="cargarEstudiante()"class="btn btn-outline-dark">Cargar Estudiantes</button>
-            <input id="fileInput" type="file" style="display:none" accept=".json" (change)="readFile($event)">
+        <div class="cargaStudent">
+            <div class="text">
+                <div class="group">      
+                    <input type="text" required [(ngModel)]="student">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Archivo de Estudiantes</label>
+                </div>
+                <button type="button" id="cambiar" class="btn btn-outline-dark" (click)="cargarStudent()">Cargar Estudiantes</button>
+            </div>
         </div>
-        <div class="cursepensum">
-            <button type="button" id="curs" class="btn btn-outline-dark">Cargar Cursos Pensum</button>
-            <input id="fileInput" type="file" style="display:none" accept=".json" (change)="readFile($event)">
+
+        <div class="cargaCruse">
+            <div class="textx">
+                <div class="group">      
+                    <input type="textx" required [(ngModel)]="curso">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Archivo de Cursos</label>
+                </div>
+                <button type="button" id="cambiar" class="btn btn-outline-dark" (click)="cargarCursos()" >Cargar Cursos</button>
+            </div>
+            <div class="container"></div>
         </div>
-        <div class="cursestudent">
-            <button type="button" id="curses" class="btn btn-outline-dark">Cargar Cursos Estudiantes</button>
+
+        <div class="cargaCruseStudent">
+            <div class="textCS">
+                <div class="group">      
+                    <input type="textx" required [(ngModel)]="curEst" >
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Archivo de Cursos Estudiante</label>
+                </div>
+                <button type="button" id="cambiarCS" class="btn btn-outline-dark" (click)="cargarCursoEstudiante()" >Cargar Cursos Estudiantes</button>
+            </div>
+            <div class="container"></div>
         </div>
-        <div class="studentapuntes">
-            <button type="button" id="apunt" class="btn btn-outline-dark">Cargar Apuntes</button>
+
+        <div class="cargaApuntes">
+            <div class="textA">
+                <div class="group">      
+                    <input type="textx" required [(ngModel)]="apunte" >
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label >Archivo de Apuntes</label>
+                </div>
+                <button type="button" id="cambiar" class="btn btn-outline-dark" (click)="cargarApuntes()" >Cargar Apuntes</button>
+            </div>
+            <div class="container"></div>
         </div>
     </div>
+
     <div class="navigation">
         <ul>
             <div class="p">
