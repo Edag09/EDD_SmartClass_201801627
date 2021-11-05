@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ServiciosService } from '../services/servicios.service';
 
 @Component({
   selector: 'app-reportes',
@@ -7,10 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportesComponent implements OnInit {
   public users : any = "";
-  constructor() { }
+  public alumno:boolean = true;
+  public curso:boolean = false;
+  public cursoAlumno:boolean = false;
+  public apuntes:boolean = false;
+  constructor(private router:Router, private conexion:ServiciosService) { }
 
   ngOnInit(): void {
     this.users = localStorage.getItem("userAdmin");
+  }
+
+  reportarAlumnos(){
+    this.conexion.reportStudents(1).subscribe();
+    alert("Estudiantes Reportados")
+    this.alumno = true
   }
 
 }

@@ -74,12 +74,12 @@ class ThreeAVL:
         graph += "\n}"
 
         try:
-            file = open("ArbolEstudiantes.dot", 'w', encoding='UTF-8')
+            file = open("SmartClass\\src\\assets\\AVL\\ArbolEstudiantes.dot", 'w', encoding='UTF-8')
             file.write(graph)
             file.close()
 
-            os.system("dot -Tpng ArbolEstudiantes.dot -o ArbolEstudiantes.png")
-            os.startfile("ArbolEstudiantes.png")
+            os.system("dot -Tpng SmartClass\\src\\assets\\AVL\\ArbolEstudiantes.dot -o SmartClass\\src\\assets\\AVL\\ArbolEstudiantes.png")
+            # os.startfile("SmartClass\\src\\assets\\AVL\\ArbolEstudiantes.png")
             print("Si jalo :D")
         except:
             print("No se genero :)")
@@ -87,9 +87,9 @@ class ThreeAVL:
     def Graph_ThreeAVL(self, leaf_students):
         data = ""
         if (leaf_students.izq is None) and (leaf_students.der is None):
-            data += "Node" + str(leaf_students.Carnet) + "[label=\"" + "Carne: " + str(leaf_students.Carnet) + "\"];\n"
+            data += "Node" + str(leaf_students.Carnet) + "[label=\"" + "Carne: " + str(leaf_students.Carnet) + "\\nDPI: " + str(leaf_students.DPI) + "\\nNombre: " + leaf_students.Name + "\\nCarrera: " + leaf_students.Carrera + "\\nCorreo: " + str(leaf_students.Correo) + "\\nPassword: " + str(leaf_students.Password) + "\\nCreditos: " + str(leaf_students.Creditos) + "\\nEdad: " + str(leaf_students.Edad) + "\"];\n"
         else:
-            data += "Node" + str(leaf_students.Carnet) + "[label =\"<C0>|" + str(leaf_students.Carnet) + "|<C1>\"];\n"
+            data += "Node" + str(leaf_students.Carnet) + "[label =\"<C0>|" + "Carnet: " + str(leaf_students.Carnet) + "\\nDPI: " + str(leaf_students.DPI) + "\\nNombre: " + leaf_students.Name + "\\nCarrera: " + leaf_students.Carrera + "\\nCorreo: " + str(leaf_students.Correo) + "\\nPassword: " + str(leaf_students.Password) + "\\nCreditos: " + str(leaf_students.Creditos) + "\\nEdad: " + str(leaf_students.Edad) + "|<C1>\"];\n "
 
         if leaf_students.izq is not None:
             data += self.Graph_ThreeAVL(leaf_students.izq) + "Node" + str(leaf_students.Carnet) + ":C0->Node" + str(
@@ -245,16 +245,13 @@ class ThreeAVL:
     # Ingresar los cursos al arbol b
     def insertCurse(self, carnet, year, semester, codigo, nombre, creditos, prerequisitos, obligatorio, node):
         if node is None:
-            return 'Informacion vacia'
+            return 'AVL empty'
         elif node.Carnet == carnet:
-            node.anios.Insert_Curse(year, semester, codigo, nombre, creditos, prerequisitos, obligatorio,
-                                    node.anios.first)
+            node.anios.Insert_Curse(year, semester, codigo, nombre, creditos, prerequisitos, obligatorio, node.anios.first)
         elif carnet < node.Carnet:
-            return self.insertCurse(carnet, year, semester, codigo, nombre, creditos, prerequisitos, obligatorio,
-                                    node.izq)
+            return self.insertCurse(carnet, year, semester, codigo, nombre, creditos, prerequisitos, obligatorio, node.izq)
         elif carnet > node.Carnet:
-            return self.insertCurse(carnet, year, semester, codigo, nombre, creditos, prerequisitos, obligatorio,
-                                    node.der)
+            return self.insertCurse(carnet, year, semester, codigo, nombre, creditos, prerequisitos, obligatorio, node.der)
 
     # La banda unida :D
     def Together(self, nodeAVL, task, enlaces):

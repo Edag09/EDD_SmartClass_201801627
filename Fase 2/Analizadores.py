@@ -9,6 +9,7 @@ from SparseMatrix import HeadBoard
 from ArbolB.Tree_B import TreeB
 from SparseMatrix import Data
 from LCD_Meses import ListCircularDoubleMeses
+from ArbolB.ListCurseDouble import ListCurse
 
 headDay = HeadBoard()
 headHora = HeadBoard()
@@ -17,6 +18,7 @@ homework = ListCircularDoubleHomeworks()
 pensum = TreeB()
 data = Data()
 mes = ListCircularDoubleMeses()
+curse = ListCurse()
 
 
 class Analyzer:
@@ -44,24 +46,22 @@ class Analyzer:
 
     def Files_Pens_Upload(self, dataJ):
         with open(dataJ, encoding='UTF-8') as file:
-            data = json.load(file)
-
-            for pen in data['Cursos']:
+            dataCruse = json.load(file)
+            for pen in dataCruse['Cursos']:
                 """print('Codigo: ', pen['Codigo'])
                 print('Nombre: ', pen['Nombre'])
                 print('Creditos: ', pen['Creditos'])
                 print('Prerequisitos: ', pen['Prerequisitos'])
                 print('Obligatorio: ', pen['Obligatorio'])
                 print('\n')"""
-                # Informacion agregada al B
-                pensum.InsertDataB(pen['Codigo'], pen['Nombre'], pen['Creditos'], pen['Prerequisitos'],
-                                   pen['Obligatorio'])
+                curse.addListCurse(pen['Codigo'], pen['Nombre'], pen['Creditos'], pen['Prerequisitos'], pen['Obligatorio'])
+
+        curse.showList()
 
     def File_Student_Curse(self, curseS):
         with open(curseS, encoding='UTF-8') as file:
             data = json.load(file)
             for student in data['Estudiantes']:
-                # print("Carnet: ", student['Carnet'])
                 for years in student['Años']:
                     # print('Año', years['Año'])
                     avl.insert_year(student['Carnet'], years['Año'], avl.root)
@@ -80,8 +80,18 @@ class Analyzer:
     def File_Student(self, studentJ):
         with open(studentJ, encoding='UTF-8') as file:
             date = json.load(file)
+            self.student_entry = NSThreeAVL(0, 0, 0, 0, 0, 0, 0, 0)
             for student in date['estudiantes']:
                 print("Carnet: ", student['carnet'])
+                print("DPI: ", student['DPI'])
+                print("Nombre: ", student['nombre'])
+                print("Carrera: ", student['carrera'])
+                print("Correo: ", student['correo'])
+                print("Password: ", student['password'])
+                print("Edad: ", student['edad'])
+                print('\n')
+                self.student_entry = NSThreeAVL(student['carnet'], student['DPI'], student['nombre'], student['carrera'], student['correo'], student['password'], 0, student['edad'])
+                avl.insertThree(self.student_entry)
 
     # ------------------------------ Analyzer txt ----------------------------
 

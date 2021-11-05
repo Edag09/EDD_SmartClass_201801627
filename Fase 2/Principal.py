@@ -41,33 +41,40 @@ def Cargar():
 def Cargas():
     Data = request.json
     Type = Data['Tipo']
-    Path = Data['Ruta']
-    data.File_Student(Path)
-    return 'listo'
+    if Type == 'estudiante':
+        Path = Data['Ruta']
+        data.File_Student(Path)
+        return 'Estudiantes Listos'
+    elif Type == 'recordatorio':
+        Path = Data['Ruta']
+        print(Path)
+        return 'Recordatorios listos'
+    elif Type == 'curso':
+        Path = Data['Ruta']
+        data.Files_Pens_Upload(Path)
+        return 'Cursos Listos'
+    elif Type == 'apunte':
+        Path = Data['Ruta']
+        print(Path)
+        return 'Apuntes listos'
 
 
 # Reportes Generados
-@app.route('/Reportes', methods=['GET'])
+@app.route('/Reportes', methods=['POST'])
 def Reportes():
-    # Ready
     Data = request.json
     Type = int(Data['Tipo'])
-    if Type == 0:
+    if Type == 1:
         avl.Graph_AVL(Analizadores.avl.root)
         return 'Alumnos listo'
-    elif Type == 1:
-        return 'Aqui deberia de ir la matriz, deberia :C'
     elif Type == 2:
-        # Ready
-        avl.Go_Graph_HomeworksAVL(Data['Carnet'], Data['Año'], Data['Mes'], Data['Dia'], Data['Hora'],
-                                  Analizadores.avl.root)
-        return 'Tareas listas'
+        return 'Aqui deberia de ir la matriz, deberia :C'
     elif Type == 3:
-        # Ready
+        avl.Go_Graph_HomeworksAVL(Data['Carnet'], Data['Año'], Data['Mes'], Data['Dia'], Data['Hora'], Analizadores.avl.root)
+        return 'Tareas listas'
+    elif Type == 4:
         Analizadores.pensum.show()
         return 'Cursos mostrados'
-    elif Type == 4:
-        return 'Aqui deberian de ir los cursos, deberian x2 :C'
 
 
 # *------------------------------------------- //*** CRUD STUDENT ***// -----------------------------------------------*
@@ -96,16 +103,6 @@ def EstudianteGet():
     Password = request.args.get('Password', 'No se ha encontrado un estudiante con dicho carnet')
     student = Analizadores.avl.ShowStudentJSON(Analizadores.avl.root, Carnet, Password)
     return jsonify(student)
-
-
-"""@app.route('/ValidarEstudiante', methods=['POST'])
-def ValidarEstudiante():
-    user = request.json['user']
-    passo = request.json['password']
-    print(user)
-    print(passo)
-    student = Analizadores.avl.ShowStudentJSON(Analizadores.avl.root, user, passo)
-    return jsonify(student)"""
 
 
 # ----------------------------------------- //**** CRUD HOMEWORKS **** // ----------------------------------------------

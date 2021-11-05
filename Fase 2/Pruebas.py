@@ -1,49 +1,17 @@
-from LCD_Semestre import ListCircularDoubleSemester
-from LCD_Year import ListCircularDobleYear
-from LCD_Meses import ListCircularDoubleMeses
-from LCD_Homeworks import ListCircularDoubleHomeworks
-from Analizadores import Analyzer
-import Analizadores
-from SparseMatrix import HeadBoard
-from SparseMatrix import Data
-from SparseMatrix import NodeData
+from ArbolB.ListCurseDouble import ListCurse
 
-semester = ListCircularDoubleSemester()
-year = ListCircularDobleYear()
-mes = ListCircularDoubleMeses()
-home = ListCircularDoubleHomeworks()
-analisis = Analyzer()
-cabecera = HeadBoard()
-cabecera2 = HeadBoard()
-data = Data()
-node = NodeData(0, 1, 8)
+curse = ListCurse()
 
 
 def pri():
-    """mes.AddListMeses(1)
-    mes.AddListMeses(3)
-    mes.showListMeses()"""
+    curse.addListCurse("101", "Matematica Basica 1", "7", "Ninguno", "True")
+    curse.addListCurse("102", "Matematica Basica 2", "7", "101", "True")
+    curse.addListCurse("103", "Matematica Intermedia 1", "10", "102, 33Crts", "True")
+    curse.addListCurse("104", "Matematica Intermedia 2", "7", "103", "True")
+    curse.addListCurse("105", "Matematica Intermedia 3", "7", "104", "True")
 
-    # analisis.Files_Pens_Upload("CursosPensum.json")
+    print("Si")
+    curse.showList()
 
-    analisis.File_Entry('Estudiantes.txt')
-    analisis.insert()
-    Analizadores.avl.Graph_AVL(Analizadores.avl.root)
-    """analisis.insert_H()
-    analisis.llenado()
-    analisis.File_Student_Curse()
-    Analizadores.homework.showList()
-    Analizadores.homework.Delete_homework(2)
-    Analizadores.homework.showList()
-    cabecera.Insert_Headboard(14)
-    cabecera.Insert_Headboard(1)
-    cabecera.Insert_Headboard(14)
-    cabecera.show()
-    print("\n")
-    cabecera2.Insert_Headboard(8)
-    cabecera2.Insert_Headboard(16)
-    cabecera2.Insert_Headboard(10)
-    cabecera2.show()"""
-    # Analizadores.headDay.show()
 
 pri()

@@ -31,6 +31,10 @@ export class ServiciosService {
     return this.http.post<CargaEstudiante>("http://localhost:3000/Cargas", {Tipo: Tipo, Ruta: Ruta});
   }
 
+  reportStudents(type:any){
+    return this.http.post("http://localhost:3000/Reportes", {Tipo: type});
+  }
+
 }
 
 

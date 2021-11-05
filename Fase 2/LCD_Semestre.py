@@ -2,6 +2,7 @@ from NodeSemestre import NodeSemester
 import os
 
 
+
 class ListCircularDoubleSemester:
     def __init__(self):
         self.first = None
@@ -81,5 +82,5 @@ class ListCircularDoubleSemester:
             if aux.Semester != semester:
                 aux = aux.sig
             else:
-                aux.curse.InsertDataB(codigo, nombre, creditos, prerequisitos, obligatorio)
+                aux.cur.addListCurse(codigo, nombre, creditos, prerequisitos, obligatorio)
                 i = True

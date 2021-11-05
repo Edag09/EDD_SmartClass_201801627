@@ -1,4 +1,5 @@
 from ArbolB.Tree_B import TreeB
+from ArbolB.ListCurseDouble import ListCurse
 
 
 class NodeSemester:
@@ -7,3 +8,5 @@ class NodeSemester:
         self.ant = None
         self.sig = None
         self.curse = TreeB()
+        self.cur = ListCurse()
+
