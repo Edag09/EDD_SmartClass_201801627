@@ -55,7 +55,7 @@ def Cargas():
         return 'Cursos Listos'
     elif Type == 'apunte':
         Path = Data['Ruta']
-        print(Path)
+        data.File_Apu(Path)
         return 'Apuntes listos'
 
 
@@ -66,6 +66,7 @@ def Reportes():
     Type = int(Data['Tipo'])
     if Type == 1:
         avl.Graph_AVL(Analizadores.avl.root)
+        avl.GraphDecryptAVL(Analizadores.avl.root)
         return 'Alumnos listo'
     elif Type == 2:
         return 'Aqui deberia de ir la matriz, deberia :C'

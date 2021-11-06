@@ -10,6 +10,7 @@ from ArbolB.Tree_B import TreeB
 from SparseMatrix import Data
 from LCD_Meses import ListCircularDoubleMeses
 from ArbolB.ListCurseDouble import ListCurse
+from cryptography.fernet import Fernet
 
 headDay = HeadBoard()
 headHora = HeadBoard()
@@ -19,6 +20,9 @@ pensum = TreeB()
 data = Data()
 mes = ListCircularDoubleMeses()
 curse = ListCurse()
+
+key = Fernet.generate_key()
+f = Fernet(key)
 
 
 class Analyzer:
@@ -90,10 +94,22 @@ class Analyzer:
                 print("Password: ", student['password'])
                 print("Edad: ", student['edad'])
                 print('\n')
-                self.student_entry = NSThreeAVL(student['carnet'], student['DPI'], student['nombre'], student['carrera'], student['correo'], student['password'], 0, student['edad'])
+                self.student_entry = NSThreeAVL(student['carnet'], str(student['DPI']), student['nombre'], student['carrera'], student['correo'], student['password'], 0, str(student['edad']))
                 avl.insertThree(self.student_entry)
 
+    def File_Apu(self, apunte):
+        with open(apunte, encoding='UTF-8') as file:
+            date = json.load(file)
+            for user in date['usuarios']:
+                print("Carnet: ", user['carnet'])
+                for apps in user['apuntes']:
+                    print('Titulo: ', apps['Título'])
+                    print('Contenido: ', apps['Contenido'])
+                    print('\n')
+
+
     # ------------------------------ Analyzer txt ----------------------------
+    # Este metodo bonito ya no se utilizara, Gracias por tus servicios
 
     def File_Entry(self, student):
         file = open(student, 'r', encoding='UTF-8')
@@ -114,6 +130,7 @@ class Analyzer:
                 self.Homeworks(data)
 
     # ------------------------------------------------------------------------------ Student
+    # Estos metodos bonitos ya no se utilizaran, Gracias por sus servicios
 
     def Student_(self, data):
         # print(data)
@@ -254,6 +271,7 @@ class Analyzer:
                 self.student = True
 
     # ---------------------------------------------------------------------------- Homeworks
+    # Estos metodos bonitos ya no se utilizaran, Gracias por sus servicios
 
     def Homeworks(self, data):
         # print(data)

@@ -9,7 +9,7 @@ import { ServiciosService } from '../services/servicios.service';
 })
 export class ReportesComponent implements OnInit {
   public users : any = "";
-  public alumno:boolean = true;
+  public alumno:boolean = false;
   public curso:boolean = false;
   public cursoAlumno:boolean = false;
   public apuntes:boolean = false;

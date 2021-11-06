@@ -1,4 +1,8 @@
 import os
+from cryptography.fernet import Fernet
+
+key = Fernet.generate_key()
+f = Fernet(key)
 
 
 class ThreeAVL:
@@ -78,8 +82,8 @@ class ThreeAVL:
             file.write(graph)
             file.close()
 
-            os.system("dot -Tpng SmartClass\\src\\assets\\AVL\\ArbolEstudiantes.dot -o SmartClass\\src\\assets\\AVL\\ArbolEstudiantes.png")
-            # os.startfile("SmartClass\\src\\assets\\AVL\\ArbolEstudiantes.png")
+            os.system(
+                "dot -Tpng SmartClass\\src\\assets\\AVL\\ArbolEstudiantes.dot -o SmartClass\\src\\assets\\AVL\\ArbolEstudiantes.png")
             print("Si jalo :D")
         except:
             print("No se genero :)")
@@ -87,17 +91,52 @@ class ThreeAVL:
     def Graph_ThreeAVL(self, leaf_students):
         data = ""
         if (leaf_students.izq is None) and (leaf_students.der is None):
-            data += "Node" + str(leaf_students.Carnet) + "[label=\"" + "Carne: " + str(leaf_students.Carnet) + "\\nDPI: " + str(leaf_students.DPI) + "\\nNombre: " + leaf_students.Name + "\\nCarrera: " + leaf_students.Carrera + "\\nCorreo: " + str(leaf_students.Correo) + "\\nPassword: " + str(leaf_students.Password) + "\\nCreditos: " + str(leaf_students.Creditos) + "\\nEdad: " + str(leaf_students.Edad) + "\"];\n"
+            data += "Node" + str(leaf_students.Carnet) + "[label=\"" + "Carne: " + str(leaf_students.Carnet) + "\\nDPI: " + str(leaf_students.DPI) + "\\nNombre: " + str(leaf_students.Name) + "\\nCarrera: " + str(leaf_students.Carrera) + "\\nCorreo: " + str(leaf_students.Correo) + "\\nPassword: " + str(leaf_students.Password) + "\\nEdad: " + str(leaf_students.Edad) + "\"];\n"
         else:
-            data += "Node" + str(leaf_students.Carnet) + "[label =\"<C0>|" + "Carnet: " + str(leaf_students.Carnet) + "\\nDPI: " + str(leaf_students.DPI) + "\\nNombre: " + leaf_students.Name + "\\nCarrera: " + leaf_students.Carrera + "\\nCorreo: " + str(leaf_students.Correo) + "\\nPassword: " + str(leaf_students.Password) + "\\nCreditos: " + str(leaf_students.Creditos) + "\\nEdad: " + str(leaf_students.Edad) + "|<C1>\"];\n "
+            data += "Node" + str(leaf_students.Carnet) + "[label =\"<C0>|" + "Carnet: " + str(leaf_students.Carnet) + "\\nDPI: " + str(leaf_students.DPI) + "\\nNombre: " + str(leaf_students.Name) + "\\nCarrera: " + str(leaf_students.Carrera) + "\\nCorreo: " + str(leaf_students.Correo) + "\\nPassword: " + str(leaf_students.Password) + "\\nEdad: " + str(leaf_students.Edad) + "|<C1>\"];\n "
 
         if leaf_students.izq is not None:
-            data += self.Graph_ThreeAVL(leaf_students.izq) + "Node" + str(leaf_students.Carnet) + ":C0->Node" + str(
-                leaf_students.izq.Carnet) + "\n"
+            data += self.Graph_ThreeAVL(leaf_students.izq) + "Node" + str(leaf_students.Carnet) + ":C0->Node" + str(leaf_students.izq.Carnet) + "\n"
         if leaf_students.der is not None:
-            data += self.Graph_ThreeAVL(leaf_students.der) + "Node" + str(leaf_students.Carnet) + ":C1->Node" + str(
-                leaf_students.der.Carnet) + "\n"
+            data += self.Graph_ThreeAVL(leaf_students.der) + "Node" + str(leaf_students.Carnet) + ":C1->Node" + str(leaf_students.der.Carnet) + "\n"
         return data
+
+    # Arbol Desencriptado
+
+    def GraphDecryptAVL(self, leaf_student):
+        graph = "digraph ThreeEncrypt {\nrankdir=TB;\nnode [shape = record, color=black , style=filled, fillcolor=gray93];\n"
+        body = self.Graph_Decrypt(leaf_student)
+        graph += body
+        graph += "\n}"
+
+        try:
+            file = open("SmartClass\\src\\assets\\AVL\\Desencriptado\\TreeStudentEncrypt.dot", 'w', encoding='UTF-8')
+            file.write(graph)
+            file.close()
+            os.system("dot -Tpng SmartClass\\src\\assets\\AVL\\Desencriptado\\TreeStudentEncrypt.dot -o SmartClass\\src\\assets\\AVL\\Desencriptado\\TreeStudentEncrypt.png")
+            print("Si jalo :D")
+        except:
+            print("No se genero :)")
+
+    def Graph_Decrypt(self, leaf_student):
+        data = ""
+        if (leaf_student.izq is None) and (leaf_student.der is None):
+            data += "Node" + str(leaf_student.Carnet) + "[label=\"" + "Carnet: " + str(leaf_student.Carnet) + "\\nDPI: " + self.showValid(str(f.encrypt(leaf_student.DPI.encode()))) + "\\nNombre: " + self.showValid(str(f.encrypt(leaf_student.Name.encode()))) + "\\nCarrera: " + self.showValid(str(f.encrypt(leaf_student.Carrera.encode()))) + "\\nCorreo: " + self.showValid(str(f.encrypt(leaf_student.Correo.encode()))) + "\\nPassword: " + self.showValid(str(f.encrypt(leaf_student.Password.encode()))) + "\\nEdad: " + self.showValid(str(f.encrypt(leaf_student.Edad.encode()))) + "\"];\n"
+        else:
+            data += "Node" + str(leaf_student.Carnet) + "[label =\"<C0>|" + "Carnet: " + str(leaf_student.Carnet) + "\\nDPI: " + self.showValid(str(f.encrypt(leaf_student.DPI.encode()))) + "\\nNombre: " + self.showValid(str(f.encrypt(leaf_student.Name.encode()))) + "\\nCarrera: " + self.showValid(str(f.encrypt(leaf_student.Carrera.encode()))) + "\\nCorreo: " + self.showValid(str(f.encrypt(leaf_student.Correo.encode()))) + "\\nPassword: " + self.showValid(str(f.encrypt(leaf_student.Password.encode()))) + "\\nEdad: " + self.showValid(str(f.encrypt(leaf_student.Edad.encode()))) + "|<C1>\"];\n "
+
+        if leaf_student.izq is not None:
+            data += self.Graph_Decrypt(leaf_student.izq) + "Node" + str(leaf_student.Carnet) + ":C0->Node" + str(leaf_student.izq.Carnet) + "\n"
+        if leaf_student.der is not None:
+            data += self.Graph_Decrypt(leaf_student.der) + "Node" + str(leaf_student.Carnet) + ":C1->Node" + str(leaf_student.der.Carnet) + "\n"
+        return data
+
+    def showValid(self, data):
+        encrypt = list(data)
+        nodeEncrypt = ""
+        for key in range(16):
+            nodeEncrypt += encrypt[key]
+        return nodeEncrypt
 
     # ingresa el anio si el estudiante si tiene tarea
     def insert_year(self, carnet, year, node):
@@ -179,7 +218,7 @@ class ThreeAVL:
         elif student['Carnet'] > node.Carnet:
             return self.Update_Student(student, node.der)
 
-    # Busacar en la matriz el nodo de la tarea
+    # Busacar en la matriz el nodo de la tarea ESTE METODO SE DESCONECTA QUE YA NO HAY TAREAS
     def findMatrix(self, carnet, year, mes, day, hora, node):
         if node is None:
             return 'Tree is empty'
@@ -192,7 +231,7 @@ class ThreeAVL:
             return self.findMatrix(carnet, year, mes, day, hora, node.der)
 
     # --------------------------------------- // Insertar Tareas // ----------------------------------------------------
-    # insertar la tarea desde el avl
+    # insertar la tarea desde el avl ESTE METODO SE DESCONECTA QUE YA NO HAY TAREAS
     def insert_List_Homework(self, task, node, carnet, nombre, descripcion, materia, fecha, hora, estado, lex):
         if node is None:
             return 'Empty AVL Homework'
@@ -206,7 +245,7 @@ class ThreeAVL:
             return self.insert_List_Homework(task, node.der, carnet, nombre, descripcion, materia, fecha, hora, estado,
                                              lex)
 
-    # insertar la tarea a manita desde el avl
+    # insertar la tarea a manita desde el avl ESTE METODO SE DESCONECTA QUE YA NO HAY TAREAS
     def insert_a_manita_homework(self, task, node, lex, enlaces):
         if node is None:
             return 'No hay tarea'
@@ -220,6 +259,7 @@ class ThreeAVL:
     # ------------------------------------------- // Fin de la insercion // --------------------------------------------
 
     # ------------------  Obtenicon, eliminacion y actualizacion de la tarea desde el avl para cada estudiante ---------
+    # ESTE METODO SE DESCONECTA QUE YA NO HAY TAREAS
     def get_Homework_AVL(self, carnet, year, mes, day, hora, Id, node, peticion):  # Obtener y eliminar
         if node is None:
             return 'Empty Homework student'
@@ -247,13 +287,18 @@ class ThreeAVL:
         if node is None:
             return 'AVL empty'
         elif node.Carnet == carnet:
-            node.anios.Insert_Curse(year, semester, codigo, nombre, creditos, prerequisitos, obligatorio, node.anios.first)
+            node.anios.Insert_Curse(year, semester, codigo, nombre, creditos, prerequisitos, obligatorio,
+                                    node.anios.first)
         elif carnet < node.Carnet:
-            return self.insertCurse(carnet, year, semester, codigo, nombre, creditos, prerequisitos, obligatorio, node.izq)
+            return self.insertCurse(carnet, year, semester, codigo, nombre, creditos, prerequisitos, obligatorio,
+                                    node.izq)
         elif carnet > node.Carnet:
-            return self.insertCurse(carnet, year, semester, codigo, nombre, creditos, prerequisitos, obligatorio, node.der)
+            return self.insertCurse(carnet, year, semester, codigo, nombre, creditos, prerequisitos, obligatorio,
+                                    node.der)
 
+    # ------------------------------------------------------------------------------------------------------------------
     # La banda unida :D
+    # ESTE METODO SE DESCONECTA QUE YA NO HAY TAREAS
     def Together(self, nodeAVL, task, enlaces):
         if nodeAVL is None:
             return 'insert invalido'
@@ -273,6 +318,7 @@ class ThreeAVL:
             return self.Together(nodeAVL.der, task, enlaces)
 
     # Graficar las tareas
+    # ESTE METODO SE DESCONECTA QUE YA NO HAY TAREAS
     def Go_Graph_HomeworksAVL(self, carnet, year, mes, day, hora, node):
         if node is None:
             'No hay tareas aun ingresadas'

@@ -279,12 +279,6 @@ p {
   background-size: contain;
 }
 
-.imgNormal {
-  position: absolute;
-  height: 50%;
-  margin-top: -42%;
-}
-
 .repoEncriptadoAlumno {
   display: flex;
   height: 48%;
@@ -295,10 +289,8 @@ p {
   margin-left: 1%;
   margin-top: 30%;
   border: 1px solid black;
-}
-
-.imgEncrypt {
-  position: absolute;
-  height: 50%;
-  margin-top: -48%;
+  background-image: url("../../assets/AVL/Desencriptado/TreeStudentEncrypt.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
