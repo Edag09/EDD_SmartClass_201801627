@@ -21,7 +21,7 @@
         </div>
         <div class="reportes">
             <div class="repoApuntes">
-                <button type="button" id="repoA" class="btn btn-outline-dark">Reporte Apuntes</button>
+                <button type="button" id="repoA" class="btn btn-outline-dark" (click)="reportarApuntes()" >Reporte Apuntes</button>
             </div>
             <div class="repoStudents">
                 <button type="button" id="repS" class="btn btn-outline-dark" (click)="reportarAlumnos()" >Reporte Estudiantes</button>
@@ -87,6 +87,12 @@
         </div>
         <div class="repoEncriptadoAlumno">
             
+        </div>
+    </div>
+
+    <div *ngIf="apuntes" class="imagenesReporteA">
+        <div class="apuntesRepo">
+
         </div>
     </div>
 

@@ -105,8 +105,38 @@ class TableHash:
             else:
                 print(str(hashing) + " -----> " + "Vacio")
 
+    def showHashing(self):
+        graph = 'digraph TablaHash{\nrankdir=LR;\n'
+        body = 'struct1 [label=\"'
+        for lists in range(len(self.Hash)):
+            if (self.Hash[lists] is not None) and (lists != (self.Long-1)):
+                body += "<f"+str(lists)+">"+str(self.Hash[lists].Carnet)+"|"
+            elif lists == (self.Long - 1):
+                if self.Hash[lists] is not None:
+                    body += "<f"+str(lists)+">"+str(self.Hash[lists].Carnet)
+                else:
+                    body += "<f"+str(lists)+">"+" "
+            else:
+                body += "<f"+str(lists)+">"+"   "+"|"
+        body += '\" shape=record, color=black, style=filled, fillcolor=gray93, fontsize=\"40\"]; \n'
+        for aps in range(len(self.Hash)):
+            if self.Hash[aps] is not None:
+                body += self.Hash[aps].ListApuntes.GraphList(aps)
+        graph += body
+        graph += '\n}'
 
-if __name__ == "__main__":
+        try:
+            file = open("SmartClass\\src\\assets\\Hash\\Hash.dot", 'w', encoding='UTF-8')
+            file.write(graph)
+            file.close()
+
+            os.system("dot -Tpng SmartClass\\src\\assets\\Hash\\Hash.dot -o SmartClass\\src\\assets\\Hash\\Hash.png")
+            print("Si jala")
+        except:
+            print("No se genero :)")
+
+
+"""if __name__ == "__main__":
     has = TableHash(7)
     has.addHash(nodeHash(201801627))
     has.addHash(nodeHash(201801603))
@@ -117,4 +147,5 @@ if __name__ == "__main__":
     has.insertData(201801628, "Apunte 3", "Hola que haces jeje")
     has.insertData(201908402, "Apunte 4", "Hola que haces jeje")
     has.showHash()
+    has.showHashing()"""
 

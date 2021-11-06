@@ -11,6 +11,7 @@ from SparseMatrix import Data
 from LCD_Meses import ListCircularDoubleMeses
 from ArbolB.ListCurseDouble import ListCurse
 from cryptography.fernet import Fernet
+from TablaHash import TableHash, nodeHash
 
 headDay = HeadBoard()
 headHora = HeadBoard()
@@ -20,6 +21,7 @@ pensum = TreeB()
 data = Data()
 mes = ListCircularDoubleMeses()
 curse = ListCurse()
+has = TableHash(7)
 
 key = Fernet.generate_key()
 f = Fernet(key)
@@ -59,7 +61,6 @@ class Analyzer:
                 print('Obligatorio: ', pen['Obligatorio'])
                 print('\n')"""
                 curse.addListCurse(pen['Codigo'], pen['Nombre'], pen['Creditos'], pen['Prerequisitos'], pen['Obligatorio'])
-
         curse.showList()
 
     def File_Student_Curse(self, curseS):
@@ -67,7 +68,6 @@ class Analyzer:
             data = json.load(file)
             for student in data['Estudiantes']:
                 for years in student['Años']:
-                    # print('Año', years['Año'])
                     avl.insert_year(student['Carnet'], years['Año'], avl.root)
                     for semester in years['Semestres']:
                         avl.findS(student['Carnet'], years['Año'], int(semester['Semestre']), avl.root)
@@ -101,12 +101,14 @@ class Analyzer:
         with open(apunte, encoding='UTF-8') as file:
             date = json.load(file)
             for user in date['usuarios']:
-                print("Carnet: ", user['carnet'])
+                # print("Carnet: ", user['carnet'])
+                has.addHash(nodeHash(user['carnet']))
                 for apps in user['apuntes']:
                     print('Titulo: ', apps['Título'])
                     print('Contenido: ', apps['Contenido'])
                     print('\n')
-
+                    has.insertData(user['carnet'], apps['Título'], apps['Contenido'])
+        has.showHash()
 
     # ------------------------------ Analyzer txt ----------------------------
     # Este metodo bonito ya no se utilizara, Gracias por tus servicios

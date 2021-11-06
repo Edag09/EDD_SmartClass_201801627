@@ -261,7 +261,6 @@ p {
   height: 850px;
   left: 5%;
   margin-top: 4%;
-  border: 1px solid black;
 }
 
 .repoAlumnos {
@@ -272,7 +271,6 @@ p {
   justify-content: center;
   margin-left: 1%;
   margin-top: 1%;
-  border: 1px solid black;
   background-image: url("../../assets/AVL/ArbolEstudiantes.png");
   background-repeat: no-repeat;
   background-position: center;
@@ -288,8 +286,29 @@ p {
   justify-content: center;
   margin-left: 1%;
   margin-top: 30%;
-  border: 1px solid black;
   background-image: url("../../assets/AVL/Desencriptado/TreeStudentEncrypt.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.imagenesReporteA {
+  position: sticky;
+  width: 93%;
+  height: 500px;
+  left: 5%;
+  margin-top: 4%;
+}
+
+.apuntesRepo {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  justify-content: center;
+  margin-left: 1%;
+  margin-top: 1%;
+  background-image: url("../../assets/Hash/Hash.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;

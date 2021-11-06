@@ -1,0 +1,20 @@
+digraph TablaHash{
+rankdir=LR;
+struct1 [label="<f0>   |<f1>   |<f2>20210000001|<f3>   |<f4>20210000003|<f5>20210000004|<f6> " shape=record, color=black, style=filled, fillcolor=gray93, fontsize="40"]; 
+Node2A0[label="pendientes\n- hacer hoja de calificacion fase 3 
+ -calificar tareas 
+ - reporte de notas estudiantes" shape="box"] 
+struct1:f2->Node2A0
+Node2A1[label="block chain\n¿Que es blockchain? 
+ Blockchain es una base de datos que almacena información en bloques en lugar de tablas como las bases de datos tradicionales. Cuando el bloque alcanza su capacidad máxima de datos, se “encadena” a los bloques anteriores. Una vez que se encadenan permanecerán vinculados para siempre, creando una línea de tiempo en los datos de la “cadena de bloques” que permite una mayor transparencia de las transacciones. " shape="box"] 
+Node2A0->Node2A1
+Node2A2[label="tabla hash\nes una estructura de datos, en gran medida como una matriz, excepto que cada valor (objeto) se almacena mediante una clave. Se trata de un almacén básicos de clave-valor. Primero, se crea una tabla hash vacía." shape="box"] 
+Node2A1->Node2A2
+Node4A0[label="Lab edd -18/10\ninformacion sobre lo visto en el laboratorio el dia 29 de octubre" shape="box"] 
+struct1:f4->Node4A0
+Node4A1[label="resumen primer parcial -fisica2\ncontenido referente a los temas vistos para el primer parcial" shape="box"] 
+Node4A0->Node4A1
+Node5A0[label="tareas pendientes\nproyecto fase 3 edd" shape="box"] 
+struct1:f5->Node5A0
+
+}

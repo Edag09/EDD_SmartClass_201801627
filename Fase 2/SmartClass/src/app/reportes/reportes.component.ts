@@ -23,6 +23,18 @@ export class ReportesComponent implements OnInit {
     this.conexion.reportStudents(1).subscribe();
     alert("Estudiantes Reportados")
     this.alumno = true
+    this.apuntes = false
+    this.curso = false
+    this.cursoAlumno = false
+  }
+
+  reportarApuntes(){
+    this.conexion.reportStudents(2).subscribe();
+    alert('Apuntes Cargados')
+    this.apuntes = true
+    this.alumno = false
+    this.curso = false
+    this.cursoAlumno = false
   }
 
 }

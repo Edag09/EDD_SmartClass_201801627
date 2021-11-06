@@ -69,7 +69,8 @@ def Reportes():
         avl.GraphDecryptAVL(Analizadores.avl.root)
         return 'Alumnos listo'
     elif Type == 2:
-        return 'Aqui deberia de ir la matriz, deberia :C'
+        Analizadores.has.showHashing()
+        return 'Apuntes Listos'
     elif Type == 3:
         avl.Go_Graph_HomeworksAVL(Data['Carnet'], Data['Año'], Data['Mes'], Data['Dia'], Data['Hora'], Analizadores.avl.root)
         return 'Tareas listas'
