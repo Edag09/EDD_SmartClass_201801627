@@ -37,4 +37,10 @@ export class ReportesComponent implements OnInit {
     this.cursoAlumno = false
   }
 
+  Malla(){
+    this.conexion.reportStudents(4).subscribe();
+    alert('Así es nuestra vida universitaria :D!')
+    this.curso = true
+  }
+
 }

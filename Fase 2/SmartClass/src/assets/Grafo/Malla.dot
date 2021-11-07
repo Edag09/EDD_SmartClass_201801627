@@ -1,0 +1,158 @@
+digraph MallaCurse {
+charset="UTF-8"
+rankdir=TB;
+Node [shape=rectangle, color=black, style=filled, fillcolor=gray93];
+Node0017[label="0017\n Social Humanistica 1" ]; 
+Node0101[label="0101\n Matematica Basica 1" ]; 
+Node0039[label="0039\n Deportes 1" ]; 
+Node0348[label="0348\n Quimica General 1" ]; 
+Node0006[label="0006\n Idioma tecnico 1" ]; 
+Node0019[label="0019\n Social Humanistica 2" ]; 
+Node0017 -> Node0019
+Node0103[label="0103\n Matematica Basica 2" ]; 
+Node0101 -> Node0103
+Node0005[label="0005\n Tecnicas de estudio y de investigacion" ]; 
+Node0147[label="0147\n Fisica basica" ]; 
+Node0101 -> Node0147
+Node0008[label="0008\n Idioma tecnico 2" ]; 
+Node0006 -> Node0008
+Node0795[label="0795\n Logica de sistemas" ]; 
+Node0103 -> Node0795
+Node0960[label="0960\n Matematica computo 1" ]; 
+Node0103 -> Node0960
+Node0770[label="0770\n Introduccion a la programacion y computacion 1" ]; 
+Node0103 -> Node0770
+Node0107[label="0107\n Matematica intermedia 1" ]; 
+Node0103 -> Node0107
+Node0150[label="0150\n Fisica 1" ]; 
+Node0103 -> Node0150
+Node0147 -> Node0150
+Node0009[label="0009\n Idioma tecnico 3" ]; 
+Node0008 -> Node0009
+Node0732[label="0732\n Estadistica 1" ]; 
+Node0107 -> Node0732
+Node0005 -> Node0732
+Node0796[label="0796\n Lenguajes formales y de programacion" ]; 
+Node0770 -> Node0796
+Node0795 -> Node0796
+Node0960 -> Node0796
+Node0962[label="0962\n Matematica computo 2" ]; 
+Node0770 -> Node0962
+Node0795 -> Node0962
+Node0960 -> Node0962
+Node0771[label="0771\n Introduccion a la programacion y computacion 2" ]; 
+Node0107 -> Node0771
+Node0770 -> Node0771
+Node0795 -> Node0771
+Node0960 -> Node0771
+Node0112[label="0112\n Matematica intermedia 2" ]; 
+Node0107 -> Node0112
+Node0114[label="0114\n Matematica intermedia 3" ]; 
+Node0107 -> Node0114
+Node0152[label="0152\n Fisica 2" ]; 
+Node0107 -> Node0152
+Node0150 -> Node0152
+Node0011[label="0011\n Idioma tecnico 4" ]; 
+Node0009 -> Node0011
+Node2025[label="2025\n Practica inicial" ]; 
+Node0103 -> Node2025
+Node0770 -> Node2025
+Node0736[label="0736\n Analisis probabilistico" ]; 
+Node0732 -> Node0736
+Node0777[label="0777\n Organizacion de lenguajes y compiladores 1" ]; 
+Node0771 -> Node0777
+Node0796 -> Node0777
+Node0962 -> Node0777
+Node0964[label="0964\n Organizacion computacional" ]; 
+Node0152 -> Node0964
+Node0771 -> Node0964
+Node0962 -> Node0964
+Node0772[label="0772\n Estructura de datos" ]; 
+Node0771 -> Node0772
+Node0796 -> Node0772
+Node0962 -> Node0772
+Node0018[label="0018\n Filosofia de la ciencia" ]; 
+Node0019 -> Node0018
+Node0116[label="0116\n Matematica aplicada 3" ]; 
+Node0112 -> Node0116
+Node0114 -> Node0116
+Node0118[label="0118\n Matematica aplicada 1" ]; 
+Node0112 -> Node0118
+Node0114 -> Node0118
+Node0722[label="0722\n Teoria de sistemas 1" ]; 
+Node0732 -> Node0722
+Node0772 -> Node0722
+Node0116 -> Node0722
+Node0118 -> Node0722
+Node0601[label="0601\n Investigacion de operaciones 1" ]; 
+Node0771 -> Node0601
+Node0732 -> Node0601
+Node0014[label="0014\n Economia" ]; 
+Node0732 -> Node0014
+Node0781[label="0781\n Organizacion de lenguajes y compiladores 2" ]; 
+Node0777 -> Node0781
+Node0772 -> Node0781
+Node0778[label="0778\n Arquitectura de computadores y ensambladores 1" ]; 
+Node0796 -> Node0778
+Node0964 -> Node0778
+Node0773[label="0773\n Manejo e implementacion de archivos" ]; 
+Node0772 -> Node0773
+Node0796 -> Node0773
+Node0724[label="0724\n Teoria de sistemas 2" ]; 
+Node0722 -> Node0724
+Node0601 -> Node0724
+Node0736 -> Node0724
+Node0603[label="0603\n Investigacion de operaciones 2" ]; 
+Node0601 -> Node0603
+Node0281[label="0281\n Sistemas operativos 1" ]; 
+Node0781 -> Node0281
+Node0778 -> Node0281
+Node0779[label="0779\n Arquitectura de computadores y ensambladores 2" ]; 
+Node0778 -> Node0779
+Node0970[label="0970\n Redes de computadoras 1" ]; 
+Node0773 -> Node0970
+Node0778 -> Node0970
+Node0771[label="0771\n Sistemas de bases de datos 1" ]; 
+Node0773 -> Node0771
+Node2036[label="2036\n Practica intermedia" ]; 
+Node0778 -> Node2036
+Node0777 -> Node2036
+Node0773 -> Node2036
+Node2025 -> Node2036
+Node0285[label="0285\n Sistemas operativos 2" ]; 
+Node0281 -> Node0285
+Node0975[label="0975\n Redes de computadoras 2" ]; 
+Node0970 -> Node0975
+Node0775[label="0775\n Sistemas de bases de datos 2" ]; 
+Node0281 -> Node0775
+Node0774 -> Node0775
+Node0283[label="0283\n Analisis y diseño de sistemas 1" ]; 
+Node0774 -> Node0283
+Node0797[label="0797\n Seminario de sistemas 1" ]; 
+Node0724 -> Node0797
+Node0729[label="0729\n Modelacion y simulacion 1" ]; 
+Node0724 -> Node0729
+Node0603 -> Node0729
+Node0786[label="0786\n Sistemas organizacionales y gerenciales 1" ]; 
+Node0283 -> Node0786
+Node0722 -> Node0786
+Node0972[label="0972\n Inteligencia Artifical 1" ]; 
+Node0781 -> Node0972
+Node0775 -> Node0972
+Node0724 -> Node0972
+Node0785[label="0785\n Analisis y diseño de sistemas 2" ]; 
+Node0283 -> Node0785
+Node0798[label="0798\n Seminario de sistemas 2" ]; 
+Node0797 -> Node0798
+Node2009[label="2009\n Practica final" ]; 
+Node2036 -> Node2009
+Node0787[label="0787\n Sistemas organizacionales y gerenciales 2" ]; 
+Node0786 -> Node0787
+Node0720[label="0720\n Modelacion y simulacion 2" ]; 
+Node0729 -> Node0720
+Node0780[label="0780\n Software avanzado" ]; 
+Node0785 -> Node0780
+Node0799[label="0799\n Seminario de investigacion" ]; 
+Node0798 -> Node0799
+
+}

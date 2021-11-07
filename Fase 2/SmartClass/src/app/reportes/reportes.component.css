@@ -271,10 +271,10 @@ p {
   justify-content: center;
   margin-left: 1%;
   margin-top: 1%;
-  background-image: url("../../assets/AVL/ArbolEstudiantes.png");
+  /*background-image: url("../../assets/AVL/ArbolEstudiantes.png");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: contain;
+  background-size: contain;*/
 }
 
 .repoEncriptadoAlumno {
@@ -286,10 +286,10 @@ p {
   justify-content: center;
   margin-left: 1%;
   margin-top: 30%;
-  background-image: url("../../assets/AVL/Desencriptado/TreeStudentEncrypt.png");
+  /*background-image: url("../../assets/AVL/Desencriptado/TreeStudentEncrypt.png");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: contain;
+  background-size: contain;*/
 }
 
 .imagenesReporteA {
@@ -309,6 +309,28 @@ p {
   margin-left: 1%;
   margin-top: 1%;
   /*background-image: url("../../assets/Hash/Hash.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;*/
+}
+
+.malla {
+  position: sticky;
+  width: 93%;
+  height: 500px;
+  left: 5%;
+  margin-top: 4%;
+}
+
+.mallaReport {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  justify-content: center;
+  margin-left: 1%;
+  margin-top: 1%;
+  /*background-image: url("../../assets/Grafo/Malla.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;*/

@@ -27,7 +27,7 @@
                 <button type="button" id="repS" class="btn btn-outline-dark" (click)="reportarAlumnos()" >Reporte Estudiantes</button>
             </div>
             <div class="repoGrafo">
-                <button type="button" id="repG" class="btn btn-outline-dark">Reporte Cursos Pensum</button>
+                <button type="button" id="repG" class="btn btn-outline-dark" (click)="Malla()" >Reporte Cursos Pensum</button>
             </div>
             <div class="repoMerkle">
                 <button type="button" id="repM" class="btn btn-outline-dark">Reporte Arbol de Merkle</button>
@@ -92,6 +92,12 @@
 
     <div *ngIf="apuntes" class="imagenesReporteA">
         <div class="apuntesRepo">
+
+        </div>
+    </div>
+
+    <div *ngIf="curso" class="malla">
+        <div class="mallaReport">
 
         </div>
     </div>

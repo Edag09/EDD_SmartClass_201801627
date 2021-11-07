@@ -46,7 +46,7 @@ def Cargas():
         Path = Data['Ruta']
         data.File_Student(Path)
         return 'Estudiantes Listos'
-    elif Type == 'recordatorio':
+    elif Type == 'cursosEstudiantes':
         Path = Data['Ruta']
         print(Path)
         return 'Recordatorios listos'
@@ -73,16 +73,16 @@ def Reportes():
         Analizadores.has.showHashing()
         return 'Apuntes Listos'
     elif Type == 3:
-        avl.Go_Graph_HomeworksAVL(Data['Carnet'], Data['Año'], Data['Mes'], Data['Dia'], Data['Hora'],
-                                  Analizadores.avl.root)
+        avl.Go_Graph_HomeworksAVL(Data['Carnet'], Data['Año'], Data['Mes'], Data['Dia'], Data['Hora'], Analizadores.avl.root)
         return 'Tareas listas'
     elif Type == 4:
-        Analizadores.pensum.show()
+        Analizadores.curse.ShowGraph()
         return 'Cursos mostrados'
     elif Type == 5:  # Genera el Grafo que el estudiante ingrese
         Code = Data['Codigo']
         data.find(Code)
         return 'Curso Reportado de Estudiante Listo'
+
 
 
 # *------------------------------------------- //*** CRUD STUDENT ***// -----------------------------------------------*

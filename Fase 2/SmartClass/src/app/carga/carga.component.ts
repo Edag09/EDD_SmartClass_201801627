@@ -42,7 +42,7 @@ export class CargaComponent implements OnInit {
   cargarCursoEstudiante(){
     if(this.curEst == "") {alert('Por favor ingresa un nombre de archivo en el campo requerido!')}
     else{
-    this.conexion.cargarDatos('recordatorio', this.curEst).subscribe();
+    this.conexion.cargarDatos('cursosEstudiantes', this.curEst).subscribe();
     alert('Cursos Estudiantes Cargados')
     this.curEst = ""
     }

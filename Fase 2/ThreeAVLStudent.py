@@ -35,10 +35,10 @@ class ThreeAVL:
                         root = self.RI(root)
                     else:
                         root = self.RDI(root)
-            elif student.Carnet > root.Carnet:
+            elif int(student.Carnet) > int(root.Carnet):
                 root.der = self.secondInsert(student, root.der)
                 if self.long(root.der) - self.long(root.izq) == 2:
-                    if student.Carnet > root.der.Carnet:
+                    if int(student.Carnet) > int(root.der.Carnet):
                         root = self.RD(root)
                     else:
                         root = self.RDD(root)
