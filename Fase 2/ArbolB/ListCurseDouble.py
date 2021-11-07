@@ -24,3 +24,17 @@ class ListCurse:
         while aux is not None:
             print("Curso: " + aux.Nombre + '\nCodigo: ' + aux.Codigo + "\nCreditos: " + str(aux.Creditos) + "\nPrerrequisitos: " + aux.Prerequisitos + "\nObligatorio: " + str(aux.Obligatorio) + "\n")
             aux = aux.Sig
+
+    def busCode(self, code):
+        aux = self.first
+        while aux is not None:
+            if int(aux.Codigo) == int(code):
+                curse = list()
+                curse.append(aux.Codigo)
+                curse.append(aux.Nombre)
+                curse.append(aux.Creditos)
+                curse.append(aux.Prerequisitos.split(","))
+                curse.append(aux.Obligatorio)
+                return curse
+            else:
+                aux = aux.Sig

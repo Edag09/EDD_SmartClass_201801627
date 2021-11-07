@@ -366,7 +366,7 @@
         },
         {
             "Codigo": "0972",
-            "Nombre": "Sistemas organizacionales y gerenciales 1",
+            "Nombre": "Inteligencia Artifical 1",
             "Creditos": 4,
             "Prerequisitos": "0781,0775,0724",
             "Obligatorio": true

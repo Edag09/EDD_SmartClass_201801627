@@ -12,6 +12,7 @@ from LCD_Meses import ListCircularDoubleMeses
 from ArbolB.ListCurseDouble import ListCurse
 from cryptography.fernet import Fernet
 from TablaHash import TableHash, nodeHash
+from Grafo import GraphCurse, Edge
 
 headDay = HeadBoard()
 headHora = HeadBoard()
@@ -21,6 +22,7 @@ pensum = TreeB()
 data = Data()
 mes = ListCircularDoubleMeses()
 curse = ListCurse()
+curso = GraphCurse()
 has = TableHash(7)
 
 key = Fernet.generate_key()
@@ -94,7 +96,9 @@ class Analyzer:
                 print("Password: ", student['password'])
                 print("Edad: ", student['edad'])
                 print('\n')
-                self.student_entry = NSThreeAVL(student['carnet'], str(student['DPI']), student['nombre'], student['carrera'], student['correo'], student['password'], 0, str(student['edad']))
+                self.student_entry = NSThreeAVL(student['carnet'], str(student['DPI']), student['nombre'],
+                                                student['carrera'], student['correo'], student['password'], 0,
+                                                str(student['edad']))
                 avl.insertThree(self.student_entry)
 
     def File_Apu(self, apunte):
@@ -108,9 +112,29 @@ class Analyzer:
                     print('Contenido: ', apps['Contenido'])
                     print('\n')
                     has.insertData(user['carnet'], apps['Título'], apps['Contenido'])
-        has.showHash()
+
+    def llenadoApuntes(self, carnet, titulo, contenido):
+        has.addHash(nodeHash(carnet))
+        has.insertData(carnet, titulo, contenido)
+        return 'Cargado Apunte'
+
+    def find(self, codigo):
+        self.findCurse(codigo)
+        curso.ShowGraphCurse()
+
+    def findCurse(self, codigo):
+        date = curse.busCode(codigo)
+        if date != "":
+            curso.AddG(date[0], date[1], date[2], date[3])
+            for da in date[3]:
+                if da != "":
+                    self.findCurse(da)
+                else:
+                    pass
+        return
 
     # ------------------------------ Analyzer txt ----------------------------
+
     # Este metodo bonito ya no se utilizara, Gracias por tus servicios
 
     def File_Entry(self, student):

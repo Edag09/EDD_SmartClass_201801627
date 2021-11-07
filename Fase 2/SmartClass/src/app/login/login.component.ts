@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
       }else if(this.user.toLocaleLowerCase() == 'risas' && this.password.toLocaleLowerCase() == 'risas'){
         alert("Bienvenido"+" "+this.user)
         localStorage.setItem("estudiante", this.user);
-        localStorage.setItem("carnet", '20180167')
+        localStorage.setItem("carnet", '201801627')
         this.router.navigate(['/estudiante']);
       }else{
         console.log(this.user);

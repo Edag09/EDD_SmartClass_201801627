@@ -4,6 +4,7 @@ from Analizadores import Analyzer
 from ThreeAVLStudent import ThreeAVL
 from NodeThreeAVL_Student import NSThreeAVL
 import Analizadores
+from TablaHash import nodeHash
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -72,11 +73,16 @@ def Reportes():
         Analizadores.has.showHashing()
         return 'Apuntes Listos'
     elif Type == 3:
-        avl.Go_Graph_HomeworksAVL(Data['Carnet'], Data['Año'], Data['Mes'], Data['Dia'], Data['Hora'], Analizadores.avl.root)
+        avl.Go_Graph_HomeworksAVL(Data['Carnet'], Data['Año'], Data['Mes'], Data['Dia'], Data['Hora'],
+                                  Analizadores.avl.root)
         return 'Tareas listas'
     elif Type == 4:
         Analizadores.pensum.show()
         return 'Cursos mostrados'
+    elif Type == 5:  # Genera el Grafo que el estudiante ingrese
+        Code = Data['Codigo']
+        data.find(Code)
+        return 'Curso Reportado de Estudiante Listo'
 
 
 # *------------------------------------------- //*** CRUD STUDENT ***// -----------------------------------------------*
@@ -105,6 +111,15 @@ def EstudianteGet():
     Password = request.args.get('Password', 'No se ha encontrado un estudiante con dicho carnet')
     student = Analizadores.avl.ShowStudentJSON(Analizadores.avl.root, Carnet, Password)
     return jsonify(student)
+
+
+# ---------------------------------------------------------- Apuntes --------------------------------------------------
+
+@app.route('/Apuntes', methods=['POST'])
+def Apuntes():
+    dataApps = request.json
+    aps = data.llenadoApuntes(int(dataApps['Carnet']), dataApps['Titulo'], dataApps['Contenido'])
+    return aps
 
 
 # ----------------------------------------- //**** CRUD HOMEWORKS **** // ----------------------------------------------

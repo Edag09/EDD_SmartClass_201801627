@@ -28,7 +28,7 @@ class ThreeAVL:
         if root is None:
             return student
         else:
-            if student.Carnet < root.Carnet:
+            if int(student.Carnet) < int(root.Carnet):
                 root.izq = self.secondInsert(student, root.izq)
                 if self.long(root.der) - self.long(root.izq) == -2:
                     if student.Carnet < root.izq.Carnet:
@@ -188,9 +188,9 @@ class ThreeAVL:
                 'Status': 'Yes'
             }
             return Student
-        elif carnet < node.Carnet:
+        elif int(carnet) < int(node.Carnet):
             return self.ShowStudentJSON(node.izq, carnet, passo)
-        elif carnet > node.Carnet:
+        elif int(carnet) > int(node.Carnet):
             return self.ShowStudentJSON(node.der, carnet, passo)
         elif node.Carnet != carnet or node.Password != passo:
             Err = {

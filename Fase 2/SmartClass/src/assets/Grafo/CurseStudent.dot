@@ -1,0 +1,34 @@
+digraph Curse {
+charset="UTF-8"
+rankdir=TB;
+Node [shape=rectangle, color=black, style=filled, fillcolor=gray93];
+Node0962[label="0962\n Matematica computo 2" ]; 
+Node0770 -> Node0962[label="5"]
+Node0795 -> Node0962[label="5"]
+Node0960 -> Node0962[label="5"]
+Node0796[label="0796\n Lenguajes formales y de programacion" ]; 
+Node0770 -> Node0796[label="3"]
+Node0795 -> Node0796[label="3"]
+Node0960 -> Node0796[label="3"]
+Node0960[label="0960\n Matematica computo 1" ]; 
+Node0103 -> Node0960[label="5"]
+Node0795[label="0795\n Logica de sistemas" ]; 
+Node0103 -> Node0795[label="2"]
+Node0770[label="0770\n Introduccion a la programacion y computacion 1" ]; 
+Node0103 -> Node0770[label="4"]
+Node0101[label="0101\n Matematica Basica 1" ]; 
+Node0103[label="0103\n Matematica Basica 2" ]; 
+Node0101 -> Node0103[label="7"]
+Node0107[label="0107\n Matematica intermedia 1" ]; 
+Node0103 -> Node0107[label="10"]
+Node0771[label="0771\n Introduccion a la programacion y computacion 2" ]; 
+Node0107 -> Node0771[label="5"]
+Node0770 -> Node0771[label="5"]
+Node0795 -> Node0771[label="5"]
+Node0960 -> Node0771[label="5"]
+Node0772[label="0772\n Estructura de datos" ]; 
+Node0771 -> Node0772[label="5"]
+Node0796 -> Node0772[label="5"]
+Node0962 -> Node0772[label="5"]
+
+}

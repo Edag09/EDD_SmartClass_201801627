@@ -61,7 +61,7 @@ class TableHash:
         return False
 
     def addHash(self, info):
-        if (info is not None) and (self.findID(info) is False):
+        if (info is not None) and (self.findID(info.Carnet) is False):
             pos = self.FunctionHash(info.Carnet)
             cont = 0
             cont1 = 0
@@ -97,6 +97,14 @@ class TableHash:
             for i in range(0, tam):
                 if var[i] != -1:
                     self.addHash(var[i])
+
+    def validar(self, carnet):
+        for i in self.Hash:
+            if i is None:
+                pass
+            elif i.Carnet == carnet:
+                return True
+        return False
 
     def showHash(self):
         for hashing in range(0, len(self.Hash)):

@@ -20,12 +20,12 @@
     <div class="curse">
         <div class="text">
             <div class="group">      
-                <input type="text" required>
+                <input type="text" required  [(ngModel)]="codigo">
                 <span class="highlight"></span>
                 <span class="bar"></span>
                 <label>Ingrese el código del curso a analizar</label>
             </div>
-            <button type="button" id="cambiar" class="btn btn-outline-dark" >Analizar</button>
+            <button type="button" id="cambiar" class="btn btn-outline-dark" (click)="buscarCodigo()" >Analizar</button>
         </div>
         <div class="container"></div>
     </div>
